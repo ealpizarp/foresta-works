@@ -1,0 +1,38 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import CtaBand from '@/components/CtaBand.astro';
+import AiSearchPanel from '@/components/sections/AiSearchPanel.astro';
+import CompareTable from '@/components/sections/CompareTable.astro';
+import MetaAdsPanel from '@/components/sections/MetaAdsPanel.astro';
+import SubscriptionTerms from '@/components/sections/SubscriptionTerms.astro';
+import ServiceTiers from '@/components/sections/ServiceTiers.astro';
+import PageHeader from '@/components/ui/PageHeader.astro';
+import PageNav from '@/components/ui/PageNav.astro';
+import { breadcrumbJsonLd, subscriptionOffersJsonLd } from '@/data/structured-data';
+import { routes, useI18n } from '@/i18n';
+
+if (!Astro.site) {
+  throw new Error('`site` must be set in astro.config.ts to build canonical URLs.');
+}
+
+const { locale, t, path } = useI18n(Astro);
+const meta = t.pages.servicios;
+---
+
+<BaseLayout
+  title={meta.title}
+  description={meta.description}
+  extraJsonLd={[
+    breadcrumbJsonLd(Astro.site, [{ name: meta.eyebrow, path: path(routes.servicios) }], locale),
+    subscriptionOffersJsonLd(Astro.site, locale),
+  ]}
+>
+  <PageHeader eyebrow={meta.eyebrow} title={meta.heading} lede={meta.lede} />
+  <ServiceTiers />
+  <CompareTable />
+  <SubscriptionTerms />
+  <AiSearchPanel />
+  <MetaAdsPanel />
+  <PageNav />
+  <CtaBand />
+</BaseLayout>

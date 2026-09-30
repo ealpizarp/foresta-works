@@ -1,0 +1,10 @@
+---
+import { localeStaticPathsFor } from '@/i18n';
+import ContactoPage from '@/templates/ContactoPage.astro';
+
+export function getStaticPaths() {
+  return localeStaticPathsFor(['en']);
+}
+---
+
+<ContactoPage />

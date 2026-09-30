@@ -1,0 +1,190 @@
+---
+import { Font } from 'astro:assets';
+import Button from '@/components/ui/Button.astro';
+import LanguageSwitcher from '@/components/LanguageSwitcher.astro';
+import Wordmark from '@/components/Wordmark.astro';
+import { site } from '@/data/site';
+import {
+  defaultLocale,
+  getMessages,
+  locales,
+  LOCALE_COOKIE,
+  localizePath,
+  routes,
+  type Locale,
+} from '@/i18n';
+import { htmlLang } from '@/i18n/locales';
+import '@/styles/global.css';
+
+function packFor(locale: Locale) {
+  const t = getMessages(locale);
+  return {
+    lang: htmlLang(locale),
+    title: `${t.notFound.title} · ${site.name}`,
+    description: t.notFound.description,
+    skip: t.meta.skipToContent,
+    copy: t.notFound,
+    home: localizePath(routes.home, locale),
+    contact: localizePath(routes.contacto, locale),
+  };
+}
+
+const packs = {
+  es: packFor('es'),
+  en: packFor('en'),
+};
+const fallback = packs[defaultLocale];
+---
+
+<!doctype html>
+<html lang={fallback.lang} data-locale={defaultLocale}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{fallback.title}</title>
+    <meta name="description" content={fallback.description} />
+    <meta name="robots" content="noindex, nofollow" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <meta name="theme-color" content="#f4f2ec" />
+    <script is:inline define:vars={{ cookieName: LOCALE_COOKIE, packs, defaultLocale }}>
+      (function () {
+        function detect() {
+          var path = location.pathname;
+          if (path === '/en' || path.indexOf('/en/') === 0) return 'en';
+          if (path === '/es' || path.indexOf('/es/') === 0) return 'es';
+          var match = document.cookie.match(new RegExp('(?:^|; )' + cookieName + '=(en|es)'));
+          if (match) return match[1];
+          try {
+            var stored = localStorage.getItem(cookieName);
+            if (stored === 'en' || stored === 'es') return stored;
+          } catch (e) {}
+          return defaultLocale;
+        }
+        function syncPanels(locale) {
+          document.querySelectorAll('[data-locale-panel]').forEach(function (panel) {
+            var active = panel.getAttribute('data-locale-panel') === locale;
+            panel.toggleAttribute('hidden', !active);
+            panel.toggleAttribute('inert', !active);
+            panel.setAttribute('aria-hidden', active ? 'false' : 'true');
+          });
+        }
+        var locale = detect();
+        var pack = packs[locale] || packs[defaultLocale];
+        document.documentElement.lang = pack.lang;
+        document.documentElement.setAttribute('data-locale', locale);
+        document.title = pack.title;
+        var desc = document.querySelector('meta[name="description"]');
+        if (desc) desc.setAttribute('content', pack.description);
+        if (document.readyState === 'loading') {
+          document.addEventListener('DOMContentLoaded', function () {
+            syncPanels(locale);
+          });
+        } else {
+          syncPanels(locale);
+        }
+      })();
+    </script>
+    <Font cssVariable="--font-serif" preload={[{ weight: 500, style: 'normal' }]} />
+    <Font cssVariable="--font-sans" preload={[{ weight: 500, style: 'normal' }]} />
+  </head>
+  <body>
+    {
+      locales.map((locale) => {
+        const pack = packs[locale];
+        return (
+          <div
+            data-locale-panel={locale}
+            hidden={locale !== defaultLocale ? true : undefined}
+            inert={locale !== defaultLocale ? true : undefined}
+            aria-hidden={locale !== defaultLocale}
+          >
+            <a class="skip-link" href={`#contenido-${locale}`}>{pack.skip}</a>
+            <header class="not-found-bar">
+              <div class="not-found-bar__inner">
+                <Wordmark locale={locale} />
+                <LanguageSwitcher locale={locale} />
+              </div>
+            </header>
+            <main id={`contenido-${locale}`}>
+              <section class="section not-found" aria-labelledby={`not-found-title-${locale}`}>
+                <div class="container">
+                  <p class="eyebrow">
+                    <span class="eyebrow__num">404</span>
+                    {pack.copy.eyebrow}
+                  </p>
+                  <h1 class="not-found__title" id={`not-found-title-${locale}`}>
+                    {pack.copy.heading}
+                  </h1>
+                  <p class="not-found__text text-soft">{pack.copy.text}</p>
+                  <div class="not-found__actions">
+                    <Button href={pack.home}>{pack.copy.home}</Button>
+                    <Button href={pack.contact} variant="text">{pack.copy.contact}</Button>
+                  </div>
+                </div>
+              </section>
+            </main>
+          </div>
+        );
+      })
+    }
+  </body>
+</html>
+
+<style is:global>
+  [data-locale-panel] {
+    display: none;
+  }
+
+  html[data-locale='es'] [data-locale-panel='es']:not([hidden]),
+  html[data-locale='en'] [data-locale-panel='en']:not([hidden]) {
+    display: block;
+  }
+
+  [data-locale-panel][hidden] {
+    display: none !important;
+  }
+</style>
+
+<style>
+  .not-found-bar {
+    border-bottom: 1px solid rgb(21 35 32 / 0.06);
+    background: var(--color-glass);
+  }
+
+  .not-found-bar__inner {
+    width: min(100% - (var(--gutter) * 2), var(--container-max));
+    margin-inline: auto;
+    height: var(--header-height);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-5);
+  }
+
+  .not-found {
+    min-height: calc(70vh - var(--header-height));
+    display: flex;
+    align-items: center;
+  }
+
+  .not-found__title {
+    margin-top: var(--space-5);
+    font-size: var(--text-3xl);
+    font-weight: var(--weight-display);
+    line-height: var(--leading-snug);
+    max-width: 22ch;
+  }
+
+  .not-found__text {
+    margin-top: var(--space-5);
+    max-width: 48ch;
+  }
+
+  .not-found__actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-5) var(--space-6);
+    margin-top: var(--space-7);
+  }
+</style>

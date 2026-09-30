@@ -1,0 +1,137 @@
+---
+/**
+ * Link styled as a call to action. Always renders an <a>; this site has no
+ * client-side actions that would need a <button>.
+ */
+import { useI18n } from '@/i18n';
+
+interface Props {
+  href: string;
+  variant?: 'primary' | 'text' | 'outline';
+  size?: 'md' | 'sm';
+  /** Opens in a new tab with safe rel attributes and a screen-reader hint. */
+  external?: boolean;
+  /** Tone for placement on dark backgrounds. */
+  onDark?: boolean;
+  class?: string;
+}
+
+const {
+  href,
+  variant = 'primary',
+  size = 'md',
+  external = false,
+  onDark = false,
+  class: className,
+} = Astro.props;
+const { t } = useI18n(Astro);
+
+const externalAttrs = external ? { target: '_blank', rel: 'noopener noreferrer' } : {};
+---
+
+<a
+  href={href}
+  class:list={['btn', `btn--${variant}`, `btn--${size}`, { 'btn--on-dark': onDark }, className]}
+  {...externalAttrs}
+>
+  <span class="btn__label"><slot /></span>
+  <span class="btn__arrow" aria-hidden="true">→</span>
+  {external && <span class="sr-only">{t.nav.newWindow}</span>}
+</a>
+
+<style>
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-3);
+    font-family: var(--font-sans);
+    font-weight: var(--weight-medium);
+    letter-spacing: 0.01em;
+    line-height: 1;
+    white-space: nowrap;
+    border-radius: var(--radius-md);
+    transition:
+      background-color var(--duration-fast) var(--ease-out),
+      border-color var(--duration-fast) var(--ease-out),
+      color var(--duration-fast) var(--ease-out);
+  }
+
+  .btn__arrow {
+    display: inline-block;
+    transition: transform var(--duration-base) var(--ease-out);
+  }
+
+  .btn:hover .btn__arrow,
+  .btn:focus-visible .btn__arrow {
+    transform: translateX(4px);
+  }
+
+  .btn--md {
+    font-size: var(--text-base);
+    padding: 0.95rem 1.35rem;
+  }
+
+  .btn--sm {
+    font-size: var(--text-sm);
+    padding: 0.58rem 0.95rem;
+  }
+
+  .btn--primary {
+    background: var(--color-primary);
+    color: var(--color-on-primary);
+    border: 1px solid var(--color-primary);
+  }
+
+  .btn--primary:hover,
+  .btn--primary:focus-visible {
+    background: var(--color-primary-strong);
+    border-color: var(--color-primary-strong);
+  }
+
+  .btn--outline {
+    background: var(--color-surface);
+    color: var(--color-text);
+    border: 1px solid var(--color-rule-strong);
+  }
+
+  .btn--outline:hover,
+  .btn--outline:focus-visible {
+    border-color: var(--color-primary);
+    color: var(--color-primary-strong);
+  }
+
+  .btn--text {
+    padding: 0.35rem 0;
+    border-radius: 0;
+    color: var(--color-text);
+    border-bottom: 1px solid transparent;
+  }
+
+  .btn--text .btn__arrow {
+    color: var(--color-primary);
+  }
+
+  .btn--text:hover,
+  .btn--text:focus-visible {
+    color: var(--color-primary-strong);
+  }
+
+  .btn--text.btn--on-dark {
+    color: var(--color-dark-text);
+  }
+
+  .btn--text.btn--on-dark .btn__arrow {
+    color: var(--color-dark-accent);
+  }
+
+  .btn--text.btn--on-dark:hover,
+  .btn--text.btn--on-dark:focus-visible {
+    color: var(--color-dark-accent);
+  }
+
+  @media (max-width: 900px) {
+    .btn {
+      min-height: 2.75rem;
+    }
+  }
+</style>

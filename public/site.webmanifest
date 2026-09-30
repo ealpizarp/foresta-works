@@ -1,0 +1,18 @@
+{
+  "name": "Foresta Works",
+  "short_name": "Foresta Works",
+  "description": "Sitios web y automatización para pymes en Costa Rica.",
+  "lang": "es-CR",
+  "start_url": "/es/",
+  "display": "browser",
+  "background_color": "#f6f5f2",
+  "theme_color": "#f6f5f2",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}

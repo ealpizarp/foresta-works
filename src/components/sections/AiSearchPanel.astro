@@ -1,0 +1,200 @@
+---
+import InterfacePreview from '@/components/visuals/InterfacePreview.astro';
+import { useI18n } from '@/i18n';
+
+const { t } = useI18n(Astro);
+---
+
+<section class="section section--page ai-search" id="ai-search" aria-labelledby="ai-search-title">
+  <div class="container ai-search__grid">
+    <p class="eyebrow ai-search__eyebrow">
+      <span class="eyebrow__num">04</span>
+      {t.aiSearch.eyebrow}
+    </p>
+
+    <div class="ai-search__stage">
+      <div class="ai-search__stack">
+        <div class="ai-search__copy">
+          <h2 class="ai-search__title" id="ai-search-title">{t.aiSearch.title}</h2>
+          <p class="ai-search__lede">{t.aiSearch.lede}</p>
+        </div>
+
+        <div class="ai-search__note panel reveal">
+          <p class="label">{t.aiSearch.noteLabel}</p>
+          <p>{t.aiSearch.distinction}</p>
+          <p class="ai-search__included">{t.aiSearch.includedNote}</p>
+        </div>
+      </div>
+
+      <figure class="ai-search__visual reveal">
+        <InterfacePreview kind="search" size="panel" />
+        <figcaption>{t.aiSearch.caption}</figcaption>
+      </figure>
+    </div>
+
+    <div class="ai-search__col panel reveal">
+      <h3 class="label">{t.aiSearch.includesLabel}</h3>
+      <ul>
+        {t.aiSearch.includes.map((item) => <li>{item}</li>)}
+      </ul>
+    </div>
+
+    <div class="ai-search__col ai-search__col--out panel reveal">
+      <h3 class="label">{t.aiSearch.excludesLabel}</h3>
+      <ul>
+        {t.aiSearch.excludes.map((item) => <li>{item}</li>)}
+      </ul>
+    </div>
+  </div>
+</section>
+
+<style>
+  .ai-search__grid {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    column-gap: var(--col-gap);
+    row-gap: var(--space-stack);
+  }
+
+  .ai-search__eyebrow {
+    grid-column: 1 / -1;
+  }
+
+  .ai-search__stage {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.12fr);
+    column-gap: var(--col-gap);
+    align-items: stretch;
+  }
+
+  .ai-search__stack {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-stack);
+    min-width: 0;
+  }
+
+  .ai-search__copy {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-5);
+  }
+
+  .ai-search__title {
+    font-size: var(--text-2xl);
+    line-height: var(--leading-snug);
+  }
+
+  .ai-search__lede {
+    font-size: var(--text-md);
+    color: var(--color-text-soft);
+    max-width: 48ch;
+  }
+
+  .ai-search__visual {
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+    height: 100%;
+  }
+
+  .ai-search__visual :global(.preview) {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+    height: auto;
+  }
+
+  .ai-search__visual :global(.browser) {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+    height: 100%;
+  }
+
+  .ai-search__visual :global(.screen) {
+    flex: 1;
+    min-height: 18rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: var(--space-4);
+  }
+
+  .ai-search__visual :global(.fact) {
+    flex: 1;
+  }
+
+  .ai-search__visual figcaption {
+    margin-top: var(--space-3);
+    font-size: 0.75rem;
+    color: var(--color-text-muted);
+    max-width: 42ch;
+  }
+
+  .ai-search__note {
+    padding: var(--space-inset-lg);
+    flex: 1;
+  }
+
+  .ai-search__note p:nth-of-type(2) {
+    margin-top: var(--space-3);
+    color: var(--color-text-soft);
+  }
+
+  .ai-search__included {
+    margin-top: var(--space-4);
+    font-size: var(--text-sm);
+    font-weight: var(--weight-medium);
+    color: var(--color-text);
+  }
+
+  .ai-search__col {
+    grid-column: 1 / 7;
+    padding: var(--space-inset-lg);
+  }
+
+  .ai-search__col--out {
+    grid-column: 7 / 13;
+  }
+
+  .ai-search__col ul {
+    margin-top: var(--space-4);
+  }
+
+  .ai-search__col li {
+    padding-block: var(--space-3);
+    border-bottom: 1px solid var(--color-rule);
+    font-size: var(--text-sm);
+    line-height: 1.5;
+    color: var(--color-text-soft);
+  }
+
+  .ai-search__col li:last-child {
+    border-bottom: 0;
+    padding-bottom: 0;
+  }
+
+  @media (max-width: 900px) {
+    .ai-search__stage,
+    .ai-search__col,
+    .ai-search__col--out {
+      grid-column: 1 / -1;
+    }
+
+    .ai-search__stage {
+      grid-template-columns: 1fr;
+    }
+
+    .ai-search__visual :global(.screen) {
+      min-height: 12.5rem;
+    }
+
+    .ai-search__note {
+      flex: none;
+    }
+  }
+</style>

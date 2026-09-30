@@ -1,0 +1,65 @@
+---
+/**
+ * Text wordmark. No logo asset was supplied with the project; when one is
+ * available, replace the text with an inline SVG here and keep the link.
+ * TODO(assets): add the official Foresta Works logo.
+ */
+import { site } from '@/data/site';
+import { interpolate, routes, useI18n, type Locale } from '@/i18n';
+
+interface Props {
+  onDark?: boolean;
+  locale?: Locale;
+}
+
+const { onDark = false, locale: localeProp } = Astro.props;
+const { t, path } = useI18n(Astro, localeProp);
+---
+
+<a
+  class:list={['wordmark', { 'wordmark--on-dark': onDark }]}
+  href={path(routes.home)}
+  aria-label={interpolate(t.meta.homeAria, { name: site.name })}
+>
+  {site.name}
+</a>
+
+<style>
+  .wordmark {
+    position: relative;
+    font-family: var(--font-serif);
+    font-size: 1.375rem;
+    font-weight: var(--weight-heading);
+    letter-spacing: -0.01em;
+    line-height: 1;
+    color: var(--color-text);
+    white-space: nowrap;
+    padding-left: 0.85rem;
+  }
+
+  .wordmark::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    width: 0.48rem;
+    height: 0.48rem;
+    border-radius: var(--radius-pill);
+    background: var(--color-primary);
+    transform: translateY(-50%);
+  }
+
+  .wordmark--on-dark {
+    color: var(--color-dark-text);
+  }
+
+  .wordmark--on-dark::before {
+    background: var(--color-dark-accent);
+  }
+
+  @media (max-width: 420px) {
+    .wordmark {
+      font-size: 1.2rem;
+    }
+  }
+</style>

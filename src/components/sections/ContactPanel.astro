@@ -1,0 +1,221 @@
+---
+/**
+ * Contact methods and optional WhatsApp form. Lives on the dedicated contact
+ * page so the form is not buried in a dark band.
+ */
+import Button from '@/components/ui/Button.astro';
+import { emailUrl, site, whatsappUrl } from '@/data/site';
+import { useI18n } from '@/i18n';
+
+const { t } = useI18n(Astro);
+const whatsapp = whatsappUrl(t.meta.whatsappMessage);
+const email = emailUrl(t.meta.emailSubject);
+const formAction = site.contact.whatsappNumber !== null ? `https://wa.me/${site.contact.whatsappNumber}` : null;
+
+if (whatsapp === null && email === null) {
+  console.warn(
+    '[Contact] No WhatsApp number or email configured in src/data/site.ts; the contact page has no working call to action.',
+  );
+}
+---
+
+<section class="section section--page contact-panel" aria-labelledby="contact-methods-title">
+  <div class="container contact-panel__grid">
+    <div class:list={['contact-panel__copy', { 'contact-panel__copy--solo': formAction === null }]}>
+      <h2 class="sr-only" id="contact-methods-title">{t.contact.methodsTitle}</h2>
+
+      <dl class="contact-panel__list panel">
+        <div>
+          <dt class="label">WhatsApp</dt>
+          <dd>
+            {whatsapp !== null ? (
+              <a class="link-underline" href={whatsapp} target="_blank" rel="noopener noreferrer">
+                {t.contact.openChat}<span class="sr-only">{t.nav.newWindow}</span>
+              </a>
+            ) : (
+              <span>{t.contact.comingSoon}</span>
+            )}
+          </dd>
+        </div>
+        <div>
+          <dt class="label">{t.contact.email}</dt>
+          <dd>
+            {email !== null && site.contact.email !== null ? (
+              <a class="link-underline" href={email}>{site.contact.email}</a>
+            ) : (
+              <span>{t.contact.comingSoon}</span>
+            )}
+          </dd>
+        </div>
+        {t.contact.hoursValue !== null && (
+          <div>
+            <dt class="label">{t.contact.hours}</dt>
+            <dd>{t.contact.hoursValue}</dd>
+          </div>
+        )}
+      </dl>
+
+      {whatsapp !== null && (
+        <div class="contact-panel__actions">
+          <Button href={whatsapp} external>{t.contact.writeWhatsApp}</Button>
+        </div>
+      )}
+    </div>
+
+    {formAction !== null && (
+      <form class="contact-form panel" action={formAction} method="get" target="_blank">
+        <label class="label" for="contact-message">{t.contact.formLabel}</label>
+        <textarea
+          class="contact-form__field"
+          id="contact-message"
+          name="text"
+          rows="6"
+          required
+          minlength="20"
+          maxlength="1000"
+          autocomplete="off"
+          spellcheck="true"
+          aria-describedby="contact-message-hint contact-message-error"
+          placeholder={t.contact.placeholder}
+        ></textarea>
+        <p class="contact-form__hint" id="contact-message-hint">
+          {t.contact.hint}
+        </p>
+        <p class="contact-form__error" id="contact-message-error">
+          {t.contact.error}
+        </p>
+        <button class="contact-form__submit" type="submit">
+          {t.contact.submit} <span aria-hidden="true">→</span>
+          <span class="sr-only">{t.nav.newWindow}</span>
+        </button>
+      </form>
+    )}
+  </div>
+</section>
+
+<style>
+  .contact-panel__grid {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    column-gap: var(--col-gap);
+    row-gap: var(--space-7);
+    align-items: start;
+  }
+
+  .contact-panel__copy {
+    grid-column: 1 / 6;
+  }
+
+  .contact-panel__copy--solo {
+    grid-column: 1 / 8;
+  }
+
+  .contact-panel__list {
+    display: grid;
+    gap: var(--space-5);
+    padding: var(--space-inset-lg);
+  }
+
+  .contact-panel__list dt {
+    margin-bottom: var(--space-2);
+  }
+
+  .contact-panel__list dd {
+    font-size: var(--text-md);
+    font-weight: var(--weight-medium);
+    color: var(--color-text);
+  }
+
+  .contact-panel__actions {
+    margin-top: var(--space-6);
+  }
+
+  .contact-form {
+    grid-column: 7 / 13;
+    display: grid;
+    gap: var(--space-3);
+    padding: var(--space-inset-lg);
+  }
+
+  .contact-form__field {
+    width: 100%;
+    resize: vertical;
+    min-height: 9rem;
+    padding: var(--space-4);
+    font: inherit;
+    font-size: var(--text-base);
+    line-height: 1.55;
+    color: var(--color-text);
+    background: var(--color-bg);
+    border: 1px solid var(--color-rule);
+    border-radius: var(--radius-sm);
+    transition: border-color var(--duration-fast) ease;
+  }
+
+  .contact-form__field:hover {
+    border-color: var(--color-rule-strong);
+  }
+
+  .contact-form__field:focus-visible {
+    outline: 2px solid var(--color-focus);
+    outline-offset: 2px;
+    border-color: transparent;
+  }
+
+  .contact-form__hint,
+  .contact-form__error {
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+    max-width: none;
+  }
+
+  .contact-form__error {
+    display: none;
+    color: var(--color-teal-800);
+  }
+
+  .contact-form__field:user-invalid {
+    border-color: var(--color-teal-800);
+  }
+
+  .contact-form__field:user-invalid ~ .contact-form__error {
+    display: block;
+  }
+
+  .contact-form__submit {
+    justify-self: start;
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-3);
+    margin-top: var(--space-2);
+    padding: 0.95rem 1.35rem;
+    font-size: var(--text-base);
+    font-weight: var(--weight-medium);
+    line-height: 1;
+    color: var(--color-on-primary);
+    background: var(--color-primary);
+    border-radius: var(--radius-md);
+    transition:
+      background-color var(--duration-fast) var(--ease-out),
+      transform var(--duration-fast) var(--ease-out),
+      box-shadow var(--duration-base) var(--ease-out);
+  }
+
+  .contact-form__submit:hover,
+  .contact-form__submit:focus-visible {
+    background: var(--color-primary-strong);
+  }
+
+  @media (max-width: 600px) {
+    .contact-form__field {
+      font-size: 1rem;
+    }
+  }
+
+  @media (max-width: 900px) {
+    .contact-panel__copy,
+    .contact-form {
+      grid-column: 1 / -1;
+    }
+  }
+</style>

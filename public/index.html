@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="es-CR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex, nofollow" />
+    <title>Foresta Works</title>
+    <link rel="canonical" href="/es/" />
+    <script>
+      (function () {
+        var match = document.cookie.match(/(?:^|; )fw_locale=(en|es)/);
+        var stored = null;
+        try {
+          stored = localStorage.getItem('fw_locale');
+        } catch (e) {}
+        var locale = (match && match[1]) || (stored === 'en' || stored === 'es' ? stored : 'es');
+        location.replace('/' + locale + '/');
+      })();
+    </script>
+    <noscript>
+      <meta http-equiv="refresh" content="0;url=/es/" />
+    </noscript>
+  </head>
+  <body>
+    <p><a href="/es/">Foresta Works</a></p>
+  </body>
+</html>

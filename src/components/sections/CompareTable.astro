@@ -1,0 +1,208 @@
+---
+/**
+ * Comparison matrix for the three plans. Marks are written out, not just
+ * icons, so the table stays clear without color and works for screen readers.
+ */
+import { compareMarkSymbol, comparisonMarks, getServiceTiers } from '@/data/services';
+import { useI18n } from '@/i18n';
+
+const { locale, t } = useI18n(Astro);
+const tiers = getServiceTiers(locale);
+---
+
+<section class="section section--page compare" aria-labelledby="compare-title">
+  <div class="container">
+    <div class="compare__intro">
+      <p class="eyebrow">
+        <span class="eyebrow__num">02</span>
+        {t.services.compareEyebrow}
+      </p>
+      <h2 class="compare__title" id="compare-title">{t.services.compareTitle}</h2>
+      <p class="compare__lede text-soft">{t.services.compareLede}</p>
+    </div>
+
+    <div class="compare__scroll panel">
+      <table class="compare__table">
+        <caption class="sr-only">{t.services.compareCaption}</caption>
+        <colgroup>
+          <col class="compare__col-label" />
+          {
+            tiers.map((tier) => (
+              <col class:list={{ 'is-featured': Boolean(tier.recommended) }} />
+            ))
+          }
+        </colgroup>
+        <thead>
+          <tr>
+            <th scope="col">{t.services.compareColumn}</th>
+            {tiers.map((tier) => (
+              <th scope="col" class:list={{ 'is-featured': Boolean(tier.recommended) }}>{tier.name}</th>
+            ))}
+          </tr>
+        </thead>
+        <tbody>
+          {comparisonMarks.map((row) => (
+            <tr>
+              <th scope="row">{t.services.compareRows[row.key]}</th>
+              {(['arranque', 'crecimiento', 'inteligente'] as const).map((key) => {
+                const mark = row[key];
+                const featured = key === 'crecimiento';
+                return (
+                  <td data-mark={mark} class:list={{ 'is-featured': featured }}>
+                    <span class="compare__mark" aria-hidden="true">
+                      {compareMarkSymbol[mark]}
+                    </span>
+                    {t.services.compareMarks[mark]}
+                  </td>
+                );
+              })}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<style>
+  .compare__intro {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    column-gap: var(--col-gap);
+    row-gap: var(--space-4);
+    margin-bottom: var(--space-6);
+  }
+
+  .compare__intro .eyebrow {
+    grid-column: 1 / -1;
+  }
+
+  .compare__title {
+    grid-column: 1 / 8;
+    font-size: var(--text-2xl);
+    line-height: var(--leading-snug);
+  }
+
+  .compare__lede {
+    grid-column: 8 / 13;
+    align-self: end;
+    font-size: var(--text-sm);
+  }
+
+  .compare__scroll {
+    overflow-x: auto;
+    padding: var(--space-inset-lg);
+  }
+
+  .compare__table {
+    width: 100%;
+    min-width: 36rem;
+    table-layout: fixed;
+    border-collapse: separate;
+    border-spacing: 0;
+    font-size: var(--text-sm);
+  }
+
+  .compare__col-label {
+    width: 32%;
+  }
+
+  .compare__table col:not(.compare__col-label) {
+    width: 22.666%;
+  }
+
+  .compare__table th,
+  .compare__table td {
+    padding: var(--space-4) var(--space-5);
+    text-align: left;
+    vertical-align: middle;
+    border-bottom: 1px solid var(--color-rule);
+  }
+
+  .compare__table thead th:first-child,
+  .compare__table tbody th {
+    padding-left: 0;
+    font-weight: var(--weight-medium);
+    color: var(--color-text);
+  }
+
+  .compare__table thead th {
+    font-size: var(--text-xs);
+    font-weight: var(--weight-semibold);
+    letter-spacing: var(--tracking-caps);
+    text-transform: uppercase;
+    color: var(--color-text-muted);
+    padding-top: var(--space-4);
+    padding-bottom: var(--space-4);
+  }
+
+  .compare__table td {
+    color: var(--color-text-soft);
+  }
+
+  .compare__table .is-featured {
+    background: rgb(12 92 82 / 0.08);
+  }
+
+  .compare__table thead th.is-featured {
+    color: var(--color-primary-strong);
+    border-radius: var(--radius-sm) var(--radius-sm) 0 0;
+  }
+
+  .compare__table tbody tr:last-child td.is-featured {
+    border-radius: 0 0 var(--radius-sm) var(--radius-sm);
+  }
+
+  .compare__table tbody tr:hover th,
+  .compare__table tbody tr:hover td:not(.is-featured) {
+    background: rgb(12 92 82 / 0.05);
+  }
+
+  .compare__mark {
+    display: inline-block;
+    width: 1.1rem;
+    color: var(--color-primary);
+    font-size: 0.65rem;
+    line-height: 1;
+  }
+
+  .compare__table td[data-mark='no'] .compare__mark {
+    color: var(--color-text-muted);
+  }
+
+  .compare__table td[data-mark='extra'] .compare__mark {
+    color: var(--color-primary);
+  }
+
+  .compare__table tbody tr:last-child th,
+  .compare__table tbody tr:last-child td {
+    border-bottom: 0;
+  }
+
+  @media (max-width: 900px) {
+    .compare__title,
+    .compare__lede {
+      grid-column: 1 / -1;
+    }
+
+    .compare__table thead th:first-child,
+    .compare__table tbody th {
+      position: sticky;
+      left: 0;
+      z-index: 1;
+      background: var(--color-paper);
+      box-shadow: 8px 0 12px -10px rgb(21 35 32 / 0.4);
+    }
+  }
+
+  @media (max-width: 600px) {
+    .compare__scroll {
+      padding: var(--space-4);
+    }
+
+    .compare__table th,
+    .compare__table td {
+      padding: var(--space-3);
+    }
+  }
+</style>

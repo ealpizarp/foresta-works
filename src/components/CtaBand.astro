@@ -1,0 +1,120 @@
+---
+/**
+ * Dark closing invitation used at the end of each page. Routes visitors to
+ * WhatsApp when a number is configured, otherwise to the contact page.
+ */
+import { Image } from 'astro:assets';
+import Button from '@/components/ui/Button.astro';
+import { whatsappUrl } from '@/data/site';
+import { routes, useI18n } from '@/i18n';
+import duskImage from '@/assets/images/closing-dusk.jpg';
+
+interface Props {
+  title?: string;
+  text?: string;
+}
+
+const { t, path } = useI18n(Astro);
+const { title = t.cta.title, text = t.cta.text } = Astro.props;
+const whatsapp = whatsappUrl(t.meta.whatsappMessage);
+---
+
+<section class="cta-band" aria-labelledby="cta-band-title">
+  <div class="cta-band__media" aria-hidden="true">
+    <Image src={duskImage} alt="" layout="full-width" widths={[640, 960, 1280]} sizes="100vw" loading="lazy" />
+  </div>
+
+  <div class="container cta-band__grid">
+    <p class="eyebrow eyebrow--on-dark cta-band__eyebrow">{t.cta.eyebrow}</p>
+    <h2 class="cta-band__title" id="cta-band-title">{title}</h2>
+    <div class="cta-band__aside">
+      <p class="cta-band__text">{text}</p>
+      <div class="cta-band__actions">
+        {whatsapp !== null ? (
+          <Button href={whatsapp} external>{t.cta.writeWhatsApp}</Button>
+        ) : (
+          <Button href={path(routes.contacto)}>{t.cta.goContact}</Button>
+        )}
+        {whatsapp !== null && (
+          <Button href={path(routes.contacto)} variant="text" onDark>{t.cta.otherContact}</Button>
+        )}
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .cta-band {
+    position: relative;
+    isolation: isolate;
+    background: var(--color-dark-bg);
+    color: var(--color-dark-text);
+    overflow: hidden;
+    padding-block: var(--space-section);
+    border-radius: var(--radius-xl) var(--radius-xl) 0 0;
+  }
+
+  .cta-band__media {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+  }
+
+  .cta-band__media :global(img) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.5;
+  }
+
+  .cta-band__media::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, rgb(12 22 20 / 0.45), rgb(12 22 20 / 0.88));
+  }
+
+  .cta-band__grid {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    column-gap: var(--col-gap);
+    row-gap: var(--space-cluster);
+  }
+
+  .cta-band__eyebrow {
+    grid-column: 1 / -1;
+  }
+
+  .cta-band__title {
+    grid-column: 1 / 8;
+    font-size: var(--text-3xl);
+    font-weight: var(--weight-display);
+    line-height: var(--leading-snug);
+  }
+
+  .cta-band__aside {
+    grid-column: 8 / 13;
+    align-self: end;
+  }
+
+  .cta-band__text {
+    color: var(--color-dark-text-muted);
+    font-size: var(--text-md);
+    max-width: 38ch;
+  }
+
+  .cta-band__actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-5) var(--space-6);
+    margin-top: var(--space-6);
+  }
+
+  @media (max-width: 900px) {
+    .cta-band__title,
+    .cta-band__aside {
+      grid-column: 1 / -1;
+    }
+  }
+</style>

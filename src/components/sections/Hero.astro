@@ -1,0 +1,262 @@
+---
+/**
+ * Hero visual: a large illustrative storefront mockup. It is not a client
+ * screenshot, a live shop, or a promised result.
+ *
+ * Desktop composition: the headline is a poster on the left. The shop sits
+ * in a leaf-shaped frame beside it. The invitation overlaps that frame on
+ * a smaller sheet, turned the other way.
+ */
+import Button from '@/components/ui/Button.astro';
+import WebsiteMockup from '@/components/visuals/WebsiteMockup.astro';
+import { whatsappUrl } from '@/data/site';
+import { routes, useI18n } from '@/i18n';
+
+const { t, path } = useI18n(Astro);
+const whatsapp = whatsappUrl(t.meta.whatsappMessage);
+---
+
+<section class="hero" aria-labelledby="hero-title">
+  <div class="container hero__layout">
+    <div class="hero__copy">
+      <p class="hero__origin">
+        <svg class="hero__heart" viewBox="0 0 16 16" width="14" height="14" aria-hidden="true" fill="none">
+          <path
+            d="M8 13.15S2.15 9.4 2.15 5.85A3.05 3.05 0 0 1 8 4.35a3.05 3.05 0 0 1 5.85 1.5C13.85 9.4 8 13.15 8 13.15Z"
+            stroke="currentColor"
+            stroke-width="1.35"
+            stroke-linejoin="round"
+          />
+        </svg>
+        {t.hero.originBefore}<em>{t.hero.originEm}</em>
+      </p>
+      <h1 class="hero__title" id="hero-title">
+        {t.hero.title}
+        {' '}
+        <em>{t.hero.titleEm}</em>
+      </h1>
+    </div>
+
+    <div class="hero__note">
+      <p class="hero__lede">
+        {t.hero.lede}
+      </p>
+      <div class="hero__actions">
+        {whatsapp !== null ? (
+          <Button href={whatsapp} external>{t.hero.writeWhatsApp}</Button>
+        ) : (
+          <Button href={path(routes.contacto)}>{t.hero.startConversation}</Button>
+        )}
+        <Button href={path(routes.servicios)} variant="text">{t.hero.comparePlans}</Button>
+      </div>
+    </div>
+
+    <figure class="hero__frame">
+      <div class="hero__board" aria-hidden="true">
+        <WebsiteMockup />
+      </div>
+      <figcaption class="hero__caption">
+        {t.hero.caption}
+      </figcaption>
+    </figure>
+  </div>
+</section>
+
+<style>
+  /* Poster on the left, shop frame on the right. */
+  .hero {
+    position: relative;
+    overflow-x: clip;
+    padding-top: var(--space-page);
+    padding-bottom: var(--space-cluster);
+  }
+
+  .hero__layout {
+    display: grid;
+    gap: var(--space-6);
+  }
+
+  .hero__copy {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-4);
+  }
+
+  .hero__origin {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin: 0;
+    padding: 0.35rem 0.8rem 0.35rem 0.55rem;
+    border-radius: var(--radius-sm);
+    background: var(--color-wash);
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+    letter-spacing: 0.01em;
+  }
+
+  .hero__origin em {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: 1.05em;
+    color: var(--color-text-soft);
+  }
+
+  .hero__heart {
+    flex: none;
+    color: var(--color-primary);
+  }
+
+  .hero__title {
+    font-size: var(--text-display);
+    font-weight: var(--weight-display);
+    line-height: var(--leading-tight);
+    letter-spacing: var(--tracking-display);
+    max-width: 14ch;
+  }
+
+  .hero__title em {
+    font-style: italic;
+    font-weight: var(--weight-heading);
+    color: var(--color-clay);
+  }
+
+  .hero__note {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-5);
+  }
+
+  .hero__lede {
+    font-size: var(--text-md);
+    color: var(--color-text-soft);
+    max-width: 38ch;
+  }
+
+  .hero__actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-4) var(--space-5);
+  }
+
+  .hero__frame {
+    position: relative;
+    margin: 0;
+    margin-left: 8%;
+  }
+
+  /* A wash mat behind the dark frame. Different radius, so it reads as a
+     second sheet, not a shadow. */
+  .hero__frame::before {
+    content: '';
+    position: absolute;
+    z-index: 0;
+    inset: 0.85rem auto auto -0.85rem;
+    width: 42%;
+    height: 38%;
+    border-radius: var(--radius-lg) var(--radius-sm) var(--radius-xl) var(--radius-sm);
+    background: var(--color-wash);
+    pointer-events: none;
+  }
+
+  .hero__board {
+    position: relative;
+    z-index: 1;
+    padding: 0.65rem;
+    border-radius: 1.75rem 0.55rem 1.75rem 0.55rem;
+    background: var(--color-stage);
+    border: 1px solid var(--color-rule-strong);
+  }
+
+  .hero__caption {
+    position: relative;
+    z-index: 1;
+    margin-top: var(--space-4);
+    max-width: 42ch;
+    margin-left: auto;
+    font-size: 0.75rem;
+    letter-spacing: 0.02em;
+    color: var(--color-text-muted);
+  }
+
+  @keyframes hero-rise {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .hero__copy,
+    .hero__note {
+      animation: hero-rise var(--duration-slow) var(--ease-out) 0.12s both;
+    }
+  }
+
+  @media (min-width: 768px) {
+    .hero__frame {
+      margin-left: 12%;
+    }
+
+    .hero__board {
+      padding: clamp(0.85rem, 2vw, 1.35rem);
+      border-radius: var(--radius-leaf);
+    }
+  }
+
+  @media (min-width: 1000px) {
+    .hero__layout {
+      grid-template-columns: minmax(0, 1.12fr) minmax(0, 0.88fr);
+      column-gap: clamp(1.25rem, 2.5vw, 2.75rem);
+      row-gap: var(--space-5);
+      align-items: start;
+    }
+
+    .hero__copy {
+      grid-column: 1;
+      grid-row: 1;
+    }
+
+    .hero__note {
+      grid-column: 1;
+      grid-row: 2;
+      z-index: 2;
+      margin-top: var(--space-2);
+      margin-right: -16%;
+      padding: var(--space-inset-lg);
+      background: var(--color-paper);
+      border: 1px solid var(--color-rule-strong);
+      border-radius: 0.7rem 2rem 0.7rem 2.75rem;
+    }
+
+    .hero__frame {
+      grid-column: 2;
+      grid-row: 1 / span 2;
+      margin-left: 0;
+      margin-top: 2.25rem;
+    }
+
+    .hero__lede {
+      max-width: none;
+      font-size: var(--text-lg);
+      line-height: 1.4;
+      text-wrap: pretty;
+    }
+
+    .hero__actions {
+      width: 100%;
+      justify-content: space-between;
+      padding-top: var(--space-4);
+      border-top: 1px solid var(--color-rule);
+    }
+
+    .hero__caption {
+      max-width: 28ch;
+    }
+  }
+</style>

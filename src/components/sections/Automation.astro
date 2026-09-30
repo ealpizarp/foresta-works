@@ -1,0 +1,341 @@
+---
+/**
+ * Automation page body. Each fact appears once: the four capabilities,
+ * the limits, one illustrative conversation, and where the plan lives.
+ */
+import { Image } from 'astro:assets';
+import sessionImage from '@/assets/images/work-session.jpg';
+import Button from '@/components/ui/Button.astro';
+import InterfacePreview from '@/components/visuals/InterfacePreview.astro';
+import { routes, useI18n } from '@/i18n';
+
+const { t, path } = useI18n(Astro);
+const tier = t.services.tiers.inteligente;
+const steps = t.automation.stepTitles.map((title, index) => ({
+  title,
+  text: t.automation.doesItems[index],
+}));
+---
+
+<section class="section section--page auto-flow" aria-labelledby="auto-flow-title">
+  <div class="container auto-flow__grid">
+    <header class="auto-block__intro">
+      <p class="eyebrow">
+        <span class="eyebrow__num">01</span>
+        {t.automation.flowLabel}
+      </p>
+      <h2 class="auto-block__title" id="auto-flow-title">{t.automation.flowTitle}</h2>
+    </header>
+
+    <div class="auto-flow__body">
+      <p class="label auto-flow__does">{t.automation.does}</p>
+      <ol class="auto-flow__steps">
+        {
+          steps.map((step, index) => (
+            <li class="auto-flow__step">
+              <span class="auto-flow__num" aria-hidden="true">
+                {String(index + 1).padStart(2, '0')}
+              </span>
+              <div>
+                <h3 class="auto-flow__step-title">{step.title}</h3>
+                <p>{step.text}</p>
+              </div>
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+  </div>
+</section>
+
+<section class="section section--page auto-scope" aria-labelledby="automation-scope-title">
+  <div class="container auto-scope__grid">
+    <header class="auto-block__intro">
+      <p class="eyebrow">
+        <span class="eyebrow__num">02</span>
+      </p>
+      <h2 class="auto-block__title" id="automation-scope-title">{t.automation.doesNot}</h2>
+    </header>
+
+    <ul class="auto-scope__list">
+      {t.automation.doesNotItems.map((item) => <li>{item}</li>)}
+    </ul>
+  </div>
+</section>
+
+<section class="section section--page auto-example" aria-labelledby="auto-example-title">
+  <div class="container auto-example__grid">
+    <header class="auto-block__intro">
+      <p class="eyebrow">
+        <span class="eyebrow__num">03</span>
+        {t.automation.exampleLabel}
+      </p>
+      <h2 class="auto-block__title" id="auto-example-title">{t.automation.exampleTitle}</h2>
+    </header>
+
+    <figure class="auto-example__figure">
+      <div class="auto-example__stage">
+        <div class="auto-example__photo frame">
+          <Image
+            src={sessionImage}
+            alt={t.automation.photoAlt}
+            layout="constrained"
+            width={1024}
+            height={768}
+            widths={[480, 768, 1024]}
+            sizes="(min-width: 1000px) 36vw, 100vw"
+            loading="lazy"
+          />
+        </div>
+        <div class="auto-example__phone">
+          <InterfacePreview kind="chat" size="panel" />
+        </div>
+      </div>
+      <figcaption class="auto-example__caption">{t.automation.caption}</figcaption>
+    </figure>
+  </div>
+</section>
+
+<section class="section section--page auto-fit" aria-labelledby="auto-fit-title">
+  <div class="container">
+    <div class="auto-fit__panel">
+      <p class="eyebrow eyebrow--on-dark">
+        <span class="eyebrow__num">04</span>
+        {t.automation.fitLabel}
+      </p>
+      <h2 class="auto-fit__title" id="auto-fit-title">{tier.audience}</h2>
+      <p class="auto-fit__lede">{tier.description}</p>
+      <Button href={`${path(routes.servicios)}#inteligente`}>{t.homePlans.seeIncludes}</Button>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* One inset for every chapter. The wash band paints to its edge, so its
+     padding is the inset; the others keep the page rhythm from .section--page. */
+  section.auto-scope {
+    padding-block: var(--space-7);
+    background: var(--color-wash);
+    border-radius: var(--radius-xl);
+  }
+
+  .auto-flow__grid,
+  .auto-scope__grid,
+  .auto-example__grid {
+    display: grid;
+    gap: var(--space-6);
+  }
+
+  .auto-block__intro {
+    display: grid;
+    gap: var(--space-4);
+  }
+
+  .auto-block__title,
+  .auto-fit__title {
+    margin: 0;
+    font-size: var(--text-2xl);
+    font-weight: var(--weight-display);
+    line-height: var(--leading-snug);
+    letter-spacing: var(--tracking-display);
+    max-width: 18ch;
+  }
+
+  .auto-flow__body {
+    display: grid;
+    gap: var(--space-4);
+  }
+
+  .auto-flow__does {
+    margin: 0;
+    color: var(--color-primary-strong);
+  }
+
+  .auto-flow__steps {
+    display: grid;
+  }
+
+  .auto-flow__step {
+    display: grid;
+    grid-template-columns: 2.75rem minmax(0, 1fr);
+    gap: var(--space-4);
+    align-items: start;
+    padding-bottom: var(--space-5);
+  }
+
+  .auto-flow__step:last-child {
+    padding-bottom: 0;
+  }
+
+  .auto-flow__num {
+    display: grid;
+    place-items: center;
+    width: 2.75rem;
+    height: 2.75rem;
+    margin: 0;
+    border-radius: var(--radius-pill);
+    background: var(--color-primary);
+    color: var(--color-on-primary);
+    font-size: var(--text-xs);
+    font-weight: var(--weight-semibold);
+    letter-spacing: 0.06em;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .auto-flow__step:nth-child(even) .auto-flow__num {
+    background: var(--color-wash);
+    color: var(--color-primary-strong);
+    border: 1px solid var(--color-rule-strong);
+  }
+
+  .auto-flow__step-title {
+    margin: 0 0 var(--space-2);
+    font-size: var(--text-xl);
+    line-height: var(--leading-snug);
+  }
+
+  .auto-flow__step p {
+    margin: 0;
+    color: var(--color-text-soft);
+    max-width: 52ch;
+  }
+
+  .auto-scope__list {
+    display: grid;
+    margin: 0;
+    padding: var(--space-inset-lg);
+    background: var(--color-surface);
+    border: 1px solid var(--color-rule-strong);
+    border-radius: 0.7rem 2.25rem 0.7rem 2.75rem;
+  }
+
+  .auto-scope__list li {
+    margin: 0;
+    padding: var(--space-4) 0 var(--space-4) var(--space-4);
+    border-bottom: 1px solid var(--color-rule);
+    border-left: 2px solid var(--color-clay);
+    color: var(--color-text-soft);
+    line-height: 1.55;
+  }
+
+  .auto-scope__list li:first-child {
+    padding-top: 0;
+  }
+
+  .auto-scope__list li:last-child {
+    padding-bottom: 0;
+    border-bottom: 0;
+  }
+
+  .auto-example__figure {
+    margin: 0;
+  }
+
+  .auto-example__stage {
+    display: grid;
+    gap: var(--space-4);
+  }
+
+  .auto-example__photo {
+    margin: 0;
+    border-radius: var(--radius-leaf);
+  }
+
+  .auto-example__photo :global(img) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    aspect-ratio: 4 / 3;
+  }
+
+  .auto-example__phone {
+    width: min(100%, 16.5rem);
+    margin: 0 0 0 auto;
+  }
+
+  .auto-example__phone :global(.phone) {
+    border-radius: 1.75rem 0.7rem 1.75rem 0.7rem;
+    overflow: hidden;
+  }
+
+  .auto-example__caption {
+    margin: var(--space-4) 0 0 auto;
+    max-width: 32ch;
+    font-size: 0.75rem;
+    color: var(--color-text-muted);
+  }
+
+  .auto-fit__panel {
+    display: grid;
+    justify-items: start;
+    gap: var(--space-4);
+    margin: 0;
+    padding: var(--space-inset-lg);
+    background: var(--color-stage);
+    color: var(--color-dark-text);
+    border-radius: var(--radius-leaf);
+  }
+
+  .auto-fit__title {
+    max-width: 22ch;
+  }
+
+  .auto-fit__lede {
+    margin: 0;
+    max-width: 42ch;
+    color: var(--color-dark-text-muted);
+    font-size: var(--text-md);
+  }
+
+  @media (min-width: 768px) {
+    .auto-example__stage {
+      grid-template-columns: 1.2fr 0.8fr;
+      align-items: end;
+      gap: 0;
+    }
+
+    .auto-example__photo {
+      grid-column: 1;
+      grid-row: 1;
+    }
+
+    .auto-example__phone {
+      grid-column: 2;
+      grid-row: 1;
+      width: min(100%, 15.5rem);
+      margin: 0 0 6% -12%;
+    }
+  }
+
+  @media (min-width: 1000px) {
+    .auto-flow__grid,
+    .auto-example__grid {
+      grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+      column-gap: clamp(1.5rem, 3vw, 3rem);
+      align-items: start;
+    }
+
+    .auto-scope__grid {
+      grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.1fr);
+      column-gap: clamp(1.5rem, 3vw, 3rem);
+      align-items: start;
+    }
+
+    .auto-fit__panel {
+      grid-template-columns: minmax(0, 1.4fr) auto;
+      column-gap: clamp(1.5rem, 3vw, 3rem);
+      align-items: center;
+    }
+
+    .auto-fit__panel .eyebrow,
+    .auto-fit__title,
+    .auto-fit__lede {
+      grid-column: 1;
+    }
+
+    .auto-fit__panel :global(.btn) {
+      grid-column: 2;
+      grid-row: 1 / span 3;
+    }
+  }
+</style>

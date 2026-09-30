@@ -1,0 +1,10 @@
+---
+import { localeStaticPathsFor } from '@/i18n';
+import ServiciosPage from '@/templates/ServiciosPage.astro';
+
+export function getStaticPaths() {
+  return localeStaticPathsFor(['es']);
+}
+---
+
+<ServiciosPage />

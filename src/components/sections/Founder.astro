@@ -1,0 +1,147 @@
+---
+import { Image } from 'astro:assets';
+import { site } from '@/data/site';
+import plasterImage from '@/assets/images/materials-stone-plaster.jpg';
+import { interpolate, useI18n } from '@/i18n';
+
+const { t } = useI18n(Astro);
+---
+
+<section class="section section--page founder" aria-labelledby="founder-heading">
+  <div class="container founder__grid">
+    <h2 class="sr-only" id="founder-heading">{t.founder.heading}</h2>
+
+    <figure class="founder__figure frame reveal">
+      <Image
+        src={plasterImage}
+        alt={t.founder.photoAlt}
+        layout="constrained"
+        width={768}
+        height={1024}
+        widths={[420, 640, 768]}
+        sizes="(min-width: 1100px) 24vw, (min-width: 900px) 30vw, 60vw"
+        loading="lazy"
+      />
+    </figure>
+
+    <div class="founder__body reveal">
+      <p set:html={interpolate(t.founder.p1, { name: `<strong>${site.founder.name}</strong>` })} />
+      <p>{t.founder.p2}</p>
+      <p class="founder__disclosure">{t.founder.disclosure}</p>
+    </div>
+
+    <ol class="principles">
+      {t.founder.principles.map((principle) => (
+        <li class="principle panel reveal">
+          <span class="principle__num" aria-hidden="true">{principle.numeral}</span>
+          <h3 class="principle__title">{principle.title}</h3>
+          <p class="principle__text">{principle.text}</p>
+        </li>
+      ))}
+    </ol>
+  </div>
+</section>
+
+<style>
+  .founder__grid {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    column-gap: var(--col-gap);
+    row-gap: var(--space-7);
+    align-items: start;
+  }
+
+  .founder__figure {
+    grid-column: 1 / 4;
+    border-radius: var(--radius-leaf);
+  }
+
+  .founder__body {
+    grid-column: 5 / 10;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+    font-size: var(--text-md);
+    color: var(--color-text-soft);
+  }
+
+  .founder__body strong {
+    font-weight: var(--weight-semibold);
+    color: var(--color-text);
+  }
+
+  .founder__disclosure {
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+    padding-top: var(--space-3);
+    border-top: 1px solid var(--color-rule);
+  }
+
+  .principles {
+    grid-column: 5 / 13;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--col-gap);
+  }
+
+  .principle {
+    padding: var(--space-inset-lg);
+  }
+
+  .principle__num {
+    display: block;
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-weight: var(--weight-heading);
+    font-size: var(--text-md);
+    color: var(--color-primary);
+  }
+
+  .principle__title {
+    margin-top: var(--space-2);
+    font-size: var(--text-lg);
+    line-height: 1.2;
+  }
+
+  .principle__text {
+    margin-top: var(--space-3);
+    font-size: var(--text-sm);
+    line-height: 1.55;
+    color: var(--color-text-soft);
+  }
+
+  @media (max-width: 1100px) {
+    .founder__body {
+      grid-column: 5 / 13;
+    }
+  }
+
+  @media (max-width: 900px) {
+    .founder__figure {
+      grid-column: 1 / 5;
+    }
+
+    .founder__body {
+      grid-column: 5 / 13;
+    }
+
+    .principles {
+      grid-column: 1 / -1;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .founder__figure {
+      grid-column: 1 / 8;
+    }
+
+    .founder__body {
+      grid-column: 1 / -1;
+    }
+
+    .principles {
+      grid-template-columns: 1fr;
+      gap: var(--col-gap);
+    }
+  }
+</style>

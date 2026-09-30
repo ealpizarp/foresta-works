@@ -1,0 +1,27 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import CtaBand from '@/components/CtaBand.astro';
+import Automation from '@/components/sections/Automation.astro';
+import PageHeader from '@/components/ui/PageHeader.astro';
+import PageNav from '@/components/ui/PageNav.astro';
+import { breadcrumbJsonLd } from '@/data/structured-data';
+import { routes, useI18n } from '@/i18n';
+
+if (!Astro.site) {
+  throw new Error('`site` must be set in astro.config.ts to build canonical URLs.');
+}
+
+const { locale, t, path } = useI18n(Astro);
+const meta = t.pages.automatizacion;
+---
+
+<BaseLayout
+  title={meta.title}
+  description={meta.description}
+  extraJsonLd={[breadcrumbJsonLd(Astro.site, [{ name: meta.eyebrow, path: path(routes.automatizacion) }], locale)]}
+>
+  <PageHeader eyebrow={meta.eyebrow} title={meta.heading} lede={meta.lede} />
+  <Automation />
+  <PageNav />
+  <CtaBand />
+</BaseLayout>

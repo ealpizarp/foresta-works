@@ -1,0 +1,174 @@
+---
+import LanguageSwitcher from '@/components/LanguageSwitcher.astro';
+import Wordmark from '@/components/Wordmark.astro';
+import { primaryNav } from '@/data/navigation';
+import { site, whatsappUrl } from '@/data/site';
+import { routes, useI18n } from '@/i18n';
+
+const { locale, t, path } = useI18n(Astro);
+const year = new Date().getFullYear();
+const whatsapp = whatsappUrl(t.meta.whatsappMessage);
+const nav = primaryNav(locale);
+
+const socialLinks = [
+  { label: 'LinkedIn', href: site.social.linkedin },
+  { label: 'Instagram', href: site.social.instagram },
+  { label: 'Facebook', href: site.social.facebook },
+].filter((link): link is { label: string; href: string } => link.href !== null);
+
+const hasContact = whatsapp !== null || site.contact.email !== null || socialLinks.length > 0;
+---
+
+<footer class="site-footer">
+  <div class="container site-footer__grid">
+    <div class="site-footer__brand">
+      <Wordmark onDark />
+      <p class="site-footer__tag">{t.meta.siteShortDescription}</p>
+    </div>
+
+    <nav class="site-footer__nav" aria-label={t.nav.footerLabel}>
+      <ul>
+        <li><a class="link-underline" href={path(routes.home)}>{t.nav.home}</a></li>
+        {nav.map((item) => (
+          <li><a class="link-underline" href={item.href}>{item.label}</a></li>
+        ))}
+      </ul>
+    </nav>
+
+    {hasContact && (
+      <div class="site-footer__contact">
+        {whatsapp !== null && (
+          <a class="link-underline" href={whatsapp} target="_blank" rel="noopener noreferrer">
+            WhatsApp<span class="sr-only">{t.nav.newWindow}</span>
+          </a>
+        )}
+        {site.contact.email !== null && (
+          <a class="link-underline" href={`mailto:${site.contact.email}`}>{site.contact.email}</a>
+        )}
+        {socialLinks.map((link) => (
+          <a class="link-underline" href={link.href} target="_blank" rel="noopener noreferrer">
+            {link.label}<span class="sr-only">{t.nav.newWindow}</span>
+          </a>
+        ))}
+      </div>
+    )}
+
+    <div class="site-footer__legal">
+      <LanguageSwitcher />
+      <span>© {year} {site.name}</span>
+      <span>Costa Rica</span>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    background: var(--color-dark-bg);
+    color: var(--color-dark-text-muted);
+    border-top: 1px solid var(--color-dark-rule);
+    padding-block: clamp(var(--space-7), 5vw, var(--space-8));
+    font-size: var(--text-sm);
+  }
+
+  .site-footer__grid {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    column-gap: var(--col-gap);
+    row-gap: var(--space-6);
+    align-items: start;
+  }
+
+  .site-footer__brand {
+    grid-column: 1 / 5;
+  }
+
+  .site-footer__tag {
+    margin-top: var(--space-4);
+    line-height: 1.5;
+    max-width: 28ch;
+  }
+
+  .site-footer__nav {
+    grid-column: 6 / 9;
+  }
+
+  .site-footer__nav ul,
+  .site-footer__contact {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+
+  .site-footer__contact {
+    grid-column: 9 / 11;
+  }
+
+  .site-footer__legal {
+    grid-column: 11 / 13;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+    text-align: right;
+    color: var(--color-dark-text-faint);
+    align-items: flex-end;
+  }
+
+  .site-footer__legal :global(.lang-switch) {
+    border-color: rgb(255 255 255 / 0.12);
+    background: rgb(255 255 255 / 0.04);
+    margin-bottom: var(--space-2);
+  }
+
+  .site-footer__legal :global(.lang-switch__opt) {
+    color: var(--color-dark-text-muted);
+  }
+
+  .site-footer__legal :global(.lang-switch__opt[aria-current='true']) {
+    color: var(--color-dark-bg);
+    background: var(--color-dark-accent);
+  }
+
+  .site-footer a:hover,
+  .site-footer a:focus-visible {
+    color: var(--color-dark-text);
+  }
+
+  @media (max-width: 900px) {
+    .site-footer__brand {
+      grid-column: 1 / -1;
+    }
+
+    .site-footer__nav {
+      grid-column: 1 / 6;
+    }
+
+    .site-footer__contact {
+      grid-column: 6 / 13;
+    }
+
+    .site-footer__legal {
+      grid-column: 1 / -1;
+      flex-direction: row;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: var(--space-5);
+      text-align: left;
+      padding-top: var(--space-5);
+      border-top: 1px solid var(--color-dark-rule);
+    }
+
+    .site-footer__nav a,
+    .site-footer__contact a {
+      display: flex;
+      align-items: center;
+      min-height: 2.75rem;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .site-footer__nav,
+    .site-footer__contact {
+      grid-column: 1 / -1;
+    }
+  }
+</style>

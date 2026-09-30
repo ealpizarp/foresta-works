@@ -1,0 +1,143 @@
+/* ==========================================================================
+   Design tokens
+   All colour pairs used for text were checked against WCAG 2.2 AA (≥ 4.5:1
+   for body text). Keep that property when editing.
+   ========================================================================== */
+
+:root {
+  /* ---- Colour: primitives ----
+     Bone and canopy stay recognizable. Clay is the one supporting note:
+     sentence emphasis and the featured frame, never a second button color.
+     Clay-400 is decorative only; it does not pass for small text. */
+  --color-bone-50: #f4efe6; /* page: warm paper */
+  --color-bone-100: #e8e0d2; /* recessed wash */
+  --color-paper: #fffaf3; /* sheets: cards, header, forms */
+  --color-ink-900: #1a2420; /* text */
+  --color-ink-950: #101816; /* deepest surface */
+  --color-forest-800: #1e3a34; /* secondary dark surface */
+  --color-gray-700: #3d4945; /* soft text: 8.2:1 on bone-50 */
+  --color-gray-500: #54605c; /* muted text: 5.7:1 on bone-50, 5.0:1 on bone-100 */
+  --color-teal-800: #084840; /* primary hover: 9.1:1 on bone-50 */
+  --color-teal-700: #0c5c52; /* primary: 6.9:1 on bone-50; bone on it is 6.9:1 */
+  --color-teal-300: #8fd8cb; /* accent on dark: 11.0:1 on ink-950 */
+  --color-teal-200: #b7e6de;
+  --color-sand-400: #c4b59a; /* hairline accent on dark stages only */
+  --color-clay-700: #8f4532; /* emphasis: 6.0:1 on bone-50, 5.2:1 on bone-100 */
+  --color-clay-400: #c56a4a; /* large shapes only */
+
+  /* ---- Colour: semantic ---- */
+  --color-bg: var(--color-bone-50);
+  --color-surface: var(--color-paper);
+  --color-wash: var(--color-bone-100);
+  --color-text: var(--color-ink-900);
+  --color-text-soft: var(--color-gray-700);
+  --color-text-muted: var(--color-gray-500);
+  --color-primary: var(--color-teal-700);
+  --color-primary-strong: var(--color-teal-800);
+  --color-on-primary: var(--color-bone-50);
+  --color-clay: var(--color-clay-700);
+  --color-clay-soft: rgb(143 69 50 / 0.12);
+  --color-rule: rgb(21 35 32 / 0.09);
+  --color-rule-strong: rgb(21 35 32 / 0.2);
+  --color-focus: var(--color-teal-700);
+  --color-glass: var(--color-paper);
+  --color-glass-strong: var(--color-paper);
+  --color-glow: transparent;
+  --color-stage: #12211d;
+  --color-stage-mid: #1a332d;
+  --color-chrome: #1c302b;
+
+  /* Dark surfaces (closing section, footer) */
+  --color-dark-bg: var(--color-ink-950);
+  --color-dark-text: var(--color-bone-50);
+  --color-dark-text-muted: rgb(245 243 238 / 0.74);
+  --color-dark-text-faint: rgb(245 243 238 / 0.68); /* ≥ 4.5:1 on ink-950 for sm legal text */
+  --color-dark-rule: rgb(245 243 238 / 0.16);
+  --color-dark-accent: var(--color-teal-300);
+  --color-dark-error: #f4c7b8; /* 11.4:1 on ink-950 */
+
+  /* ---- Typography ---- */
+  /* --font-serif and --font-sans are injected by Astro's <Font> component. */
+  --text-xs: 0.6875rem;
+  --text-sm: 0.8125rem;
+  --text-base: 0.9375rem;
+  --text-md: 1.0625rem;
+  --text-lg: clamp(1.25rem, 1.7vw, 1.55rem);
+  --text-xl: clamp(1.5rem, 2.2vw, 2rem);
+  --text-2xl: clamp(1.75rem, 2.7vw, 2.6rem);
+  --text-3xl: clamp(2rem, 3.6vw, 3.5rem);
+  --text-display: clamp(2.65rem, 5.8vw, 5.35rem);
+  --weight-body: 500;
+  --weight-medium: 500;
+  --weight-semibold: 600;
+  --weight-heading: 500;
+  --weight-display: 500;
+  --leading-tight: 1.02;
+  --leading-snug: 1.14;
+  --leading-body: 1.65;
+  --tracking-caps: 0.14em;
+  --tracking-display: -0.032em;
+
+  /* ---- Spacing scale ----
+     1–8 are the only fixed steps. Semantic tokens below are for repeated
+     layout patterns; prefer them over one-off clamps. */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --space-6: 2rem;
+  --space-7: 3rem;
+  --space-8: 4rem;
+  --space-chip: 0.4rem 0.75rem;
+  --space-inset: clamp(1.25rem, 2.2vw, 1.75rem); /* compact panels */
+  --space-inset-lg: clamp(1.5rem, 2.6vw, 2.25rem); /* cards, forms */
+  --space-stack: clamp(1.5rem, 3vw, 2.5rem); /* heading blocks inside a section */
+  --space-cluster: clamp(2.5rem, 5vw, 4rem); /* related clusters (hero media) */
+  --space-page: clamp(3.75rem, 8vw, 7.5rem); /* page / hero opening */
+  --space-section: clamp(5rem, 10vw, 9rem); /* home sections, CTA */
+  --space-section-gap: clamp(3rem, 6vw, 5.5rem); /* related blocks, inner pages */
+
+  /* ---- Layout ---- */
+  --container-max: 1320px;
+  --gutter: clamp(1.5rem, 5.5vw, 5rem);
+  --col-gap: clamp(1rem, 2vw, 2rem);
+  --header-height: 4.25rem;
+  --content-measure: 62ch;
+
+  /* ---- Breakpoints (documentation only; CSS custom properties cannot be
+     used inside media queries). Keep in sync with global.css / components. ----
+     --bp-sm: 600px;  --bp-md: 900px;  --bp-lg: 1100px; */
+
+  /* ---- Shape. Three scales, not one card radius. ----
+     sm  short controls, inputs, badges
+     md  buttons and quiet panels (a stone you can hold)
+     lg  ordinary frames and plan cards
+     xl  a section clearing
+     leaf  the one asymmetric frame: a path turning
+     pill  discs only (an index, the wordmark mark) */
+  --radius-sm: 10px;
+  --radius-md: 18px;
+  --radius-lg: 32px;
+  --radius-xl: 48px;
+  --radius-leaf: 3rem 0.85rem 3rem 0.85rem;
+  --radius-pill: 999px;
+  --shadow-sm: none;
+  --shadow-md: none;
+  --shadow-lg: none;
+  --shadow-stage: none;
+  --inset-highlight: none;
+
+  /* ---- Motion ---- */
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --duration-fast: 0.22s;
+  --duration-base: 0.45s;
+  --duration-slow: 1s;
+  --duration-page: 0.32s;
+}
+
+@media (max-width: 900px) {
+  :root {
+    --header-height: 3.85rem;
+  }
+}

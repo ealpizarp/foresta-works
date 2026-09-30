@@ -1,0 +1,97 @@
+---
+/**
+ * Opening block of every inner page: breadcrumb, the page's single <h1>
+ * and an optional lede. The breadcrumb names the page; a second eyebrow
+ * would only repeat it.
+ */
+import { routes, useI18n } from '@/i18n';
+
+interface Props {
+  eyebrow: string;
+  title: string;
+  lede?: string;
+}
+
+const { eyebrow, title, lede } = Astro.props;
+const { t, path } = useI18n(Astro);
+---
+
+<header class="page-header">
+  <div class="container page-header__grid">
+    <nav class="page-header__crumb" aria-label={t.nav.breadcrumb}>
+      <a class="link-underline" href={path(routes.home)}>{t.nav.home}</a>
+      <span aria-hidden="true">/</span>
+      <span aria-current="page">{eyebrow}</span>
+    </nav>
+    <h1 class="page-header__title">{title}</h1>
+    {lede && <p class="page-header__lede">{lede}</p>}
+  </div>
+</header>
+
+<style>
+  .page-header {
+    position: relative;
+    padding-top: var(--space-page);
+    padding-bottom: var(--space-section-gap);
+    background: var(--color-wash);
+    border-radius: 0 0 var(--radius-xl) var(--radius-xl);
+  }
+
+  .page-header__grid {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    column-gap: var(--col-gap);
+    row-gap: var(--space-stack);
+    align-items: end;
+  }
+
+  .page-header__crumb {
+    grid-column: 1 / -1;
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+  }
+
+  .page-header__crumb [aria-current='page'] {
+    color: var(--color-text);
+    font-weight: var(--weight-medium);
+  }
+
+  .page-header__title {
+    grid-column: 1 / 8;
+    font-size: var(--text-3xl);
+    font-weight: var(--weight-display);
+    line-height: var(--leading-tight);
+    letter-spacing: var(--tracking-display);
+  }
+
+  .page-header__lede {
+    grid-column: 8 / 13;
+    font-size: var(--text-md);
+    color: var(--color-text-soft);
+    max-width: none;
+  }
+
+  @media (max-width: 1100px) {
+    .page-header__title {
+      grid-column: 1 / 9;
+    }
+
+    .page-header__lede {
+      grid-column: 1 / 9;
+    }
+  }
+
+  @media (max-width: 900px) {
+    .page-header__title,
+    .page-header__lede {
+      grid-column: 1 / -1;
+    }
+
+    .page-header__lede {
+      max-width: 48ch;
+    }
+  }
+</style>

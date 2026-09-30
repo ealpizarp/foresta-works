@@ -1,0 +1,225 @@
+---
+/** Compact overview of the three subscriptions; each card links to its full detail. */
+import SectionHeader from '@/components/ui/SectionHeader.astro';
+import InterfacePreview from '@/components/visuals/InterfacePreview.astro';
+import { getServiceTiers } from '@/data/services';
+import { routes, useI18n } from '@/i18n';
+
+const previewKind = {
+  arranque: 'site',
+  crecimiento: 'shop',
+  inteligente: 'chat',
+} as const;
+
+const { locale, t, path } = useI18n(Astro);
+const tiers = getServiceTiers(locale);
+---
+
+<section class="section section--wash" aria-labelledby="services-title">
+  <div class="container">
+    <SectionHeader
+      number="02"
+      label={t.homePlans.label}
+      title={t.homePlans.title}
+      titleId="services-title"
+      link={{ href: path(routes.servicios), label: t.homePlans.compare }}
+    />
+
+    <ol class="cards">
+      {tiers.map((tier, index) => (
+        <li class="reveal">
+          <a class:list={['card', 'panel', { 'card--featured': tier.recommended }]} href={`${path(routes.servicios)}#${tier.id}`}>
+            <span class="card__preview">
+              <InterfacePreview kind={previewKind[tier.id]} size="card" />
+            </span>
+            <span class="card__top">
+              <span class="card__num" aria-hidden="true">{String(index + 1).padStart(2, '0')}</span>
+              {tier.badge && <span class="card__badge">{tier.badge}</span>}
+            </span>
+            <h3 class="card__name">{tier.name}</h3>
+            <p class="card__price">
+              <span class="card__price-amount">{t.services.monthly}</span>
+              <span class="card__price-period">{t.services.monthlyWritten}</span>
+            </p>
+            <p class="card__setup">
+              <span>{t.services.oneTimeBuild}</span>
+              <span class="card__setup-note">{t.services.oneTimeBuildWritten}</span>
+            </p>
+            <p class="card__audience">{tier.audience}</p>
+            <ul class="card__highlights">
+              {tier.highlights.map((item) => <li>{item}</li>)}
+            </ul>
+            <span class="card__more">
+              <span>{t.homePlans.seeIncludes}</span>
+              <span class="card__arrow" aria-hidden="true">→</span>
+            </span>
+          </a>
+        </li>
+      ))}
+    </ol>
+  </div>
+</section>
+
+<style>
+  .cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--col-gap);
+  }
+
+  .card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    padding: var(--space-inset-lg);
+    overflow: hidden;
+    border-radius: var(--radius-lg);
+    transition: border-color var(--duration-fast) var(--ease-out);
+  }
+
+  .card__preview {
+    display: block;
+    margin: calc(var(--space-inset-lg) * -1) calc(var(--space-inset-lg) * -1) var(--space-5);
+    padding: var(--space-4);
+    background: var(--color-stage);
+  }
+
+  .card__preview :global(.preview) {
+    transition: none;
+  }
+
+  .card--featured {
+    border-radius: var(--radius-leaf);
+    border-color: var(--color-clay);
+  }
+
+  .card:not(.card--featured):hover,
+  .card:not(.card--featured):focus-visible {
+    border-color: var(--color-primary);
+  }
+
+  .card__top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-3);
+  }
+
+  .card__num {
+    font-size: var(--text-xs);
+    font-weight: var(--weight-semibold);
+    letter-spacing: var(--tracking-caps);
+    color: var(--color-primary);
+  }
+
+  .card__badge {
+    font-size: 0.625rem;
+    font-weight: var(--weight-semibold);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--color-clay);
+    background: var(--color-clay-soft);
+    padding: var(--space-1) var(--space-3);
+    border-radius: var(--radius-sm);
+  }
+
+  .card__name {
+    margin-top: var(--space-4);
+    font-size: var(--text-xl);
+    line-height: 1.1;
+  }
+
+  .card__price {
+    display: flex;
+    align-items: baseline;
+    gap: var(--space-2);
+    margin-top: var(--space-4);
+  }
+
+  .card__price-amount {
+    font-family: var(--font-serif);
+    font-weight: var(--weight-heading);
+    font-size: var(--text-lg);
+    line-height: 1;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .card__price-period {
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+  }
+
+  .card__setup {
+    display: flex;
+    align-items: baseline;
+    gap: var(--space-2);
+    margin-top: var(--space-2);
+    font-size: var(--text-sm);
+    color: var(--color-text-soft);
+  }
+
+  .card__setup-note {
+    color: var(--color-text-muted);
+  }
+
+  .card__audience {
+    margin-top: var(--space-4);
+    font-size: var(--text-sm);
+    font-weight: var(--weight-medium);
+    color: var(--color-primary-strong);
+  }
+
+  .card__highlights {
+    margin-top: var(--space-5);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+    flex: 1;
+  }
+
+  .card__highlights li {
+    font-size: var(--text-sm);
+    color: var(--color-text);
+    padding-left: 0.9rem;
+    position: relative;
+  }
+
+  .card__highlights li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.55em;
+    width: 0.4rem;
+    height: 1px;
+    background: var(--color-primary);
+  }
+
+  .card__more {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-3);
+    margin-top: var(--space-5);
+    padding-top: var(--space-4);
+    border-top: 1px solid var(--color-rule);
+    font-size: var(--text-sm);
+    font-weight: var(--weight-medium);
+    color: var(--color-text);
+  }
+
+  .card__arrow {
+    color: var(--color-primary);
+    transition: transform var(--duration-base) var(--ease-out);
+  }
+
+  .card:hover .card__arrow,
+  .card:focus-visible .card__arrow {
+    transform: translateX(5px);
+  }
+
+  @media (max-width: 900px) {
+    .cards {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

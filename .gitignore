@@ -1,0 +1,17 @@
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+.astro/
+
+# Cloudflare
+.wrangler/
+
+# Local environment
+.env
+.env.*
+
+# OS / editor
+.DS_Store
+*.log

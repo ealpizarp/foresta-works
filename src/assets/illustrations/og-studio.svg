@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630" fill="none">
+  <rect width="1200" height="630" fill="#f4f2ec"/>
+  <circle cx="1040" cy="90" r="260" fill="#0f6e66" fill-opacity="0.12"/>
+  <rect x="70" y="48" width="1060" height="560" rx="36" fill="#17302b"/>
+  <rect x="70" y="48" width="1060" height="560" rx="36" fill="url(#board)" />
+  <defs>
+    <linearGradient id="board" x1="70" y1="48" x2="70" y2="608">
+      <stop stop-color="#17302b"/>
+      <stop offset="1" stop-color="#101c19"/>
+    </linearGradient>
+    <linearGradient id="page" x1="102" y1="148" x2="102" y2="580">
+      <stop stop-color="#fffcf7"/>
+      <stop offset="1" stop-color="#f4f2ec"/>
+    </linearGradient>
+    <linearGradient id="media" x1="620" y1="230" x2="1040" y2="470">
+      <stop stop-color="#17302b"/>
+      <stop offset="1" stop-color="#0c1614"/>
+    </linearGradient>
+  </defs>
+  <rect x="92" y="70" width="1016" height="516" rx="22" fill="#1a2c28"/>
+  <rect x="92" y="70" width="1016" height="44" rx="22" fill="#223832"/>
+  <rect x="92" y="92" width="1016" height="22" fill="#223832"/>
+  <circle cx="118" cy="92" r="5" fill="#f5f3ee" fill-opacity="0.2"/>
+  <circle cx="134" cy="92" r="5" fill="#7fd4c8" fill-opacity="0.55"/>
+  <circle cx="150" cy="92" r="5" fill="#f5f3ee" fill-opacity="0.2"/>
+  <rect x="430" y="80" width="340" height="24" rx="12" fill="#000" fill-opacity="0.28"/>
+  <text x="600" y="97" text-anchor="middle" font-family="Georgia, serif" font-size="11" letter-spacing="1.4" fill="#f5f3ee" fill-opacity="0.5">SITIO.EJEMPLO</text>
+  <rect x="92" y="114" width="1016" height="472" fill="url(#page)"/>
+  <circle cx="128" cy="148" r="4.5" fill="#0f6e66"/>
+  <text x="142" y="153" font-family="Georgia, serif" font-size="16" fill="#13201d">Taller</text>
+  <text x="780" y="153" font-family="system-ui, sans-serif" font-size="12" fill="#3c4844">Oficio</text>
+  <text x="840" y="153" font-family="system-ui, sans-serif" font-size="12" fill="#3c4844">Horario</text>
+  <text x="910" y="153" font-family="system-ui, sans-serif" font-size="12" fill="#3c4844">Contacto</text>
+  <rect x="990" y="136" width="78" height="26" rx="13" fill="#0f6e66"/>
+  <text x="1029" y="153" text-anchor="middle" font-family="system-ui, sans-serif" font-size="11" fill="#f4f2ec">Escribir</text>
+  <text x="124" y="210" font-family="system-ui, sans-serif" font-size="11" letter-spacing="2.2" fill="#5c6864">COSTA RICA</text>
+  <text x="124" y="268" font-family="Georgia, serif" font-size="42" fill="#13201d">Un sitio claro</text>
+  <text x="124" y="318" font-family="Georgia, serif" font-size="42" fill="#13201d">para encontrarnos.</text>
+  <text x="124" y="360" font-family="system-ui, sans-serif" font-size="15" fill="#3c4844">Oficio, horario y una forma simple de escribirnos.</text>
+  <rect x="124" y="384" width="88" height="28" rx="14" fill="#0f6e66"/>
+  <text x="168" y="403" text-anchor="middle" font-family="system-ui, sans-serif" font-size="12" fill="#f4f2ec">Escribir</text>
+  <text x="232" y="403" font-family="system-ui, sans-serif" font-size="12" fill="#3c4844">Ver oficio</text>
+  <rect x="620" y="196" width="448" height="248" rx="20" fill="url(#media)"/>
+  <path d="M842 268 C798 254 766 276 752 314 C788 304 820 288 842 268Z" fill="#7fd4c8" fill-opacity="0.42"/>
+  <path d="M842 268 C828 222 848 186 888 168 C878 212 860 246 842 268Z" fill="#7fd4c8" fill-opacity="0.42"/>
+  <path d="M842 268 C884 248 926 256 958 288 C920 286 880 278 842 268Z" fill="#0f6e66" fill-opacity="0.55"/>
+  <rect x="124" y="456" width="300" height="92" rx="16" fill="#fffcf7" fill-opacity="0.8" stroke="#152320" stroke-opacity="0.06"/>
+  <rect x="440" y="456" width="300" height="92" rx="16" fill="#fffcf7" fill-opacity="0.8" stroke="#152320" stroke-opacity="0.06"/>
+  <rect x="756" y="456" width="300" height="92" rx="16" fill="#fffcf7" fill-opacity="0.8" stroke="#152320" stroke-opacity="0.06"/>
+  <text x="144" y="484" font-family="system-ui, sans-serif" font-size="10" fill="#0f6e66">01</text>
+  <text x="144" y="508" font-family="Georgia, serif" font-size="18" fill="#13201d">Oficio</text>
+  <text x="460" y="484" font-family="system-ui, sans-serif" font-size="10" fill="#0f6e66">02</text>
+  <text x="460" y="508" font-family="Georgia, serif" font-size="18" fill="#13201d">Horario</text>
+  <text x="776" y="484" font-family="system-ui, sans-serif" font-size="10" fill="#0f6e66">03</text>
+  <text x="776" y="508" font-family="Georgia, serif" font-size="18" fill="#13201d">Mensajes</text>
+</svg>

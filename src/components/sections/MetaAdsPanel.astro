@@ -1,0 +1,128 @@
+---
+import InterfacePreview from '@/components/visuals/InterfacePreview.astro';
+import { useI18n } from '@/i18n';
+
+const { t } = useI18n(Astro);
+---
+
+<section class="section section--page ads" id="meta-ads" aria-labelledby="ads-title">
+  <div class="container ads__grid">
+    <p class="eyebrow ads__eyebrow">
+      <span class="eyebrow__num">05</span>
+      {t.metaAds.eyebrow}
+    </p>
+    <h2 class="ads__title" id="ads-title">{t.metaAds.title}</h2>
+    <p class="ads__lede">{t.metaAds.lede}</p>
+
+    <figure class="ads__visual reveal">
+      <InterfacePreview kind="report" size="panel" />
+      <figcaption>{t.metaAds.caption}</figcaption>
+    </figure>
+
+    <div class="ads__spend panel reveal">
+      <p class="label">{t.metaAds.spendLabel}</p>
+      <p>{t.metaAds.spendNote}</p>
+    </div>
+
+    <div class="ads__col panel reveal">
+      <h3 class="label">{t.metaAds.includesLabel}</h3>
+      <ul>
+        {t.metaAds.includes.map((item) => <li>{item}</li>)}
+      </ul>
+    </div>
+
+    <div class="ads__col ads__col--out panel reveal">
+      <h3 class="label">{t.metaAds.excludesLabel}</h3>
+      <ul>
+        {t.metaAds.excludes.map((item) => <li>{item}</li>)}
+      </ul>
+    </div>
+  </div>
+</section>
+
+<style>
+  .ads__grid {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    column-gap: var(--col-gap);
+    row-gap: var(--space-stack);
+  }
+
+  .ads__eyebrow {
+    grid-column: 1 / -1;
+  }
+
+  .ads__title {
+    grid-column: 1 / 8;
+    font-size: var(--text-2xl);
+    line-height: var(--leading-snug);
+  }
+
+  .ads__lede {
+    grid-column: 8 / 13;
+    font-size: var(--text-md);
+    color: var(--color-text-soft);
+    align-self: end;
+  }
+
+  .ads__visual {
+    grid-column: 8 / 13;
+    align-self: start;
+  }
+
+  .ads__visual figcaption {
+    margin-top: var(--space-3);
+    font-size: 0.75rem;
+    color: var(--color-text-muted);
+    max-width: 36ch;
+  }
+
+  .ads__spend {
+    grid-column: 1 / 8;
+    padding: var(--space-inset-lg);
+  }
+
+  .ads__spend p:last-child {
+    margin-top: var(--space-3);
+    max-width: 72ch;
+    color: var(--color-text-soft);
+  }
+
+  .ads__col {
+    grid-column: 1 / 7;
+    padding: var(--space-inset-lg);
+  }
+
+  .ads__col--out {
+    grid-column: 7 / 13;
+  }
+
+  .ads__col ul {
+    margin-top: var(--space-4);
+  }
+
+  .ads__col li {
+    padding-block: var(--space-3);
+    border-bottom: 1px solid var(--color-rule);
+    font-size: var(--text-sm);
+    line-height: 1.5;
+    color: var(--color-text-soft);
+  }
+
+  .ads__col li:last-child {
+    border-bottom: 0;
+    padding-bottom: 0;
+  }
+
+  @media (max-width: 900px) {
+    .ads__title,
+    .ads__lede,
+    .ads__visual,
+    .ads__spend,
+    .ads__col,
+    .ads__col--out {
+      grid-column: 1 / -1;
+      grid-row: auto;
+    }
+  }
+</style>

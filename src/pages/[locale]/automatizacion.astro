@@ -1,0 +1,10 @@
+---
+import { localeStaticPathsFor } from '@/i18n';
+import AutomatizacionPage from '@/templates/AutomatizacionPage.astro';
+
+export function getStaticPaths() {
+  return localeStaticPathsFor(['es']);
+}
+---
+
+<AutomatizacionPage />

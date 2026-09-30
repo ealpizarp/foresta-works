@@ -1,0 +1,125 @@
+---
+import { hrefLang, LOCALE_COOKIE, locales, switchLocalePath, useI18n, type Locale } from '@/i18n';
+
+interface Props {
+  locale?: Locale;
+}
+
+const { locale: localeProp } = Astro.props;
+const { locale, t } = useI18n(Astro, localeProp);
+const pathname = Astro.url.pathname;
+---
+
+<nav class="lang-switch" aria-label={t.nav.language}>
+  {
+    locales.map((code) => {
+      const href = switchLocalePath(pathname, code);
+      const current = code === locale;
+      const label = code === 'es' ? t.nav.languageEs : t.nav.languageEn;
+      const letters = code.toUpperCase();
+
+      if (current) {
+        return (
+          <span
+            class="lang-switch__opt"
+            lang={code}
+            aria-current="true"
+            aria-label={label}
+          >
+            {letters}
+          </span>
+        );
+      }
+
+      return (
+        <a
+          class="lang-switch__opt"
+          href={href}
+          lang={code}
+          hreflang={hrefLang(code)}
+          aria-label={label}
+          data-lang-switch={code}
+        >
+          {letters}
+        </a>
+      );
+    })
+  }
+</nav>
+
+<script is:inline define:vars={{ cookieName: LOCALE_COOKIE }}>
+  (function () {
+    if (window.__fwLangSwitch) return;
+    window.__fwLangSwitch = true;
+
+    document.addEventListener('click', function (event) {
+      var node = event.target;
+      if (node && node.nodeType !== 1) node = node.parentElement;
+      var link = node && node.closest ? node.closest('[data-lang-switch]') : null;
+      if (!link) return;
+      var next = link.getAttribute('data-lang-switch');
+      if (!next) return;
+      var secure = location.protocol === 'https:' ? '; Secure' : '';
+      document.cookie = cookieName + '=' + next + '; Path=/; Max-Age=31536000; SameSite=Lax' + secure;
+      try {
+        localStorage.setItem(cookieName, next);
+      } catch (e) {}
+    });
+  })();
+</script>
+
+<style>
+  .lang-switch {
+    display: inline-flex;
+    flex: none;
+    align-items: center;
+    padding: 0.16rem;
+    border: 1px solid var(--color-rule-strong);
+    border-radius: var(--radius-md);
+    background: transparent;
+  }
+
+  .lang-switch__opt {
+    min-width: 2.15rem;
+    padding: 0.28rem 0.58rem;
+    font-size: 0.68rem;
+    font-weight: var(--weight-semibold);
+    letter-spacing: 0.1em;
+    line-height: 1;
+    text-align: center;
+    color: var(--color-text-muted);
+    border-radius: var(--radius-sm);
+    transition:
+      color var(--duration-fast) var(--ease-out),
+      background-color var(--duration-fast) var(--ease-out),
+      box-shadow var(--duration-fast) var(--ease-out);
+  }
+
+  a.lang-switch__opt:hover,
+  a.lang-switch__opt:focus-visible {
+    color: var(--color-text);
+  }
+
+  a.lang-switch__opt:focus-visible {
+    outline: 2px solid var(--color-focus);
+    outline-offset: 2px;
+  }
+
+  .lang-switch__opt[aria-current='true'] {
+    color: var(--color-on-primary);
+    background: var(--color-primary);
+  }
+
+  @media (max-width: 900px) {
+    .lang-switch {
+      min-height: 2.75rem;
+    }
+
+    .lang-switch__opt {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 2.5rem;
+    }
+  }
+</style>

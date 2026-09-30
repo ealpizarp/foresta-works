@@ -1,0 +1,133 @@
+---
+import { Font, getImage } from 'astro:assets';
+import SiteHeader from '@/components/SiteHeader.astro';
+import SiteFooter from '@/components/SiteFooter.astro';
+import { site } from '@/data/site';
+import { localeAlternates, xDefaultHref } from '@/data/navigation';
+import { businessJsonLd, serializeJsonLd } from '@/data/structured-data';
+import {
+  hrefLang,
+  htmlLang,
+  LOCALE_COOKIE,
+  toOpenGraphLocale,
+  useI18n,
+} from '@/i18n';
+import defaultOgSource from '@/assets/images/og-shop.jpg';
+import '@/styles/global.css';
+
+interface Props {
+  /** Page title without the site name; the layout appends it. */
+  title: string;
+  /** Meta description written for this page's actual content. */
+  description: string;
+  /** Emit the business structured data. Only the home page should do this. */
+  withBusinessSchema?: boolean;
+  /** Additional JSON-LD graphs (e.g. breadcrumbs on inner pages). */
+  extraJsonLd?: Record<string, unknown>[];
+  /** Keep the page out of search results (e.g. 404). */
+  noindex?: boolean;
+}
+
+const { title, description, withBusinessSchema = false, extraJsonLd = [], noindex = false } = Astro.props;
+
+if (!Astro.site) {
+  throw new Error('`site` must be set in astro.config.ts to build canonical URLs.');
+}
+
+const { locale, t } = useI18n(Astro);
+const lang = htmlLang(locale);
+const canonicalUrl = new URL(Astro.url.pathname, Astro.site);
+const fullTitle = `${title} · ${site.name}`;
+const alternates = localeAlternates(Astro.url.pathname);
+const defaultAlternate = new URL(xDefaultHref(Astro.url.pathname), Astro.site);
+
+// 1200×630 is the Open Graph / Twitter large-card size.
+const ogImage = await getImage({
+  src: defaultOgSource,
+  width: 1200,
+  height: 630,
+  fit: 'cover',
+  format: 'jpeg',
+  quality: 80,
+});
+const ogImageUrl = new URL(ogImage.src, Astro.site);
+
+const jsonLdBlocks = [
+  ...(withBusinessSchema ? [businessJsonLd(Astro.site, ogImageUrl, locale)] : []),
+  ...extraJsonLd,
+];
+---
+
+<!doctype html>
+<html lang={lang}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalUrl.href} />
+    {
+      alternates.map((item) => (
+        <link
+          rel="alternate"
+          hreflang={hrefLang(item.locale)}
+          href={new URL(item.href, Astro.site).href}
+        />
+      ))
+    }
+    <link rel="alternate" hreflang="x-default" href={defaultAlternate.href} />
+    {noindex && <meta name="robots" content="noindex, nofollow" />}
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={site.name} />
+    <meta property="og:locale" content={toOpenGraphLocale(locale)} />
+    {
+      alternates
+        .filter((item) => item.locale !== locale)
+        .map((item) => <meta property="og:locale:alternate" content={toOpenGraphLocale(item.locale)} />)
+    }
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonicalUrl.href} />
+    <meta property="og:image" content={ogImageUrl.href} />
+    <meta property="og:image:width" content={String(ogImage.attributes.width)} />
+    <meta property="og:image:height" content={String(ogImage.attributes.height)} />
+    <meta property="og:image:alt" content={t.meta.ogImageAlt} />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={fullTitle} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImageUrl.href} />
+    <meta name="twitter:image:alt" content={t.meta.ogImageAlt} />
+
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="manifest" href={locale === 'en' ? '/en.webmanifest' : '/site.webmanifest'} />
+    <slot name="head" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+    <meta name="theme-color" content="#f4f2ec" />
+
+    <Font cssVariable="--font-serif" preload={[{ weight: 500, style: 'normal' }]} />
+    <Font cssVariable="--font-sans" preload={[{ weight: 500, style: 'normal' }]} />
+
+    {jsonLdBlocks.map((block) => (
+      <script is:inline type="application/ld+json" set:html={serializeJsonLd(block)} />
+    ))}
+  </head>
+  <body>
+    <a class="skip-link" href="#contenido">{t.meta.skipToContent}</a>
+    <SiteHeader />
+    <main id="contenido">
+      <slot />
+    </main>
+    <SiteFooter />
+    <script is:inline define:vars={{ cookieName: LOCALE_COOKIE, locale }}>
+      (function () {
+        var secure = location.protocol === 'https:' ? '; Secure' : '';
+        document.cookie = cookieName + '=' + locale + '; Path=/; Max-Age=31536000; SameSite=Lax' + secure;
+        try {
+          localStorage.setItem(cookieName, locale);
+        } catch (e) {}
+      })();
+    </script>
+  </body>
+</html>

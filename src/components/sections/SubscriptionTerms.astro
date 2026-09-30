@@ -1,0 +1,106 @@
+---
+/** Billing, commitment, cancellation, and renewal — the same rules for every plan. */
+import { interpolate, useI18n } from '@/i18n';
+import { subscriptionNumbers } from '@/data/services';
+
+const { t } = useI18n(Astro);
+const billingVars = {
+  months: String(subscriptionNumbers.recommendedMonths),
+  days: String(subscriptionNumbers.noticeDays),
+  hour: String(subscriptionNumbers.extrasHourUsd),
+};
+---
+
+<section class="section section--page terms" id="terms" aria-labelledby="terms-title">
+  <div class="container">
+    <div class="terms__intro">
+      <p class="eyebrow">
+        <span class="eyebrow__num">03</span>
+        {t.services.termsEyebrow}
+      </p>
+      <h2 class="terms__title" id="terms-title">{t.services.termsTitle}</h2>
+      <p class="terms__lede text-soft">{t.services.termsLede}</p>
+    </div>
+
+    <ol class="terms__grid">
+      <li class="terms__item panel reveal">
+        <h3 class="label">{t.services.terms.commitment}</h3>
+        <p>{interpolate(t.services.commitment, billingVars)}</p>
+      </li>
+      <li class="terms__item panel reveal">
+        <h3 class="label">{t.services.terms.cancellation}</h3>
+        <p>{interpolate(t.services.cancellation, billingVars)}</p>
+      </li>
+      <li class="terms__item panel reveal">
+        <h3 class="label">{t.services.terms.renewal}</h3>
+        <p>{t.services.renewal}</p>
+      </li>
+      <li class="terms__item panel reveal">
+        <h3 class="label">{t.services.terms.extras}</h3>
+        <p>{interpolate(t.services.extras, billingVars)}</p>
+      </li>
+    </ol>
+  </div>
+</section>
+
+<style>
+  .terms__intro {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    column-gap: var(--col-gap);
+    row-gap: var(--space-4);
+    margin-bottom: var(--space-6);
+  }
+
+  .terms__intro .eyebrow {
+    grid-column: 1 / -1;
+  }
+
+  .terms__title {
+    grid-column: 1 / 8;
+    font-size: var(--text-2xl);
+    line-height: var(--leading-snug);
+  }
+
+  .terms__lede {
+    grid-column: 8 / 13;
+    align-self: end;
+    font-size: var(--text-sm);
+  }
+
+  .terms__grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--col-gap);
+  }
+
+  .terms__item {
+    padding: var(--space-inset);
+  }
+
+  .terms__item p {
+    margin-top: var(--space-3);
+    font-size: var(--text-sm);
+    color: var(--color-text-soft);
+    max-width: 36ch;
+  }
+
+  @media (max-width: 1100px) {
+    .terms__grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 900px) {
+    .terms__title,
+    .terms__lede {
+      grid-column: 1 / -1;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .terms__grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

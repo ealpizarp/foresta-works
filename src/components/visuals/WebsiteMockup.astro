@@ -1,0 +1,715 @@
+---
+/**
+ * Decorative shop for the home hero. Not a client screenshot, a live shop,
+ * or a promised result.
+ *
+ * The large photograph is an open-air tropical room by Alexander Davies,
+ * Unsplash License (https://unsplash.com/license):
+ * https://unsplash.com/photos/iS1TleKIWlo
+ * Cropped locally for the hero window. It is not Foresta client work.
+ * Smaller stills are the same license, stored in public/images/mockup/.
+ */
+import placeImage from '@/assets/images/open-air-room.jpg';
+---
+
+<div class="studio" aria-hidden="true">
+  <div class="studio__chrome">
+    <span class="studio__dots">
+      <i></i>
+      <i></i>
+      <i></i>
+    </span>
+    <span class="studio__url">
+      <span class="studio__lock"></span>
+      <span class="studio__url-bar"></span>
+    </span>
+    <span class="studio__win">
+      <i></i>
+      <i></i>
+    </span>
+  </div>
+
+  <div class="studio__page">
+    <header class="shop-nav">
+      <span class="shop-nav__brand"><i></i></span>
+      <span class="shop-nav__links">
+        <i></i>
+        <i></i>
+        <i></i>
+      </span>
+      <span class="shop-nav__tools">
+        <span class="shop-nav__search"></span>
+        <span class="shop-nav__bag">
+          <svg viewBox="0 0 24 24" fill="none">
+            <rect x="6.25" y="8.25" width="11.5" height="11.5" rx="2.2" stroke="currentColor" stroke-width="1.5"></rect>
+            <path d="M9.25 8.25V7.1a2.75 2.75 0 0 1 5.5 0v1.15" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"></path>
+          </svg>
+          <b></b>
+        </span>
+      </span>
+    </header>
+
+    <section class="pdp">
+      <div class="pdp__gallery">
+        <div class="shot shot--hero">
+          <img
+            class="shot__photo"
+            src={placeImage.src}
+            alt=""
+            width={placeImage.width}
+            height={placeImage.height}
+            loading="eager"
+            decoding="async"
+          />
+          <span class="shot__light"></span>
+          <span class="shot__chip">
+            <svg viewBox="0 0 24 24" fill="none">
+              <path
+                d="M12 19s-6.5-4.1-6.5-8.4A3.2 3.2 0 0 1 12 7.6a3.2 3.2 0 0 1 6.5 3C18.5 14.9 12 19 12 19Z"
+                stroke="currentColor"
+                stroke-width="1.6"
+                stroke-linejoin="round"
+              ></path>
+            </svg>
+          </span>
+        </div>
+        <div class="pdp__thumbs">
+          <span class="shot shot--thumb shot--chair is-active">
+            <img
+              class="shot__photo"
+              src="/images/mockup/chair.jpg"
+              alt=""
+              width="1300"
+              height="1300"
+              loading="lazy"
+              decoding="async"
+            />
+          </span>
+          <span class="shot shot--thumb shot--chrome">
+            <img
+              class="shot__photo"
+              src="/images/mockup/chrome.jpg"
+              alt=""
+              width="720"
+              height="720"
+              loading="lazy"
+              decoding="async"
+            />
+          </span>
+          <span class="shot shot--thumb shot--cube">
+            <img
+              class="shot__photo"
+              src="/images/mockup/cube.jpg"
+              alt=""
+              width="920"
+              height="920"
+              loading="lazy"
+              decoding="async"
+            />
+          </span>
+        </div>
+      </div>
+
+      <div class="pdp__detail">
+        <span class="bar bar--kicker"></span>
+        <span class="bar bar--title"></span>
+        <span class="bar bar--title bar--title-short"></span>
+        <span class="stars">
+          <svg viewBox="0 0 12 12"><path d="M6 1.2 7.4 4.4 11 4.8 8.4 7.1 9.2 10.7 6 8.9 2.8 10.7 3.6 7.1 1 4.8 4.6 4.4Z"></path></svg>
+          <svg viewBox="0 0 12 12"><path d="M6 1.2 7.4 4.4 11 4.8 8.4 7.1 9.2 10.7 6 8.9 2.8 10.7 3.6 7.1 1 4.8 4.6 4.4Z"></path></svg>
+          <svg viewBox="0 0 12 12"><path d="M6 1.2 7.4 4.4 11 4.8 8.4 7.1 9.2 10.7 6 8.9 2.8 10.7 3.6 7.1 1 4.8 4.6 4.4Z"></path></svg>
+          <svg viewBox="0 0 12 12"><path d="M6 1.2 7.4 4.4 11 4.8 8.4 7.1 9.2 10.7 6 8.9 2.8 10.7 3.6 7.1 1 4.8 4.6 4.4Z"></path></svg>
+          <svg viewBox="0 0 12 12"><path d="M6 1.2 7.4 4.4 11 4.8 8.4 7.1 9.2 10.7 6 8.9 2.8 10.7 3.6 7.1 1 4.8 4.6 4.4Z"></path></svg>
+          <b></b>
+        </span>
+        <span class="bar bar--price"></span>
+        <span class="swatches">
+          <i class="swatch swatch--steel"></i>
+          <i class="swatch swatch--leather"></i>
+          <i class="swatch swatch--graphite"></i>
+          <i class="swatch swatch--teal"></i>
+        </span>
+        <span class="bag-cta"><b></b></span>
+        <span class="meta">
+          <i></i>
+          <i></i>
+        </span>
+      </div>
+    </section>
+
+    <section class="rail">
+      <article>
+        <span class="shot shot--lamp">
+          <img
+            class="shot__photo"
+            src="/images/mockup/lamp.jpg"
+            alt=""
+            width="900"
+            height="1120"
+            loading="lazy"
+            decoding="async"
+          />
+        </span>
+        <span class="bar"></span>
+        <span class="bar bar--short"></span>
+      </article>
+      <article>
+        <span class="shot shot--table">
+          <img
+            class="shot__photo"
+            src="/images/mockup/table.jpg"
+            alt=""
+            width="1700"
+            height="1700"
+            loading="lazy"
+            decoding="async"
+          />
+        </span>
+        <span class="bar"></span>
+        <span class="bar bar--short"></span>
+      </article>
+      <article>
+        <span class="shot shot--dining">
+          <img
+            class="shot__photo"
+            src="/images/mockup/dining.jpg"
+            alt=""
+            width="1470"
+            height="980"
+            loading="lazy"
+            decoding="async"
+          />
+        </span>
+        <span class="bar"></span>
+        <span class="bar bar--short"></span>
+      </article>
+      <article class="rail__last">
+        <span class="shot shot--stool">
+          <img
+            class="shot__photo"
+            src="/images/mockup/cube.jpg"
+            alt=""
+            width="920"
+            height="920"
+            loading="lazy"
+            decoding="async"
+          />
+        </span>
+        <span class="bar"></span>
+        <span class="bar bar--short"></span>
+      </article>
+    </section>
+  </div>
+</div>
+
+<style>
+  .studio {
+    --studio-radius: 22px;
+    container-type: inline-size;
+    overflow: hidden;
+    border-radius: var(--studio-radius);
+    background: var(--color-chrome);
+    border: 1px solid rgb(255 255 255 / 0.12);
+    box-shadow: var(--shadow-stage);
+    pointer-events: none;
+    user-select: none;
+  }
+
+  .studio__chrome {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    gap: 0.85rem;
+    padding: 0.62rem 0.95rem;
+    background: linear-gradient(180deg, #2a403b, var(--color-chrome));
+    border-bottom: 1px solid rgb(255 255 255 / 0.06);
+  }
+
+  .studio__dots {
+    display: flex;
+    gap: 0.32rem;
+  }
+
+  .studio__dots i {
+    width: 0.48rem;
+    height: 0.48rem;
+    border-radius: 50%;
+    background: rgb(245 243 238 / 0.18);
+  }
+
+  .studio__dots i:nth-child(1) {
+    background: rgb(232 180 160 / 0.55);
+  }
+
+  .studio__dots i:nth-child(2) {
+    background: rgb(194 180 150 / 0.7);
+  }
+
+  .studio__dots i:nth-child(3) {
+    background: rgb(127 212 200 / 0.55);
+  }
+
+  .studio__url {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.45rem;
+    min-height: 1.45rem;
+    padding: 0.18rem 0.9rem;
+    border-radius: var(--radius-pill);
+    background: rgb(0 0 0 / 0.28);
+  }
+
+  .studio__url-bar {
+    display: block;
+    width: min(34%, 10rem);
+    height: 0.28rem;
+    border-radius: 999px;
+    background: rgb(245 243 238 / 0.22);
+  }
+
+  .studio__lock {
+    width: 0.42rem;
+    height: 0.42rem;
+    border: 1.4px solid rgb(127 212 200 / 0.7);
+    border-radius: 2px 2px 1px 1px;
+    position: relative;
+  }
+
+  .studio__lock::before {
+    content: '';
+    position: absolute;
+    width: 0.28rem;
+    height: 0.22rem;
+    left: 50%;
+    top: -0.16rem;
+    transform: translateX(-50%);
+    border: 1.4px solid rgb(127 212 200 / 0.7);
+    border-bottom: 0;
+    border-radius: 99px 99px 0 0;
+  }
+
+  .studio__win {
+    display: flex;
+    gap: 0.45rem;
+    opacity: 0.35;
+  }
+
+  .studio__win i {
+    width: 0.7rem;
+    height: 0.7rem;
+    border-radius: 4px;
+    border: 1px solid rgb(245 243 238 / 0.45);
+  }
+
+  .studio__page {
+    background:
+      radial-gradient(ellipse 55% 36% at 88% 0%, rgb(15 110 102 / 0.09), transparent 52%),
+      linear-gradient(180deg, #fffcf7 0%, #f3f0e9 100%);
+    padding: 0.7rem 0.75rem 0.85rem;
+  }
+
+  .shop-nav {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: clamp(0.95rem, 1.8vw, 1.35rem);
+  }
+
+  .shop-nav__brand i {
+    display: block;
+    width: 0.48rem;
+    height: 0.48rem;
+    border-radius: 50%;
+    background: var(--color-primary);
+    box-shadow: 0 0 0 3px rgb(15 110 102 / 0.16);
+  }
+
+  .shop-nav__links {
+    display: flex;
+    gap: clamp(0.85rem, 1.8vw, 1.4rem);
+    margin-left: 0.4rem;
+  }
+
+  .shop-nav__links i {
+    display: block;
+    width: 2.1rem;
+    height: 0.28rem;
+    border-radius: 999px;
+    background: rgb(21 35 32 / 0.12);
+  }
+
+  .shop-nav__links i:nth-child(2) {
+    width: 1.55rem;
+    background: rgb(21 35 32 / 0.22);
+  }
+
+  .shop-nav__tools {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-left: auto;
+  }
+
+  .shop-nav__search {
+    width: 0.85rem;
+    height: 0.85rem;
+    border: 1.4px solid rgb(21 35 32 / 0.28);
+    border-radius: 50%;
+    position: relative;
+  }
+
+  .shop-nav__search::after {
+    content: '';
+    position: absolute;
+    width: 0.38rem;
+    height: 1.4px;
+    right: -0.18rem;
+    bottom: 0.02rem;
+    background: rgb(21 35 32 / 0.28);
+    transform: rotate(40deg);
+    transform-origin: left center;
+  }
+
+  .shop-nav__bag {
+    position: relative;
+    flex: none;
+    width: 1.15rem;
+    height: 1.15rem;
+    color: var(--color-text);
+  }
+
+  .shop-nav__bag svg {
+    display: block;
+    width: 1.15rem;
+    height: 1.15rem;
+  }
+
+  .shop-nav__bag b {
+    position: absolute;
+    top: -0.14rem;
+    right: -0.2rem;
+    width: 0.4rem;
+    height: 0.4rem;
+    border-radius: 50%;
+    background: var(--color-primary);
+    box-shadow: 0 0 0 2px #fffcf7;
+  }
+
+  .pdp {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0.85rem;
+    align-items: stretch;
+    margin-bottom: clamp(1rem, 1.8vw, 1.4rem);
+  }
+
+  .pdp__gallery {
+    display: grid;
+    gap: 0.55rem;
+  }
+
+  .shot {
+    position: relative;
+    overflow: hidden;
+    border-radius: 16px;
+    background: #d8dbe0;
+    border: 1px solid rgb(21 35 32 / 0.06);
+  }
+
+  .shot img {
+    position: absolute;
+    inset: 0;
+    display: block;
+    width: 100%;
+    height: 100%;
+    max-width: none;
+    object-fit: cover;
+    object-position: 50% 50%;
+  }
+
+  .shot--hero {
+    height: auto;
+    aspect-ratio: 4 / 3;
+    border-radius: 18px;
+  }
+
+  .shot--hero img {
+    object-position: 50% 50%;
+  }
+
+  .shot__light {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background: linear-gradient(180deg, transparent 62%, rgb(28 53 48 / 0.08));
+    pointer-events: none;
+  }
+
+  .shot__chip {
+    position: absolute;
+    right: 0.85rem;
+    bottom: 0.85rem;
+    z-index: 2;
+    width: 2.05rem;
+    height: 2.05rem;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    color: var(--color-text-soft);
+    background: var(--color-glass-strong);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border: 1px solid rgb(21 35 32 / 0.08);
+  }
+
+  .shot__chip svg {
+    width: 0.95rem;
+    height: 0.95rem;
+  }
+
+  .pdp__thumbs {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.45rem;
+  }
+
+  .shot--thumb {
+    height: clamp(4.8rem, 9.2vw, 6.6rem);
+  }
+
+  .shot--thumb.is-active {
+    box-shadow: 0 0 0 1.5px var(--color-primary);
+  }
+
+  .shot--chair img {
+    object-position: 42% 58%;
+  }
+
+  .shot--chrome img {
+    object-position: 48% 42%;
+  }
+
+  .shot--cube img,
+  .shot--stool img {
+    object-position: 58% 62%;
+  }
+
+  .pdp__detail {
+    display: none;
+  }
+
+  .bar {
+    display: block;
+    height: 0.34rem;
+    width: 78%;
+    border-radius: 999px;
+    background: rgb(21 35 32 / 0.12);
+  }
+
+  .bar--kicker {
+    width: 2.8rem;
+    height: 0.26rem;
+    background: rgb(15 110 102 / 0.32);
+  }
+
+  .bar--title {
+    height: 0.88rem;
+    width: 94%;
+    background: rgb(21 35 32 / 0.2);
+  }
+
+  .bar--title-short {
+    width: 62%;
+    height: 0.88rem;
+    margin-top: -0.18rem;
+  }
+
+  .stars {
+    display: flex;
+    align-items: center;
+    gap: 0.18rem;
+    margin-top: 0.1rem;
+  }
+
+  .stars svg {
+    width: 0.72rem;
+    height: 0.72rem;
+    fill: #0f6e66;
+  }
+
+  .stars svg:last-of-type {
+    fill: rgb(15 110 102 / 0.28);
+  }
+
+  .stars b {
+    width: 2.1rem;
+    height: 0.26rem;
+    margin-left: 0.25rem;
+    border-radius: 999px;
+    background: rgb(21 35 32 / 0.1);
+  }
+
+  .bar--price {
+    width: 4.2rem;
+    height: 0.62rem;
+    margin-top: 0.12rem;
+    background: rgb(21 35 32 / 0.18);
+  }
+
+  .bar--short {
+    width: 42%;
+  }
+
+  .swatches {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: 0.2rem;
+  }
+
+  .swatch {
+    width: 1.05rem;
+    height: 1.05rem;
+    border-radius: 50%;
+    box-shadow: inset 0 0 0 1px rgb(21 35 32 / 0.12);
+  }
+
+  .swatch--steel {
+    background: linear-gradient(145deg, #f3f4f6, #9aa0a8 55%, #d7dbe0);
+    box-shadow: 0 0 0 2px #fffcf7, 0 0 0 3.5px var(--color-primary);
+  }
+
+  .swatch--leather {
+    background: #8d5b3a;
+  }
+
+  .swatch--graphite {
+    background: #3a3f44;
+  }
+
+  .swatch--teal {
+    background: #0f6e66;
+  }
+
+  .bag-cta {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    margin-top: 0.45rem;
+    padding: 0.82rem 1rem;
+    border-radius: var(--radius-pill);
+    background: var(--color-primary);
+    box-shadow: 0 10px 24px -12px rgb(11 87 81 / 0.7);
+  }
+
+  .bag-cta b {
+    display: block;
+    width: 5.2rem;
+    height: 0.34rem;
+    border-radius: 999px;
+    background: rgb(255 252 247 / 0.5);
+  }
+
+  .meta {
+    display: grid;
+    gap: 0.42rem;
+    width: 100%;
+    margin-top: 0.2rem;
+  }
+
+  .meta i {
+    display: block;
+    height: 0.3rem;
+    width: 72%;
+    border-radius: 999px;
+    background: rgb(21 35 32 / 0.08);
+  }
+
+  .meta i:last-child {
+    width: 54%;
+  }
+
+  .rail {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: clamp(0.5rem, 1.1vw, 0.85rem);
+  }
+
+  .rail article {
+    display: grid;
+    gap: 0.4rem;
+  }
+
+  .rail .shot {
+    min-height: clamp(5.4rem, 9.8vw, 7rem);
+    aspect-ratio: 1;
+    box-shadow: var(--shadow-sm);
+  }
+
+  .rail .bar {
+    width: 70%;
+    height: 0.28rem;
+  }
+
+  .shot--lamp img {
+    object-position: 48% 34%;
+  }
+
+  .shot--table img {
+    object-position: 42% 48%;
+  }
+
+  .shot--dining img {
+    object-position: 50% 62%;
+  }
+
+  @container (max-width: 820px) {
+    .rail {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .rail article.rail__last {
+      display: none;
+    }
+  }
+
+  @container (max-width: 720px) {
+    .shop-nav__links {
+      display: none;
+    }
+
+    .pdp {
+      grid-template-columns: 1fr;
+    }
+
+    .shot--hero {
+      height: auto;
+    }
+  }
+
+  @container (max-width: 480px) {
+    .pdp__thumbs,
+    .stars,
+    .meta,
+    .rail {
+      display: none;
+    }
+
+    .shop-nav__search {
+      display: none;
+    }
+
+    .shot--hero {
+      height: auto;
+    }
+  }
+
+  @media (prefers-reduced-transparency: reduce) {
+    .shot__chip {
+      background: var(--color-paper);
+      backdrop-filter: none;
+      -webkit-backdrop-filter: none;
+    }
+  }
+</style>

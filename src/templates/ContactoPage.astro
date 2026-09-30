@@ -1,0 +1,25 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import ContactPanel from '@/components/sections/ContactPanel.astro';
+import PageHeader from '@/components/ui/PageHeader.astro';
+import PageNav from '@/components/ui/PageNav.astro';
+import { breadcrumbJsonLd } from '@/data/structured-data';
+import { routes, useI18n } from '@/i18n';
+
+if (!Astro.site) {
+  throw new Error('`site` must be set in astro.config.ts to build canonical URLs.');
+}
+
+const { locale, t, path } = useI18n(Astro);
+const meta = t.pages.contacto;
+---
+
+<BaseLayout
+  title={meta.title}
+  description={meta.description}
+  extraJsonLd={[breadcrumbJsonLd(Astro.site, [{ name: meta.eyebrow, path: path(routes.contacto) }], locale)]}
+>
+  <PageHeader eyebrow={meta.eyebrow} title={meta.heading} lede={meta.lede} />
+  <ContactPanel />
+  <PageNav />
+</BaseLayout>

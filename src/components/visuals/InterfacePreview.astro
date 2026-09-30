@@ -1,0 +1,582 @@
+---
+/**
+ * Decorative product-style UI. These compositions show the kind of work
+ * Foresta Builds — they are not screenshots of a client, a live product,
+ * or promised results.
+ */
+import { useI18n } from '@/i18n';
+
+interface Props {
+  kind: 'site' | 'shop' | 'chat' | 'report' | 'search';
+  size?: 'hero' | 'card' | 'panel';
+}
+
+const { kind, size = 'panel' } = Astro.props;
+const isChat = kind === 'chat';
+const { t } = useI18n(Astro);
+---
+
+<div class:list={['preview', `preview--${kind}`, `preview--${size}`]} aria-hidden="true">
+  {isChat ? (
+    <div class="phone">
+      <div class="phone__notch"></div>
+      <div class="phone__status">
+        <span>WhatsApp</span>
+        <span>09:41</span>
+      </div>
+      <div class="phone__thread">
+        {t.mockup.chat.map((line, index) => (
+          <p class:list={['bubble', index % 2 === 0 ? 'bubble--in' : 'bubble--out']}>{line}</p>
+        ))}
+      </div>
+      <div class="phone__composer">
+        <span>{t.mockup.composer}</span>
+      </div>
+    </div>
+  ) : (
+    <div class="browser">
+      <div class="browser__bar">
+        <span class="browser__dots">
+          <i></i>
+          <i></i>
+          <i></i>
+        </span>
+        <span class="browser__url">{t.mockup.url}</span>
+      </div>
+
+      {kind === 'site' && (
+        <div class="screen screen--site">
+          <div class="site-nav">
+            <span class="site-mark"></span>
+            <span></span>
+            <span></span>
+            <span class="site-cta"></span>
+          </div>
+          <div class="site-hero">
+            <div class="site-hero__copy">
+              <span class="block block--lg"></span>
+              <span class="block"></span>
+              <span class="block block--sm"></span>
+            </div>
+            <div class="site-hero__media"></div>
+          </div>
+          <div class="site-row">
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+        </div>
+      )}
+
+      {kind === 'shop' && (
+        <div class="screen screen--shop">
+          <div class="site-nav">
+            <span class="site-mark"></span>
+            <span></span>
+            <span class="site-cta"></span>
+          </div>
+          <div class="shop-grid">
+            <article>
+              <div class="thumb"></div>
+              <span class="block"></span>
+              <span class="block block--sm"></span>
+            </article>
+            <article>
+              <div class="thumb thumb--alt"></div>
+              <span class="block"></span>
+              <span class="block block--sm"></span>
+            </article>
+            <article>
+              <div class="thumb thumb--deep"></div>
+              <span class="block"></span>
+              <span class="block block--sm"></span>
+            </article>
+          </div>
+        </div>
+      )}
+
+      {kind === 'report' && (
+        <div class="screen screen--report">
+          <p class="report-kicker">{t.mockup.reportKicker}</p>
+          <div class="metrics">
+            <div>
+              <span class="label">{t.mockup.investment}</span>
+              <span class="dash"></span>
+            </div>
+            <div>
+              <span class="label">{t.mockup.conversations}</span>
+              <span class="dash"></span>
+            </div>
+            <div>
+              <span class="label">{t.mockup.nextStep}</span>
+              <span class="dash"></span>
+            </div>
+          </div>
+          <div class="bars" role="presentation">
+            <span style="--h: 42%"></span>
+            <span style="--h: 68%"></span>
+            <span style="--h: 55%"></span>
+            <span style="--h: 80%"></span>
+            <span style="--h: 46%"></span>
+            <span style="--h: 72%"></span>
+          </div>
+        </div>
+      )}
+
+      {kind === 'search' && (
+        <div class="screen screen--search">
+          <div class="query">
+            <span class="query__dot"></span>
+            <span>{t.mockup.query}</span>
+          </div>
+          <div class="fact">
+            <span class="fact__title"></span>
+            <span class="fact__line"></span>
+            <span class="fact__line fact__line--short"></span>
+            <ul>
+              {t.mockup.chips.map((chip) => <li>{chip}</li>)}
+            </ul>
+            <div class="fact__place"></div>
+          </div>
+        </div>
+      )}
+    </div>
+  )}
+</div>
+
+<style>
+  .preview {
+    --preview-radius: 18px;
+    pointer-events: none;
+    user-select: none;
+    contain: layout paint;
+  }
+
+  .preview--hero {
+    --preview-radius: 22px;
+  }
+
+  .preview--card {
+    --preview-radius: 14px;
+  }
+
+  .browser,
+  .phone {
+    overflow: hidden;
+    border-radius: var(--preview-radius);
+    box-shadow: var(--shadow-stage);
+    background: var(--color-stage);
+  }
+
+  .browser {
+    border: 1px solid rgb(255 255 255 / 0.1);
+  }
+
+  .browser__bar {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+    padding: 0.55rem 0.75rem;
+    background: var(--color-chrome);
+    border-bottom: 1px solid rgb(255 255 255 / 0.06);
+  }
+
+  .browser__dots {
+    display: flex;
+    gap: 0.28rem;
+  }
+
+  .browser__dots i {
+    width: 0.42rem;
+    height: 0.42rem;
+    border-radius: 50%;
+    background: rgb(245 243 238 / 0.22);
+  }
+
+  .browser__dots i:nth-child(2) {
+    background: rgb(127 212 200 / 0.55);
+  }
+
+  .browser__url {
+    flex: 1;
+    font-size: 0.62rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: rgb(245 243 238 / 0.45);
+    background: rgb(0 0 0 / 0.22);
+    border-radius: 999px;
+    padding: 0.22rem 0.7rem;
+  }
+
+  .screen {
+    background:
+      radial-gradient(ellipse 80% 60% at 100% 0%, rgb(15 110 102 / 0.22), transparent 50%),
+      linear-gradient(180deg, #f7f4ee, #efeae2);
+    padding: 0.7rem;
+  }
+
+  .preview--hero .screen {
+    padding: 0.95rem;
+    min-height: 19rem;
+  }
+
+  .preview--card .screen {
+    min-height: 7.4rem;
+    padding: 0.55rem;
+  }
+
+  .preview--panel .screen {
+    min-height: 12.5rem;
+  }
+
+  .preview--panel .browser {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
+
+  .preview--panel .screen--search {
+    flex: 1;
+  }
+
+  .site-nav {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    margin-bottom: 0.65rem;
+  }
+
+  .site-nav span {
+    height: 0.38rem;
+    width: 1.4rem;
+    border-radius: 999px;
+    background: rgb(21 35 32 / 0.12);
+  }
+
+  .site-mark {
+    width: 0.7rem !important;
+    height: 0.7rem !important;
+    border-radius: 50% !important;
+    background: var(--color-primary) !important;
+  }
+
+  .site-cta {
+    margin-left: auto;
+    width: 2.1rem !important;
+    background: rgb(15 110 102 / 0.35) !important;
+  }
+
+  .site-hero {
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 0.55rem;
+    margin-bottom: 0.55rem;
+  }
+
+  .site-hero__copy {
+    display: flex;
+    flex-direction: column;
+    gap: 0.32rem;
+    padding-top: 0.2rem;
+  }
+
+  .block {
+    display: block;
+    height: 0.38rem;
+    width: 88%;
+    border-radius: 999px;
+    background: rgb(21 35 32 / 0.16);
+  }
+
+  .block--lg {
+    height: 0.7rem;
+    width: 94%;
+    background: rgb(21 35 32 / 0.28);
+  }
+
+  .block--sm {
+    width: 46%;
+    background: rgb(15 110 102 / 0.35);
+  }
+
+  .site-hero__media,
+  .thumb {
+    border-radius: 10px;
+    background:
+      linear-gradient(145deg, rgb(31 59 52 / 0.55), rgb(15 110 102 / 0.35)),
+      linear-gradient(180deg, #c9c1b2, #8f8778);
+    min-height: 4.4rem;
+  }
+
+  .preview--card .site-hero__media {
+    min-height: 3.1rem;
+  }
+
+  .site-row,
+  .shop-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.4rem;
+  }
+
+  .site-row span,
+  .shop-grid article {
+    display: block;
+    border-radius: 8px;
+    background: rgb(255 252 247 / 0.7);
+    border: 1px solid rgb(21 35 32 / 0.06);
+    min-height: 2.1rem;
+  }
+
+  .shop-grid article {
+    padding: 0.35rem;
+    display: grid;
+    gap: 0.28rem;
+  }
+
+  .thumb {
+    min-height: 2.6rem;
+    border-radius: 7px;
+  }
+
+  .thumb--alt {
+    filter: saturate(0.7) brightness(1.08);
+  }
+
+  .thumb--deep {
+    filter: saturate(0.85) brightness(0.82);
+  }
+
+  .report-kicker {
+    font-size: 0.62rem;
+    font-weight: var(--weight-semibold);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgb(21 35 32 / 0.45);
+    margin-bottom: 0.7rem;
+  }
+
+  .metrics {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.4rem;
+    margin-bottom: 0.8rem;
+  }
+
+  .metrics div {
+    background: rgb(255 252 247 / 0.72);
+    border: 1px solid rgb(21 35 32 / 0.06);
+    border-radius: 10px;
+    padding: 0.45rem;
+    display: grid;
+    gap: 0.35rem;
+  }
+
+  .metrics .label {
+    font-size: 0.55rem;
+    letter-spacing: 0.08em;
+  }
+
+  .dash {
+    display: block;
+    height: 0.55rem;
+    width: 70%;
+    border-radius: 999px;
+    background: rgb(21 35 32 / 0.14);
+  }
+
+  .bars {
+    display: flex;
+    align-items: flex-end;
+    gap: 0.4rem;
+    height: 4.6rem;
+    padding: 0.4rem 0.2rem 0;
+  }
+
+  .bars span {
+    flex: 1;
+    height: var(--h);
+    border-radius: 6px 6px 2px 2px;
+    background: linear-gradient(180deg, rgb(15 110 102 / 0.55), rgb(15 110 102 / 0.22));
+  }
+
+  .query {
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+    padding: 0.45rem 0.65rem;
+    border-radius: 999px;
+    background: rgb(255 252 247 / 0.8);
+    border: 1px solid rgb(21 35 32 / 0.08);
+    font-size: 0.68rem;
+    color: rgb(21 35 32 / 0.5);
+    margin-bottom: 0.7rem;
+  }
+
+  .query__dot {
+    width: 0.42rem;
+    height: 0.42rem;
+    border-radius: 50%;
+    background: var(--color-primary);
+  }
+
+  .fact {
+    background: rgb(255 252 247 / 0.78);
+    border: 1px solid rgb(21 35 32 / 0.07);
+    border-radius: 12px;
+    padding: 0.75rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+
+  .fact__place {
+    flex: 1;
+    margin-top: 0.35rem;
+    min-height: 4.2rem;
+    border-radius: 8px;
+    background:
+      linear-gradient(145deg, rgb(31 59 52 / 0.28), rgb(15 110 102 / 0.18)),
+      repeating-linear-gradient(
+        -32deg,
+        transparent,
+        transparent 11px,
+        rgb(21 35 32 / 0.04) 11px,
+        rgb(21 35 32 / 0.04) 12px
+      );
+  }
+
+  .fact__title {
+    height: 0.7rem;
+    width: 58%;
+    border-radius: 999px;
+    background: rgb(21 35 32 / 0.28);
+  }
+
+  .fact__line {
+    height: 0.35rem;
+    width: 92%;
+    border-radius: 999px;
+    background: rgb(21 35 32 / 0.12);
+  }
+
+  .fact__line--short {
+    width: 64%;
+  }
+
+  .fact ul {
+    display: flex;
+    gap: 0.35rem;
+    margin-top: 0.3rem;
+  }
+
+  .fact li {
+    font-size: 0.55rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--color-primary-strong);
+    background: rgb(15 110 102 / 0.1);
+    padding: 0.18rem 0.4rem;
+    border-radius: 999px;
+  }
+
+  .phone {
+    display: flex;
+    flex-direction: column;
+    background:
+      radial-gradient(ellipse 80% 40% at 50% 0%, rgb(15 110 102 / 0.18), transparent 50%),
+      var(--color-stage);
+    border: 1px solid rgb(255 255 255 / 0.12);
+    position: relative;
+  }
+
+  .phone__notch {
+    position: absolute;
+    top: 0.45rem;
+    left: 50%;
+    width: 28%;
+    height: 0.38rem;
+    transform: translateX(-50%);
+    border-radius: 999px;
+    background: rgb(0 0 0 / 0.45);
+  }
+
+  .phone__status {
+    display: flex;
+    justify-content: space-between;
+    padding: 1.05rem 0.85rem 0.45rem;
+    font-size: 0.58rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: rgb(245 243 238 / 0.48);
+  }
+
+  .phone__thread {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    padding: 0.35rem 0.7rem 0.7rem;
+    flex: 1;
+  }
+
+  .bubble {
+    max-width: 82%;
+    margin: 0;
+    padding: 0.42rem 0.6rem;
+    border-radius: 12px;
+    font-size: 0.68rem;
+    line-height: 1.35;
+    color: var(--color-dark-text);
+  }
+
+  .bubble--in {
+    background: rgb(245 243 238 / 0.12);
+    border: 1px solid rgb(255 255 255 / 0.08);
+    align-self: flex-start;
+    border-bottom-left-radius: 4px;
+  }
+
+  .bubble--out {
+    background: rgb(15 110 102 / 0.72);
+    align-self: flex-end;
+    border-bottom-right-radius: 4px;
+  }
+
+  .phone__composer {
+    margin: 0 0.65rem 0.7rem;
+    padding: 0.42rem 0.7rem;
+    border-radius: 999px;
+    background: rgb(255 255 255 / 0.06);
+    border: 1px solid rgb(255 255 255 / 0.08);
+    font-size: 0.62rem;
+    color: rgb(245 243 238 / 0.38);
+  }
+
+  .preview--hero .phone {
+    min-height: 19.5rem;
+  }
+
+  .preview--card .phone {
+    min-height: 8.2rem;
+  }
+
+  .preview--card .phone__thread .bubble:nth-child(n + 3),
+  .preview--card .phone__composer,
+  .preview--card .phone__notch {
+    display: none;
+  }
+
+  .preview--card .phone__status {
+    padding-top: 0.55rem;
+  }
+
+  .preview--panel .phone {
+    min-height: 18rem;
+  }
+
+  @media (max-width: 600px) {
+    .preview--hero .phone {
+      min-height: 16rem;
+    }
+  }
+</style>
