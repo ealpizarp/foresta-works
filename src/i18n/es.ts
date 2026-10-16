@@ -4,9 +4,9 @@
  */
 export const es = {
   meta: {
-    siteShortDescription: 'Sitios web y automatización para pymes en Costa Rica',
+    siteShortDescription: 'Sitio, cuidado mensual y asistente de WhatsApp en Costa Rica',
     siteDescription:
-      'Le construimos un sitio web rápido que funciona y lo cuidamos por suscripción: mantenimiento, SEO, búsqueda con IA y, cuando ya vende, la gestión de anuncios en Facebook e Instagram. La pauta la paga usted a Meta. Para comercios, restaurantes, clínicas y servicios en Costa Rica.',
+      'Construimos el sitio de su negocio, lo cuidamos por suscripción y, cuando hace falta, un asistente de WhatsApp con alcance escrito. Para empresas y organizaciones en Costa Rica. La construcción se cotiza. La pauta, si la hay, la paga usted a Meta.',
     ogImageAlt:
       'Ilustración de una tienda en línea en un marco de navegador: ejemplo de oficio, no el sitio de un cliente.',
     skipToContent: 'Saltar al contenido',
@@ -62,17 +62,17 @@ export const es = {
       },
       contacto: {
         label: 'Contacto',
-        summary: 'Empecemos con una conversación.',
+        summary: 'Una conversación sobre su operación.',
       },
     },
   },
   pages: {
     servicios: {
-      title: 'Planes de suscripción para pymes en Costa Rica',
+      title: 'Suscripciones para el sitio y el asistente de WhatsApp',
       description:
-        'Arranque, Crecimiento e Inteligente: suscripciones con construcción única y mensualidad. Sitio web, SEO, búsqueda con IA, tienda, gestión de Meta Ads y asistente de WhatsApp. La pauta se paga a Meta, aparte.',
+        'Arranque, Crecimiento e Inteligente. La construcción y la mensualidad se confirman por escrito. Sitio, cuidado, tienda, gestión de anuncios y asistente de WhatsApp. La pauta se paga a Meta, aparte.',
       eyebrow: 'Servicios',
-      heading: 'Tres suscripciones, según la etapa de su negocio.',
+      heading: 'Qué incluye cada suscripción.',
       lede: 'La mensualidad y la construcción se confirman por escrito. En esta página no hay un precio fijo.',
     },
     automatizacion: {
@@ -81,7 +81,7 @@ export const es = {
         'Un asistente de WhatsApp para preguntas, fuera de horario, citas o pedidos, recordatorios y reseñas. El alcance se escribe antes de encenderlo.',
       eyebrow: 'Automatización',
       heading: 'Un asistente de WhatsApp para lo que usted ya responde.',
-      lede: 'Menos tiempo en mensajes a mano, menos errores y un mejor seguimiento.',
+      lede: 'El alcance se escribe antes de encenderlo.',
       closeTitle: 'Cuéntenos cómo atiende hoy.',
       closeText: 'Vemos si el asistente cabe en su operación. Si seguimos, el alcance va por escrito.',
       cues: {
@@ -105,16 +105,16 @@ export const es = {
         'Foresta cuida el sitio de negocios en Costa Rica. El trabajo es técnico y queda a su nombre. No somos una agencia de mercadeo.',
       eyebrow: 'Nosotros',
       heading: 'Cuidamos el sitio de su negocio.',
-      lede: 'Un sitio claro, a su nombre, para comercios, clínicas y servicios en Costa Rica.',
+      lede: 'Para empresas y organizaciones en Costa Rica. El sitio queda a su nombre.',
       closeTitle: 'Conversemos sobre su negocio.',
     },
     contacto: {
       title: 'Contacto',
       description:
-        'Cuéntenos cómo funciona su negocio hoy. La primera conversación no tiene costo ni compromiso. Si tiene sentido seguir, recibe el plan por escrito: construcción, mensualidad y límites.',
+        'Cuéntenos cómo funciona su operación. La conversación no tiene costo ni compromiso. Si seguimos, recibe una cotización por escrito: construcción, mensualidad y lo que se paga aparte.',
       eyebrow: 'Contacto',
-      heading: 'Cuéntenos cómo funciona su negocio hoy.',
-      lede: 'La primera conversación no tiene costo ni compromiso. Si tiene sentido seguir, le enviamos el plan por escrito con construcción, mensualidad y lo que se paga aparte.',
+      heading: 'Cuéntenos cómo funciona su operación hoy.',
+      lede: 'La conversación no tiene costo ni compromiso. Si seguimos, recibe una cotización por escrito: construcción, mensualidad y lo que se paga aparte.',
     },
   },
   notFound: {
@@ -127,9 +127,9 @@ export const es = {
     contact: 'Contacto',
   },
   hero: {
-    title: 'Transformamos su negocio para una nueva era de',
-    titleEm: 'inteligencia artificial',
-    lede: 'Un estudio basado en Costa Rica con la misión de entregar infraestructura digital moderna a negocios.',
+    title: 'Construimos y cuidamos su sitio.',
+    titleEm: 'El asistente de WhatsApp va por escrito.',
+    lede: 'Un estudio en Costa Rica para empresas y organizaciones. El alcance se escribe antes de construir y antes de encender el asistente.',
     startConversation: 'Conversemos',
     writeWhatsApp: 'Conversemos',
     cueSite: 'Sitio web',
@@ -137,21 +137,21 @@ export const es = {
     cueCare: 'Cuidado',
   },
   positioning: {
-    eyebrow: 'Qué hacemos',
+    eyebrow: 'El punto de partida',
     statement:
-      'Muchos negocios ya funcionan con WhatsApp, un catálogo en PDF y la memoria del dueño.',
-    statementEm: 'Nosotros hacemos que eso trabaje en orden.',
-    p1: 'Hasta que deja de alcanzar: mensajes sin respuesta fuera de horario, citas que se pierden, pedidos anotados a mano y un sitio que nadie actualiza.',
-    p2: 'Construimos el sitio y lo cuidamos cada mes: WhatsApp, pagos, reservas, catálogos, SEO y, cuando ya hay un destino claro, anuncios en Facebook e Instagram. La pauta la paga usted a Meta.',
-    p3: 'No somos una agencia de mercadeo, ni llevamos sus redes ni trabajamos con influencers. El trabajo es técnico: que el cliente lo encuentre, pague y reciba respuesta.',
-    audienceTitle: 'Para quién',
+      'Muchos negocios atienden por WhatsApp, con un catálogo suelto y sin un sitio al día.',
+    statementEm: 'Nosotros lo ordenamos.',
+    p1: 'El horario, el contacto y la respuesta suelen vivir en lugares distintos.',
+    p2: 'La pauta, si la hay, la paga usted directo a Meta. No entra en la mensualidad.',
+    p3: 'No somos una agencia de mercadeo, ni llevamos sus redes ni trabajamos con influencers.',
+    audienceTitle: 'Algunos ejemplos',
     audiences: [
+      'Empresas y organizaciones',
       'Comercios y tiendas',
       'Restaurantes y cafeterías',
       'Clínicas y consultorios',
       'Servicios profesionales',
       'Talleres y servicios técnicos',
-      'Negocios familiares',
     ],
     photoAlt:
       'Mujer pagando con tarjeta en el mostrador de un salón, junto a un catálogo de productos en una tableta.',
@@ -165,19 +165,19 @@ export const es = {
   },
   homePlans: {
     label: 'Planes',
-    title: 'Tres suscripciones, según la etapa de su negocio.',
+    title: 'Tres suscripciones, según lo que la operación necesita.',
     compare: 'Comparar los planes',
     seeIncludes: 'Ver qué incluye',
   },
   homeProcess: {
     label: 'Cómo trabajamos',
-    title: 'Sin sorpresas: una conversación, un plan por escrito y trabajo mes a mes.',
+    title: 'De la conversación al trabajo de cada mes.',
     seeProcess: 'Ver el proceso',
   },
   cta: {
     eyebrow: 'Empecemos',
-    title: 'Cuéntenos cómo funciona su negocio hoy.',
-    text: 'La primera conversación no tiene costo ni compromiso. Si tiene sentido seguir, le enviamos el plan por escrito: construcción, mensualidad y lo que se paga aparte.',
+    title: 'El siguiente paso es una conversación.',
+    text: 'Hablamos de su operación. Si seguimos, el plan va por escrito.',
     goContact: 'Ir a contacto',
     otherContact: 'Otras formas de contacto',
     writeWhatsApp: 'Escríbanos por WhatsApp',
@@ -214,7 +214,7 @@ export const es = {
     compareRows: {
       responsiveSite: 'Sitio web responsivo',
       googleProfile: 'Perfil de Google Business',
-      seoAi: 'SEO básico y búsqueda con IA',
+      seoAi: 'SEO básico y texto que una IA puede leer',
       hosting: 'Hosting, respaldos y mantenimiento',
       report: 'Reporte mensual por escrito',
       contact: 'Contacto por WhatsApp o correo',
@@ -258,18 +258,18 @@ export const es = {
       arranque: {
         audience: 'Para el negocio que necesita existir bien en internet, y mantenerse.',
         description:
-          'Un sitio claro en el celular, con Google, contacto y búsqueda al día. La construcción lo deja listo; la mensualidad lo cuida.',
+          'Un sitio claro en el celular, con Google y contacto al día, escrito también para una herramienta de inteligencia artificial. La construcción lo deja listo; la mensualidad lo cuida.',
         highlights: ['Sitio web en celular', 'Perfil de Google', 'Cuidado mes a mes'],
         setupIncludes: [
           'Sitio web responsivo, a su nombre',
           'Perfil de Google Business configurado',
           'Formulario de contacto conectado a WhatsApp o correo',
-          'SEO básico y optimización inicial para búsqueda con IA',
+          'SEO básico y texto inicial para que una herramienta de IA entienda el negocio',
         ],
         monthlyIncludes: [
           'Hosting, certificado SSL, respaldos y actualizaciones técnicas',
           'Hasta 1 ronda de cambios al mes (textos, horario, fotos o contacto), máximo 1 hora',
-          'Revisión de SEO básico y de búsqueda con IA',
+          'Revisión del SEO básico y del texto que una IA puede leer',
           'Reporte breve por escrito: qué se hizo y qué se recomienda',
           'Soporte por WhatsApp o correo; respuesta en 2 días hábiles',
         ],
@@ -287,19 +287,19 @@ export const es = {
         audience: 'Para el negocio que ya vende y quiere vender con menos esfuerzo.',
         description:
           'Catálogo o tienda, pagos y gestión de anuncios en Facebook e Instagram. La pauta la paga usted a Meta; la mensualidad cubre el trabajo, no el presupuesto de anuncios.',
-        highlights: ['Tienda o catálogo', 'Pagos y SINPE', 'Gestión de Meta Ads'],
+        highlights: ['Tienda o catálogo', 'Pagos y SINPE', 'Gestión de anuncios; pauta aparte'],
         setupIncludes: [
           'Sitio con tienda en línea o catálogo',
           'Integración de pagos, incluido SINPE Móvil cuando aplica',
           'Sistema sencillo de reservas o inventario',
           'Alta de la cuenta publicitaria de Meta, a su nombre',
-          'SEO técnico (velocidad y datos estructurados) y búsqueda con IA',
+          'SEO técnico (velocidad y datos estructurados) y texto que una IA puede leer',
         ],
         monthlyIncludes: [
           'Todo el cuidado mensual de Arranque',
           'Hasta 2 rondas de cambios al mes, máximo 2 horas (incluye catálogo o precios)',
           'Gestión de Meta Ads: ajustes, seguimiento y un reporte al mes',
-          'Revisión de SEO y de búsqueda con IA',
+          'Revisión del SEO y del texto que una IA puede leer',
           'Soporte por WhatsApp o correo; respuesta en 2 días hábiles',
         ],
         billedSeparately: [
@@ -336,7 +336,7 @@ export const es = {
           'Capacidades nuevas fuera del alcance escrito, cotizadas antes',
         ],
         upgrade: 'Si aún no tiene sitio, se suma Arranque o Crecimiento. Este plan no lo reemplaza.',
-        outcome: 'Atención constante, sin contratar más personal.',
+        outcome: 'Atiende lo que quedó escrito, sin sumar personal.',
         badge: null as string | null,
       },
     },
@@ -467,7 +467,7 @@ export const es = {
       },
       {
         title: 'Mes a mes',
-        text: 'Mantenimiento, cambios dentro del cupo, SEO, búsqueda con IA, reporte y, si aplica, gestión de anuncios o ajuste del asistente.',
+        text: 'Mantenimiento, cambios dentro del cupo, SEO y el texto para herramientas de IA, un reporte y, si aplica, gestión de anuncios o ajuste del asistente.',
       },
     ],
   },
@@ -509,6 +509,12 @@ export const es = {
     hours: 'Horario',
     hoursValue: null as string | null,
     comingSoon: 'Se publicará próximamente.',
+    prepareTitle: 'Qué conviene contar',
+    prepareItems: [
+      'Cómo atiende hoy: sitio, WhatsApp, citas o pedidos.',
+      'Qué quiere resolver primero: que lo encuentren, que pueda vender o que respondan fuera de horario.',
+      'Si ya anuncia en Facebook o Instagram, el monto que usted tiene en mente.',
+    ],
     openChat: 'Abrir conversación',
     writeWhatsApp: 'Escríbanos por WhatsApp',
     formLabel: 'O escríbanos desde aquí',

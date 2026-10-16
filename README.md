@@ -1,6 +1,6 @@
 # Foresta Works website
 
-Static marketing site for Foresta Works, a Costa Rica studio that builds and maintains websites and light automation for local small businesses. Built with [Astro](https://astro.build) 7 and strict TypeScript.
+Static marketing site for Foresta Works, a Costa Rica studio that builds and looks after websites, and can add a written WhatsApp assistant, for businesses and organizations. Built with [Astro](https://astro.build) 7 and strict TypeScript.
 
 Costa Rican Spanish lives at `/es/`; English at `/en/`. There is no database, CMS, authentication, or server-side rendering.
 
