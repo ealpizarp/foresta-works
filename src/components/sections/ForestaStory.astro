@@ -1,0 +1,290 @@
+---
+/**
+ * The about page after the tree: why Foresta works the way it does,
+ * the practical terms, and a short echo of the process.
+ */
+import { Image } from 'astro:assets';
+import CareRoots from '@/components/visuals/CareRoots.astro';
+import { site } from '@/data/site';
+import plasterImage from '@/assets/images/materials-stone-plaster.jpg';
+import { interpolate, routes, useI18n } from '@/i18n';
+
+const { t, path } = useI18n(Astro);
+const about = t.about;
+---
+
+<section class="section section--page story" aria-labelledby="story-approach">
+  <div class="container story__approach">
+    <figure class="story__figure frame reveal">
+      <Image
+        src={plasterImage}
+        alt={about.photoAlt}
+        layout="constrained"
+        width={768}
+        height={1024}
+        widths={[420, 640, 768]}
+        sizes="(min-width: 900px) 28vw, 70vw"
+        loading="lazy"
+      />
+    </figure>
+
+    <div class="story__copy reveal">
+      <h2 id="story-approach">{about.statementTitle}</h2>
+      <p class="story__lead">{about.statement}</p>
+      <p class="story__more">{about.statementMore}</p>
+      <p class="story__origin">{interpolate(about.origin, { name: site.founder.name })}</p>
+    </div>
+  </div>
+</section>
+
+<section class="section section--page story-terms" aria-labelledby="story-terms-title">
+  <div class="container">
+    <p class="eyebrow">{about.principlesLabel}</p>
+    <h2 id="story-terms-title">{about.principlesTitle}</h2>
+
+    <div class="story-terms__row">
+      <div class="story-terms__mark reveal">
+        <CareRoots />
+      </div>
+      <ol class="story-terms__list">
+        {about.principles.map((item) => (
+          <li class="story-term reveal">
+            <h3>{item.title}</h3>
+            <p>{item.text}</p>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </div>
+</section>
+
+<section class="section section--page story-together" aria-labelledby="story-together-title">
+  <div class="container story-together__grid">
+    <p class="eyebrow">{about.togetherLabel}</p>
+    <h2 id="story-together-title">{about.togetherTitle}</h2>
+    <p class="story-together__text reveal">{about.together}</p>
+    <ol class="story-path reveal" aria-label={t.process.stepsTitle}>
+      {t.process.steps.map((step, index) => (
+        <li>
+          {step.title}
+          {index < t.process.steps.length - 1 && <span class="story-path__dot" aria-hidden="true">·</span>}
+        </li>
+      ))}
+    </ol>
+    <a class="link-underline story-together__link" href={path(routes.proceso)}>{t.homeProcess.seeProcess}</a>
+  </div>
+</section>
+
+<style>
+  .story__approach {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    column-gap: var(--col-gap);
+    row-gap: var(--space-6);
+    align-items: end;
+  }
+
+  .story__figure {
+    grid-column: 1 / 5;
+    border-radius: var(--radius-leaf);
+  }
+
+  .story__figure :global(img) {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  .story__copy {
+    grid-column: 6 / 13;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+  }
+
+  .story__copy h2,
+  .story-terms h2,
+  .story-together h2 {
+    font-size: var(--text-2xl);
+    line-height: var(--leading-snug);
+  }
+
+  .story__copy h2,
+  .story-terms h2 {
+    max-width: 22ch;
+  }
+
+  .story-together h2 {
+    max-width: 20ch;
+  }
+
+  .story__lead {
+    font-family: var(--font-serif);
+    font-size: var(--text-xl);
+    font-weight: var(--weight-heading);
+    line-height: var(--leading-snug);
+    letter-spacing: var(--tracking-display);
+    color: var(--color-text);
+    max-width: 28ch;
+  }
+
+  .story__more {
+    max-width: 42ch;
+    font-size: var(--text-md);
+    color: var(--color-text-soft);
+  }
+
+  .story__origin {
+    margin-top: var(--space-2);
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+  }
+
+  .story-terms {
+    padding-top: var(--space-section-gap);
+    background-color: var(--color-sage-100);
+    background-image:
+      radial-gradient(ellipse 14rem 8rem at 10% 0%, rgb(255 250 243 / 0.72), transparent 72%),
+      radial-gradient(ellipse 12rem 7rem at 92% 88%, rgb(143 216 203 / 0.2), transparent 70%);
+    border-radius: var(--radius-xl);
+  }
+
+  .story-terms .eyebrow {
+    margin-bottom: var(--space-4);
+  }
+
+  .story-terms__row {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    column-gap: var(--col-gap);
+    align-items: start;
+    margin-top: var(--space-7);
+  }
+
+  .story-terms__mark {
+    grid-column: 1 / 4;
+  }
+
+  .story-terms__list {
+    grid-column: 5 / 13;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .story-term {
+    padding-block: var(--space-5);
+    border-top: 1px solid var(--color-rule);
+  }
+
+  .story-term:last-child {
+    border-bottom: 1px solid var(--color-rule);
+  }
+
+  .story-term h3 {
+    font-size: var(--text-lg);
+    line-height: 1.2;
+  }
+
+  .story-term p {
+    margin-top: var(--space-2);
+    max-width: 46ch;
+    font-size: var(--text-base);
+    color: var(--color-text-soft);
+  }
+
+  .story-together {
+    padding-block: var(--space-section-gap);
+  }
+
+  .story-together__grid {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    column-gap: var(--col-gap);
+    row-gap: var(--space-4);
+  }
+
+  .story-together .eyebrow,
+  .story-together h2,
+  .story-together__text,
+  .story-together__link {
+    grid-column: 1 / 9;
+  }
+
+  .story-path {
+    grid-column: 1 / -1;
+  }
+
+  .story-together__text {
+    max-width: 42ch;
+    font-size: var(--text-md);
+    color: var(--color-text-soft);
+  }
+
+  .story-path {
+    margin-top: var(--space-4);
+  }
+
+  .story-path li {
+    display: inline-block;
+    font-family: var(--font-serif);
+    font-size: var(--text-lg);
+    line-height: 1.45;
+    white-space: nowrap;
+  }
+
+  .story-path__dot {
+    margin-inline: 0.55rem;
+    color: var(--color-moss-800);
+  }
+
+  .story-together__link {
+    justify-self: start;
+    margin-top: var(--space-3);
+    color: var(--color-primary-strong);
+  }
+
+  @media (max-width: 900px) {
+    .story__figure,
+    .story__copy,
+    .story-terms__mark,
+    .story-terms__list,
+    .story-together .eyebrow,
+    .story-together h2,
+    .story-together__text,
+    .story-path,
+    .story-together__link {
+      grid-column: 1 / -1;
+    }
+
+    .story__copy {
+      order: -1;
+    }
+
+    .story__figure {
+      max-width: 16rem;
+    }
+
+    .story-terms__mark {
+      max-width: 11rem;
+    }
+
+    .story-terms__row {
+      margin-top: var(--space-6);
+      row-gap: var(--space-5);
+    }
+
+    .story__copy h2,
+    .story-terms h2,
+    .story-together h2 {
+      max-width: 22ch;
+    }
+
+    .story-path li {
+      display: block;
+    }
+
+    .story-path__dot {
+      display: none;
+    }
+  }
+</style>

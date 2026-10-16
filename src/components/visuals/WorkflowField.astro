@@ -1,0 +1,244 @@
+---
+/**
+ * How a written assistant is shaped. One root carries the work in order —
+ * understand, choose, connect, adjust — and a finer root brings the last
+ * step back to the first. It is a circuit in the soil, not a trunk, not
+ * three rays, and not the five-station plant on the process page.
+ * Growth runs once when the drawing scrolls into view. Reduced motion
+ * shows the finished root. Hover, on a fine pointer, quiets the paths
+ * that are not on that step's route. The names sit in the open air;
+ * the sentences beside the drawing carry the same words.
+ */
+interface Props {
+  understand: string;
+  choose: string;
+  connect: string;
+  adjust: string;
+}
+
+const { understand, choose, connect, adjust } = Astro.props;
+---
+
+<div class="workflow-field workflow-field--wide reveal">
+  <svg class="workflow-field__emboss" viewBox="0 0 760 460" preserveAspectRatio="xMidYMid meet" fill="none" aria-hidden="true">
+    <path d="M620 34 C 682 18, 734 42, 754 26" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" />
+    <path d="M22 96 C 74 62, 46 38, 16 54" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" />
+    <path d="M36 424 C 110 446, 78 452, 28 436" stroke="currentColor" stroke-width="1.15" stroke-linecap="round" />
+  </svg>
+
+  <svg class="workflow-field__draw" viewBox="0 0 760 460" preserveAspectRatio="xMidYMid meet" fill="none" aria-hidden="true">
+    <path class="workflow-field__path workflow-field__path--entry is-understand is-choose is-connect is-adjust" pathLength="100" d="M232 420 C 244 356, 250 292, 250 230" stroke="currentColor" stroke-width="1.45" stroke-linecap="round" />
+    <path class="workflow-field__path workflow-field__path--rise is-choose is-connect is-adjust" pathLength="100" d="M250 230 C 286 176, 328 138, 390 112" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" />
+    <path class="workflow-field__path workflow-field__path--crest is-connect is-adjust" pathLength="100" d="M390 112 C 450 128, 520 148, 588 188" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" />
+    <path class="workflow-field__path workflow-field__path--fall is-adjust" pathLength="100" d="M588 188 C 640 248, 560 300, 478 338" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" />
+    <path class="workflow-field__path workflow-field__path--return is-adjust" pathLength="100" d="M478 338 C 360 400, 300 348, 262 286 C 252 262, 250 246, 250 230" stroke="currentColor" stroke-width="1.15" stroke-linecap="round" />
+    <path class="workflow-field__hair is-understand" pathLength="100" d="M250 230 C 268 214, 280 208, 270 192" stroke="currentColor" stroke-width="1.05" stroke-linecap="round" />
+    <path class="workflow-field__hair is-choose" pathLength="100" d="M390 112 C 374 126, 362 128, 350 116" stroke="currentColor" stroke-width="1.05" stroke-linecap="round" />
+    <path class="workflow-field__hair is-connect" pathLength="100" d="M588 188 C 604 206, 612 214, 604 228" stroke="currentColor" stroke-width="1.05" stroke-linecap="round" />
+    <path class="workflow-field__hair is-adjust" pathLength="100" d="M478 338 C 464 354, 456 362, 468 374" stroke="currentColor" stroke-width="1.05" stroke-linecap="round" />
+    <circle cx="250" cy="230" r="11" fill="none" stroke="currentColor" stroke-width="1" opacity="0.4" />
+    <circle class="workflow-field__seed" cx="250" cy="230" r="4.2" fill="currentColor" />
+    <circle class="workflow-field__tip" cx="390" cy="112" r="3.15" fill="currentColor" />
+    <circle class="workflow-field__tip" cx="588" cy="188" r="3.15" fill="currentColor" />
+    <circle class="workflow-field__tip" cx="478" cy="338" r="3.15" fill="currentColor" />
+    <circle class="workflow-field__clay is-adjust" cx="352" cy="386" r="2.55" fill="var(--color-clay)" />
+  </svg>
+
+  <ul class="workflow-field__names" aria-hidden="true">
+    <li class="workflow-field__label workflow-field__label--understand">{understand}</li>
+    <li class="workflow-field__label workflow-field__label--choose">{choose}</li>
+    <li class="workflow-field__label workflow-field__label--connect">{connect}</li>
+    <li class="workflow-field__label workflow-field__label--adjust">{adjust}</li>
+  </ul>
+</div>
+
+<div class="workflow-field workflow-field--stack reveal">
+  <svg class="workflow-field__emboss" viewBox="0 0 340 400" preserveAspectRatio="xMidYMid meet" fill="none" aria-hidden="true">
+    <path d="M250 28 C 300 16, 328 36, 336 22" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" />
+    <path d="M8 360 C 48 382, 28 394, 6 378" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" />
+  </svg>
+
+  <svg class="workflow-field__draw" viewBox="0 0 340 400" preserveAspectRatio="xMidYMid meet" fill="none" aria-hidden="true">
+    <path class="workflow-field__path workflow-field__path--entry is-understand is-choose is-connect is-adjust" pathLength="100" d="M168 168 C 150 140, 132 112, 124 92" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" />
+    <path class="workflow-field__path workflow-field__path--rise is-choose is-connect is-adjust" pathLength="100" d="M124 92 C 150 58, 196 78, 230 128" stroke="currentColor" stroke-width="1.55" stroke-linecap="round" />
+    <path class="workflow-field__path workflow-field__path--crest is-connect is-adjust" pathLength="100" d="M230 128 C 228 162, 214 192, 188 222" stroke="currentColor" stroke-width="1.55" stroke-linecap="round" />
+    <path class="workflow-field__path workflow-field__path--fall is-adjust" pathLength="100" d="M188 222 C 140 246, 118 272, 108 308" stroke="currentColor" stroke-width="1.55" stroke-linecap="round" />
+    <path class="workflow-field__path workflow-field__path--return is-adjust" pathLength="100" d="M108 308 C 78 340, 48 280, 56 210 C 64 150, 96 118, 124 92" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" />
+    <path class="workflow-field__hair is-understand" pathLength="100" d="M124 92 C 142 108, 154 112, 144 126" stroke="currentColor" stroke-width="1.15" stroke-linecap="round" />
+    <path class="workflow-field__hair is-choose" pathLength="100" d="M230 128 C 218 112, 210 102, 222 90" stroke="currentColor" stroke-width="1.15" stroke-linecap="round" />
+    <path class="workflow-field__hair is-connect" pathLength="100" d="M188 222 C 172 236, 166 248, 176 260" stroke="currentColor" stroke-width="1.15" stroke-linecap="round" />
+    <path class="workflow-field__hair is-adjust" pathLength="100" d="M108 308 C 92 326, 86 340, 74 354" stroke="currentColor" stroke-width="1.15" stroke-linecap="round" />
+    <circle cx="124" cy="92" r="9" fill="none" stroke="currentColor" stroke-width="1.05" opacity="0.4" />
+    <circle class="workflow-field__seed" cx="124" cy="92" r="3.6" fill="currentColor" />
+    <circle class="workflow-field__tip" cx="230" cy="128" r="2.8" fill="currentColor" />
+    <circle class="workflow-field__tip" cx="188" cy="222" r="2.8" fill="currentColor" />
+    <circle class="workflow-field__tip" cx="108" cy="308" r="2.8" fill="currentColor" />
+    <circle class="workflow-field__clay is-adjust" cx="62" cy="318" r="2.4" fill="var(--color-clay)" />
+  </svg>
+
+  <ul class="workflow-field__names" aria-hidden="true">
+    <li class="workflow-field__label workflow-field__label--understand">{understand}</li>
+    <li class="workflow-field__label workflow-field__label--choose">{choose}</li>
+    <li class="workflow-field__label workflow-field__label--connect">{connect}</li>
+    <li class="workflow-field__label workflow-field__label--adjust">{adjust}</li>
+  </ul>
+</div>
+
+<style>
+  .workflow-field {
+    position: relative;
+    width: 100%;
+    min-width: 0;
+    color: var(--color-moss-800);
+  }
+
+  .workflow-field--wide {
+    aspect-ratio: 760 / 460;
+  }
+
+  .workflow-field--stack {
+    display: none;
+    aspect-ratio: 340 / 400;
+  }
+
+  .workflow-field__emboss,
+  .workflow-field__draw {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+  }
+
+  .workflow-field__emboss {
+    color: var(--color-sage-300);
+    opacity: 0.9;
+  }
+
+  .workflow-field__names {
+    position: absolute;
+    inset: 0;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .workflow-field__label {
+    position: absolute;
+    margin: 0;
+    font-family: var(--font-serif);
+    font-size: var(--text-sm);
+    font-weight: var(--weight-heading);
+    line-height: 1.15;
+    color: var(--color-primary-strong);
+    white-space: nowrap;
+  }
+
+  /* Wide circuit, viewBox 760×460. Each name sits in open air beside its node. */
+  .workflow-field--wide .workflow-field__label--understand {
+    left: 32.895%;
+    top: 50%;
+    translate: calc(-100% - 1.15rem) -50%;
+  }
+
+  .workflow-field--wide .workflow-field__label--choose {
+    left: 51.316%;
+    top: 24.348%;
+    translate: -50% calc(-100% - 0.75rem);
+  }
+
+  .workflow-field--wide .workflow-field__label--connect {
+    left: 77.368%;
+    top: 40.87%;
+    translate: 0.85rem -50%;
+  }
+
+  .workflow-field--wide .workflow-field__label--adjust {
+    left: 62.895%;
+    top: 73.478%;
+    translate: 0.7rem 0.85rem;
+  }
+
+  /* Narrow circuit, viewBox 340×400. Same four names, in the clearings. */
+  .workflow-field--stack .workflow-field__label--understand {
+    left: 36.471%;
+    top: 23%;
+    translate: -50% calc(-100% - 1.15rem);
+  }
+
+  .workflow-field--stack .workflow-field__label--choose {
+    left: 67.647%;
+    top: 32%;
+    translate: 0.7rem -50%;
+  }
+
+  .workflow-field--stack .workflow-field__label--connect {
+    left: 55.294%;
+    top: 55.5%;
+    translate: 0.75rem -50%;
+  }
+
+  .workflow-field--stack .workflow-field__label--adjust {
+    left: 31.765%;
+    top: 77%;
+    translate: 0.75rem -10%;
+  }
+
+  @media (max-width: 900px) {
+    .workflow-field--wide {
+      display: none;
+    }
+
+    .workflow-field--stack {
+      display: block;
+    }
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .workflow-field__path,
+    .workflow-field__hair,
+    .workflow-field__clay {
+      transition: opacity var(--duration-base) var(--ease-out);
+    }
+
+    .workflow-field__path,
+    .workflow-field__hair {
+      stroke-dasharray: 100;
+      stroke-dashoffset: 100;
+    }
+
+    .workflow-field:not(.reveal--wait) .workflow-field__path,
+    .workflow-field:not(.reveal--wait) .workflow-field__hair,
+    .workflow-field.reveal--wait.is-in .workflow-field__path,
+    .workflow-field.reveal--wait.is-in .workflow-field__hair {
+      animation: workflow-grow 1.2s var(--ease-out) forwards;
+    }
+
+    .workflow-field__path--rise { animation-delay: 0.16s; }
+    .workflow-field__path--crest { animation-delay: 0.34s; }
+    .workflow-field__path--fall { animation-delay: 0.52s; }
+    .workflow-field__path--return { animation-delay: 0.7s; }
+    .workflow-field__hair { animation-delay: 0.88s; animation-duration: 0.8s; }
+  }
+
+  @keyframes workflow-grow {
+    to { stroke-dashoffset: 0; }
+  }
+
+  @media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+    .workflow-field:has(.workflow-field__label--understand:hover) .workflow-field__path:not(.is-understand),
+    .workflow-field:has(.workflow-field__label--understand:hover) .workflow-field__hair:not(.is-understand),
+    .workflow-field:has(.workflow-field__label--understand:hover) .workflow-field__clay:not(.is-understand),
+    .workflow-field:has(.workflow-field__label--choose:hover) .workflow-field__path:not(.is-choose),
+    .workflow-field:has(.workflow-field__label--choose:hover) .workflow-field__hair:not(.is-choose),
+    .workflow-field:has(.workflow-field__label--choose:hover) .workflow-field__clay:not(.is-choose),
+    .workflow-field:has(.workflow-field__label--connect:hover) .workflow-field__path:not(.is-connect),
+    .workflow-field:has(.workflow-field__label--connect:hover) .workflow-field__hair:not(.is-connect),
+    .workflow-field:has(.workflow-field__label--connect:hover) .workflow-field__clay:not(.is-connect),
+    .workflow-field:has(.workflow-field__label--adjust:hover) .workflow-field__path:not(.is-adjust),
+    .workflow-field:has(.workflow-field__label--adjust:hover) .workflow-field__hair:not(.is-adjust),
+    .workflow-field:has(.workflow-field__label--adjust:hover) .workflow-field__clay:not(.is-adjust) {
+      opacity: 0.28;
+    }
+  }
+</style>

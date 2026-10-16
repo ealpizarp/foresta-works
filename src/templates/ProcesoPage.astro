@@ -3,7 +3,6 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 import CtaBand from '@/components/CtaBand.astro';
 import Process from '@/components/sections/Process.astro';
 import PageHeader from '@/components/ui/PageHeader.astro';
-import PageNav from '@/components/ui/PageNav.astro';
 import { breadcrumbJsonLd } from '@/data/structured-data';
 import { routes, useI18n } from '@/i18n';
 
@@ -20,8 +19,7 @@ const meta = t.pages.proceso;
   description={meta.description}
   extraJsonLd={[breadcrumbJsonLd(Astro.site, [{ name: meta.eyebrow, path: path(routes.proceso) }], locale)]}
 >
-  <PageHeader eyebrow={meta.eyebrow} title={meta.heading} lede={meta.lede} />
+  <PageHeader eyebrow={meta.eyebrow} title={meta.heading} lede={meta.lede} hideLedeOnSmall />
   <Process />
-  <PageNav />
   <CtaBand />
 </BaseLayout>

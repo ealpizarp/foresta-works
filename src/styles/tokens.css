@@ -24,6 +24,9 @@
   --color-sand-400: #c4b59a; /* hairline accent on dark stages only */
   --color-clay-700: #8f4532; /* emphasis: 6.0:1 on bone-50, 5.2:1 on bone-100 */
   --color-clay-400: #c56a4a; /* large shapes only */
+  --color-moss-800: #243f34; /* deep moss: large shapes, not small text */
+  --color-sage-100: #e4ebe3; /* leaf wash; similar luminance to bone-100 */
+  --color-sage-300: #c5d4c4; /* botanical line, decorative only */
 
   /* ---- Colour: semantic ---- */
   --color-bg: var(--color-bone-50);
@@ -122,11 +125,14 @@
   --radius-xl: 48px;
   --radius-leaf: 3rem 0.85rem 3rem 0.85rem;
   --radius-pill: 999px;
-  --shadow-sm: none;
+  /* Leaf shade: short, cool, and tight. Not a floating-card shadow. */
+  --shadow-sm: 0 1px 2px rgb(16 24 22 / 0.06);
   --shadow-md: none;
   --shadow-lg: none;
-  --shadow-stage: none;
-  --inset-highlight: none;
+  --shadow-leaf: 0 18px 32px -24px rgb(16 24 22 / 0.5);
+  --shadow-lift: 0 14px 24px -18px rgb(16 24 22 / 0.42);
+  --shadow-stage: 0 28px 48px -30px rgb(16 24 22 / 0.62);
+  --inset-highlight: inset 0 1px 0 rgb(255 250 243 / 0.22);
 
   /* ---- Motion ---- */
   --ease-out: cubic-bezier(0.22, 1, 0.36, 1);

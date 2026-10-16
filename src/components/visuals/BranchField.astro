@@ -1,0 +1,150 @@
+---
+/**
+ * Root graph for the services opening. Three plans, one system:
+ * a trunk leaves the seed, forks, and two roots graft back, so
+ * every name shares a path with the others. Same line family as
+ * the home drawing — a moss stroke, a quieter soil layer, a node,
+ * a name — but this one is a network, not three rays from a point.
+ * Growth runs once, from the seed outward. Reduced motion shows
+ * the finished drawing.
+ */
+interface Props {
+  early: string;
+  middle: string;
+  later: string;
+}
+
+const { early, middle, later } = Astro.props;
+---
+
+<div class="branch-field">
+  <svg class="branch-field__emboss" viewBox="0 0 460 420" fill="none" aria-hidden="true">
+    <path d="M210 342 C 148 372 62 358 16 374" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" />
+    <path d="M210 342 C 294 374 388 350 450 326" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" />
+  </svg>
+
+  <svg class="branch-field__draw" viewBox="0 0 460 420" fill="none" aria-hidden="true">
+    <path class="branch-field__path branch-field__path--base is-early is-middle is-later" pathLength="100" d="M210 336 C 218 320 214 308 204 300" stroke="currentColor" stroke-width="1.45" stroke-linecap="round" />
+    <path class="branch-field__path branch-field__path--base is-early is-middle is-later" pathLength="100" d="M204 300 C 190 284 178 270 176 258" stroke="currentColor" stroke-width="1.45" stroke-linecap="round" />
+    <path class="branch-field__path branch-field__path--spine is-early is-middle is-later" pathLength="100" d="M176 258 C 182 242 190 226 200 214" stroke="currentColor" stroke-width="1.45" stroke-linecap="round" />
+    <path class="branch-field__path branch-field__path--spine is-middle is-later" pathLength="100" d="M200 214 C 208 202 216 190 224 178" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" />
+    <path class="branch-field__path branch-field__path--spine is-middle is-later" pathLength="100" d="M224 178 C 228 172 230 168 234 160" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" />
+    <path class="branch-field__path branch-field__path--arranque is-early" pathLength="100" d="M176 258 C 164 246 154 234 146 224" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" />
+    <path class="branch-field__path branch-field__path--arranque is-early" pathLength="100" d="M146 224 C 136 210 128 196 122 186" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" />
+    <path class="branch-field__path branch-field__path--crec is-middle" pathLength="100" d="M234 160 C 256 152 278 144 300 138" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" />
+    <path class="branch-field__path branch-field__path--crec is-middle" pathLength="100" d="M300 138 C 334 124 370 110 402 98" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" />
+    <path class="branch-field__path branch-field__path--intel is-later" pathLength="100" d="M234 160 C 236 142 232 124 224 108" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" />
+    <path class="branch-field__path branch-field__path--intel is-later" pathLength="100" d="M224 108 C 218 88 214 70 216 54" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" />
+    <path class="branch-field__path branch-field__path--bridge is-early" pathLength="100" d="M146 224 C 164 210 184 208 200 214" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" />
+    <path class="branch-field__path branch-field__path--return is-middle" pathLength="100" d="M300 138 C 296 162 260 176 224 178" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" />
+    <path class="branch-field__hair is-early is-middle is-later" pathLength="100" d="M204 300 C 222 310 240 306 256 296" stroke="currentColor" stroke-width="1.05" stroke-linecap="round" />
+    <path class="branch-field__hair is-later" pathLength="100" d="M224 108 C 208 98 192 100 176 92" stroke="currentColor" stroke-width="1.05" stroke-linecap="round" />
+    <circle cx="210" cy="336" r="11" fill="none" stroke="currentColor" stroke-width="1" opacity="0.4" />
+    <circle class="branch-field__seed" cx="210" cy="336" r="4.25" fill="currentColor" />
+    <circle cx="122" cy="186" r="3.15" fill="currentColor" />
+    <circle cx="402" cy="98" r="3.15" fill="currentColor" />
+    <circle cx="216" cy="54" r="3.15" fill="currentColor" />
+  </svg>
+
+  <p class="branch-field__label branch-field__label--early">{early}</p>
+  <p class="branch-field__label branch-field__label--middle">{middle}</p>
+  <p class="branch-field__label branch-field__label--later">{later}</p>
+</div>
+
+<style>
+  .branch-field {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 460 / 420;
+    color: var(--color-moss-800);
+  }
+
+  .branch-field__emboss,
+  .branch-field__draw {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+  }
+
+  .branch-field__emboss {
+    color: var(--color-sage-300);
+    opacity: 0.9;
+  }
+
+  .branch-field__label {
+    position: absolute;
+    margin: 0;
+    font-family: var(--font-serif);
+    font-size: var(--text-md);
+    font-weight: var(--weight-heading);
+    line-height: 1.15;
+    color: var(--color-primary-strong);
+    white-space: nowrap;
+  }
+
+  /* Beside the left tip: the word's right edge stops short of the dot. */
+  .branch-field__label--early {
+    left: 22.3%;
+    top: 44.3%;
+    translate: -100% -50%;
+  }
+
+  /* Above the right tip, the last letter ending on the node. */
+  .branch-field__label--middle {
+    left: 87.4%;
+    top: 13.5%;
+    translate: -100% 0;
+  }
+
+  /* Centered over the rising tip. */
+  .branch-field__label--later {
+    left: 47%;
+    top: 2.8%;
+    translate: -50% 0;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .branch-field__path,
+    .branch-field__hair {
+      stroke-dasharray: 100;
+      stroke-dashoffset: 100;
+      animation: branch-grow 1.15s var(--ease-out) forwards;
+      transition: opacity var(--duration-base) var(--ease-out);
+    }
+
+    .branch-field__path--arranque,
+    .branch-field__path--spine { animation-delay: 0.2s; }
+    .branch-field__path--intel,
+    .branch-field__path--crec { animation-delay: 0.4s; }
+    .branch-field__path--bridge,
+    .branch-field__path--return { animation-delay: 0.58s; }
+    .branch-field__hair { animation-delay: 0.75s; animation-duration: 0.85s; }
+
+    .branch-field__label {
+      animation: branch-label 0.7s var(--ease-out) 0.9s both;
+    }
+  }
+
+  @keyframes branch-grow {
+    to { stroke-dashoffset: 0; }
+  }
+
+  @keyframes branch-label {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  /* Hovering a name keeps the route from the seed and lets the rest recede. */
+  @media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+    .branch-field:has(.branch-field__label--early:hover) .branch-field__path:not(.is-early),
+    .branch-field:has(.branch-field__label--early:hover) .branch-field__hair:not(.is-early),
+    .branch-field:has(.branch-field__label--middle:hover) .branch-field__path:not(.is-middle),
+    .branch-field:has(.branch-field__label--middle:hover) .branch-field__hair:not(.is-middle),
+    .branch-field:has(.branch-field__label--later:hover) .branch-field__path:not(.is-later),
+    .branch-field:has(.branch-field__label--later:hover) .branch-field__hair:not(.is-later) {
+      opacity: 0.28;
+    }
+  }
+</style>

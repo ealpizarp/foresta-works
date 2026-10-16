@@ -1,0 +1,165 @@
+---
+/**
+ * Root graph for the automation opening. The four words are the
+ * assistant's written capabilities: a left root names two on the way
+ * up, a right root names the other two. Same line family as the home
+ * and services drawings — moss stroke, quiet soil, a seed, a name —
+ * but this one is a lateral rhizome, not three rays and not a trunk.
+ * Growth runs once. Reduced motion shows the finished drawing.
+ */
+interface Props {
+  questions: string;
+  afterHours: string;
+  booking: string;
+  followUp: string;
+}
+
+const { questions, afterHours, booking, followUp } = Astro.props;
+---
+
+<div class="capability-field">
+  <svg class="capability-field__emboss" viewBox="0 0 480 360" preserveAspectRatio="xMidYMid meet" fill="none" aria-hidden="true">
+    <path d="M286 30 C 356 16, 424 34, 466 22" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" />
+    <path d="M16 308 C 78 334, 40 352, 14 338" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" />
+  </svg>
+
+  <svg class="capability-field__draw" viewBox="0 0 480 360" preserveAspectRatio="xMidYMid meet" fill="none" aria-hidden="true">
+    <path class="capability-field__path capability-field__path--rise is-questions is-booking" pathLength="100" d="M164 246 C 118 250, 78 242, 62 232" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" />
+    <path class="capability-field__path capability-field__path--rise is-questions is-booking" pathLength="100" d="M62 232 C 48 216, 46 200, 56 186" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" />
+    <path class="capability-field__path capability-field__path--questions is-questions" pathLength="100" d="M56 186 C 40 148, 58 100, 112 62" stroke="currentColor" stroke-width="1.35" stroke-linecap="round" />
+    <path class="capability-field__path capability-field__path--runner is-after is-follow" pathLength="100" d="M164 246 C 210 242, 256 248, 300 252" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" />
+    <path class="capability-field__path capability-field__path--follow is-follow" pathLength="100" d="M300 252 C 348 258, 392 268, 428 274" stroke="currentColor" stroke-width="1.35" stroke-linecap="round" />
+    <path class="capability-field__path capability-field__path--after is-after" pathLength="100" d="M300 252 C 392 228, 446 168, 424 116" stroke="currentColor" stroke-width="1.35" stroke-linecap="round" />
+    <path class="capability-field__hair is-booking" pathLength="100" d="M50 209 C 34 202, 22 200, 12 192" stroke="currentColor" stroke-width="1.05" stroke-linecap="round" />
+    <path class="capability-field__hair is-questions" pathLength="100" d="M66 109 C 50 100, 36 102, 24 94" stroke="currentColor" stroke-width="1.05" stroke-linecap="round" />
+    <path class="capability-field__hair is-follow" pathLength="100" d="M349 259 C 358 250, 366 248, 374 242" stroke="currentColor" stroke-width="1.05" stroke-linecap="round" />
+    <path class="capability-field__hair is-shared" pathLength="100" d="M164 246 C 180 234, 188 226, 184 216" stroke="currentColor" stroke-width="1.05" stroke-linecap="round" />
+    <circle cx="164" cy="246" r="11" fill="none" stroke="currentColor" stroke-width="1" opacity="0.4" />
+    <circle class="capability-field__seed" cx="164" cy="246" r="4.35" fill="currentColor" />
+    <circle class="capability-field__tip capability-field__tip--questions" cx="112" cy="62" r="3.15" fill="currentColor" />
+    <circle class="capability-field__tip capability-field__tip--after" cx="424" cy="116" r="3.15" fill="currentColor" />
+    <circle class="capability-field__tip capability-field__tip--booking" cx="56" cy="186" r="3.15" fill="currentColor" />
+    <circle class="capability-field__tip capability-field__tip--follow" cx="428" cy="274" r="3.15" fill="currentColor" />
+    <circle cx="184" cy="216" r="2.5" fill="var(--color-clay)" />
+  </svg>
+
+  <ul class="capability-field__names">
+    <li class="capability-field__label capability-field__label--questions">{questions}</li>
+    <li class="capability-field__label capability-field__label--after">{afterHours}</li>
+    <li class="capability-field__label capability-field__label--booking">{booking}</li>
+    <li class="capability-field__label capability-field__label--follow">{followUp}</li>
+  </ul>
+</div>
+
+<style>
+  .capability-field {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 480 / 360;
+    color: var(--color-moss-800);
+  }
+
+  .capability-field__emboss,
+  .capability-field__draw {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+  }
+
+  .capability-field__emboss {
+    color: var(--color-sage-300);
+    opacity: 0.9;
+  }
+
+  .capability-field__names {
+    position: absolute;
+    inset: 0;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .capability-field__label {
+    position: absolute;
+    margin: 0;
+    font-family: var(--font-serif);
+    font-size: var(--text-md);
+    font-weight: var(--weight-heading);
+    line-height: 1.15;
+    color: var(--color-primary-strong);
+    white-space: nowrap;
+  }
+
+  /* Above the upper-left tip. */
+  .capability-field__label--questions {
+    left: 23.333%;
+    top: 17.222%;
+    translate: -50% calc(-100% - 0.7rem);
+  }
+
+  /* Above the upper-right tip, the last letter short of the dot. */
+  .capability-field__label--after {
+    left: 88.333%;
+    top: 32.222%;
+    translate: calc(-100% - 0.75rem) calc(-100% - 0.5rem);
+  }
+
+  /* To the right of the left-hand tip. */
+  .capability-field__label--booking {
+    left: 11.667%;
+    top: 51.667%;
+    translate: 0.875rem -50%;
+  }
+
+  /* Under the lower-right tip, ending just before the dot. */
+  .capability-field__label--follow {
+    left: 89.167%;
+    top: 76.111%;
+    translate: calc(-100% - 0.5rem) 0.75rem;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .capability-field__path,
+    .capability-field__hair {
+      stroke-dasharray: 100;
+      stroke-dashoffset: 100;
+      animation: capability-grow 1.25s var(--ease-out) forwards;
+      transition: opacity var(--duration-base) var(--ease-out);
+    }
+
+    .capability-field__path--rise,
+    .capability-field__path--runner { animation-delay: 0.08s; }
+    .capability-field__path--questions,
+    .capability-field__path--after,
+    .capability-field__path--follow { animation-delay: 0.32s; }
+    .capability-field__hair { animation-delay: 0.58s; animation-duration: 0.85s; }
+
+    .capability-field__label {
+      animation: capability-label 0.7s var(--ease-out) 0.72s both;
+    }
+  }
+
+  @keyframes capability-grow {
+    to { stroke-dashoffset: 0; }
+  }
+
+  @keyframes capability-label {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  @media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+    .capability-field:has(.capability-field__label--questions:hover) .capability-field__path:not(.is-questions),
+    .capability-field:has(.capability-field__label--questions:hover) .capability-field__hair:not(.is-questions):not(.is-shared),
+    .capability-field:has(.capability-field__label--after:hover) .capability-field__path:not(.is-after),
+    .capability-field:has(.capability-field__label--after:hover) .capability-field__hair:not(.is-after):not(.is-shared),
+    .capability-field:has(.capability-field__label--booking:hover) .capability-field__path:not(.is-booking),
+    .capability-field:has(.capability-field__label--booking:hover) .capability-field__hair:not(.is-booking):not(.is-shared),
+    .capability-field:has(.capability-field__label--follow:hover) .capability-field__path:not(.is-follow),
+    .capability-field:has(.capability-field__label--follow:hover) .capability-field__hair:not(.is-follow):not(.is-shared) {
+      opacity: 0.28;
+    }
+  }
+</style>

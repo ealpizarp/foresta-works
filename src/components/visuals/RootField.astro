@@ -1,0 +1,132 @@
+---
+/**
+ * Editorial root drawing for the hero. Three service cues sit at the tips.
+ * The lines are decorative; the headline and lede carry the meaning.
+ * Growth runs once. Reduced motion shows the finished drawing.
+ */
+interface Props {
+  site: string;
+  auto: string;
+  care: string;
+}
+
+const { site, auto, care } = Astro.props;
+---
+
+<div class="root-field">
+  <svg class="root-field__emboss" viewBox="0 0 520 440" fill="none" aria-hidden="true">
+    <path d="M36 320 C 120 280 150 200 128 96" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" />
+    <path d="M48 210 C 140 250 200 340 360 400" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" />
+    <path d="M70 360 C 160 330 220 280 300 250" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" />
+    <path d="M150 200 C 126 168 108 176 84 158" stroke="currentColor" stroke-width="1.1" stroke-linecap="round" />
+  </svg>
+
+  <svg class="root-field__draw" viewBox="0 0 520 440" fill="none" aria-hidden="true">
+    <path class="root-field__path root-field__path--site" pathLength="100" d="M188 236 C 160 190 132 140 108 100" stroke="currentColor" stroke-width="1.35" stroke-linecap="round" />
+    <path class="root-field__path root-field__path--auto" pathLength="100" d="M188 236 C 250 200 340 160 430 138" stroke="currentColor" stroke-width="1.35" stroke-linecap="round" />
+    <path class="root-field__path root-field__path--care" pathLength="100" d="M188 236 C 250 290 320 330 384 346" stroke="currentColor" stroke-width="1.35" stroke-linecap="round" />
+    <path class="root-field__hair" pathLength="100" d="M148 168 C 118 150 96 158 72 142" stroke="currentColor" stroke-width="1.1" stroke-linecap="round" />
+    <path class="root-field__hair" pathLength="100" d="M246 188 C 228 156 214 132 196 112" stroke="currentColor" stroke-width="1.1" stroke-linecap="round" />
+    <path class="root-field__hair" pathLength="100" d="M260 300 C 248 340 210 368 176 386" stroke="currentColor" stroke-width="1.1" stroke-linecap="round" />
+    <path class="root-field__hair" pathLength="100" d="M210 250 C 176 268 150 256 124 278" stroke="currentColor" stroke-width="1.1" stroke-linecap="round" />
+    <circle cx="188" cy="236" r="11" fill="none" stroke="currentColor" stroke-width="1" opacity="0.4" />
+    <circle class="root-field__seed" cx="188" cy="236" r="4.5" fill="currentColor" />
+    <circle cx="108" cy="100" r="3.25" fill="currentColor" />
+    <circle cx="430" cy="138" r="3.25" fill="currentColor" />
+    <circle cx="384" cy="346" r="3.25" fill="currentColor" />
+  </svg>
+
+  <p class="root-field__label root-field__label--site">{site}</p>
+  <p class="root-field__label root-field__label--auto">{auto}</p>
+  <p class="root-field__label root-field__label--care">{care}</p>
+</div>
+
+<style>
+  .root-field {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 520 / 440;
+  }
+
+  .root-field__emboss,
+  .root-field__draw {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+  }
+
+  .root-field__emboss {
+    color: var(--color-sage-300);
+    opacity: 0.85;
+  }
+
+  .root-field__label {
+    position: absolute;
+    margin: 0;
+    font-family: var(--font-serif);
+    font-size: var(--text-md);
+    font-weight: var(--weight-heading);
+    line-height: 1;
+    color: var(--color-primary-strong);
+    white-space: nowrap;
+  }
+
+  .root-field__label--site {
+    left: 21%;
+    top: 14%;
+    translate: -50% -140%;
+  }
+
+  .root-field__label--auto {
+    left: 83%;
+    top: 31%;
+    translate: -100% -150%;
+  }
+
+  .root-field__label--care {
+    left: 74%;
+    top: 79%;
+    translate: -40% 0.35rem;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .root-field__path,
+    .root-field__hair {
+      stroke-dasharray: 100;
+      stroke-dashoffset: 100;
+      animation: root-grow 1.45s var(--ease-out) forwards;
+    }
+
+    .root-field__path--auto { animation-delay: 0.16s; }
+    .root-field__path--care { animation-delay: 0.28s; }
+    .root-field__hair { animation-delay: 0.42s; animation-duration: 1.1s; }
+
+    .root-field__label {
+      animation: root-label 0.7s var(--ease-out) 0.7s both;
+    }
+
+    .root-field__path,
+    .root-field__hair {
+      transition: opacity var(--duration-base) var(--ease-out);
+    }
+  }
+
+  @keyframes root-grow {
+    to { stroke-dashoffset: 0; }
+  }
+
+  @keyframes root-label {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  @media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+    .root-field:has(.root-field__label--site:hover) .root-field__path:not(.root-field__path--site),
+    .root-field:has(.root-field__label--auto:hover) .root-field__path:not(.root-field__path--auto),
+    .root-field:has(.root-field__label--care:hover) .root-field__path:not(.root-field__path--care) {
+      opacity: 0.28;
+    }
+  }
+</style>

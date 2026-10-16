@@ -50,7 +50,7 @@ export const es = {
       },
       automatizacion: {
         label: 'Automatización',
-        summary: 'Qué hace el asistente de WhatsApp, y qué no.',
+        summary: 'Un asistente de WhatsApp para lo que usted ya responde.',
       },
       proceso: {
         label: 'Proceso',
@@ -58,7 +58,7 @@ export const es = {
       },
       nosotros: {
         label: 'Nosotros',
-        summary: 'Quién está detrás de Foresta Works.',
+        summary: 'Por qué existe Foresta y cómo trabaja con usted.',
       },
       contacto: {
         label: 'Contacto',
@@ -72,16 +72,24 @@ export const es = {
       description:
         'Arranque, Crecimiento e Inteligente: suscripciones con construcción única y mensualidad. Sitio web, SEO, búsqueda con IA, tienda, gestión de Meta Ads y asistente de WhatsApp. La pauta se paga a Meta, aparte.',
       eyebrow: 'Servicios',
-      heading: 'Tres suscripciones, según la etapa de su negocio. Alcance escrito. Trabajo mes a mes.',
-      lede: 'Arranque para existir y mantenerse. Crecimiento para vender y pautar. Inteligente para atender. La mensualidad cubre el trabajo de cada mes; la pauta de Meta se paga aparte.',
+      heading: 'Tres suscripciones, según la etapa de su negocio.',
+      lede: 'La mensualidad y la construcción se confirman por escrito. En esta página no hay un precio fijo.',
     },
     automatizacion: {
-      title: 'Automatización de WhatsApp con alcance claro',
+      title: 'Automatización de WhatsApp para lo que usted ya responde',
       description:
-        'Qué hace el asistente de WhatsApp de Foresta Works y qué no: preguntas frecuentes, captura fuera de horario, recordatorios y reseñas. Sin promesas que no estén documentadas.',
+        'Un asistente de WhatsApp para preguntas, fuera de horario, citas o pedidos, recordatorios y reseñas. El alcance se escribe antes de encenderlo.',
       eyebrow: 'Automatización',
-      heading: 'Automatización con alcance claro: qué hace el asistente, y qué no.',
-      lede: 'Cada capacidad se escribe antes de activarla. Si algo no está en la lista, no está prometido.',
+      heading: 'Un asistente de WhatsApp para lo que usted ya responde.',
+      lede: 'Menos tiempo en mensajes a mano, menos errores y un mejor seguimiento.',
+      closeTitle: 'Cuéntenos cómo atiende hoy.',
+      closeText: 'Vemos si el asistente cabe en su operación. Si seguimos, el alcance va por escrito.',
+      cues: {
+        questions: 'Preguntas',
+        afterHours: 'Fuera de horario',
+        booking: 'Cita o pedido',
+        followUp: 'Recordatorio y reseña',
+      },
     },
     proceso: {
       title: 'Cómo trabajamos',
@@ -92,12 +100,13 @@ export const es = {
       lede: 'La construcción deja el sitio listo. La mensualidad mantiene, mejora y reporta.',
     },
     nosotros: {
-      title: 'Quién está detrás de Foresta Works',
+      title: 'Sobre Foresta',
       description:
-        'Foresta Works fue fundada por Erick Alpízar Prendas, desarrollador full-stack. Ingeniería de nivel empresarial aplicada a comercios, clínicas y restaurantes en Costa Rica.',
+        'Foresta cuida el sitio de negocios en Costa Rica. El trabajo es técnico y queda a su nombre. No somos una agencia de mercadeo.',
       eyebrow: 'Nosotros',
-      heading: 'Ingeniería de nivel empresarial, aplicada a negocios locales.',
-      lede: 'Un socio técnico para el día a día del negocio. No una agencia de mercadeo.',
+      heading: 'Cuidamos el sitio de su negocio.',
+      lede: 'Un sitio claro, a su nombre, para comercios, clínicas y servicios en Costa Rica.',
+      closeTitle: 'Conversemos sobre su negocio.',
     },
     contacto: {
       title: 'Contacto',
@@ -118,25 +127,23 @@ export const es = {
     contact: 'Contacto',
   },
   hero: {
-    originBefore: 'Desde Costa Rica, ',
-    originEm: 'con amor',
-    title: 'Transformamos la presencia digital de su negocio',
-    titleEm: 'para la nueva era de la IA.',
-    lede: 'Un sitio que funciona y la automatización para atenderlo: WhatsApp, reservas y pagos en orden, listos para esta era, sin más trabajo manual a su día.',
+    title: 'Transformamos su negocio para una nueva era de',
+    titleEm: 'inteligencia artificial',
+    lede: 'Un estudio basado en Costa Rica con la misión de entregar infraestructura digital moderna a negocios.',
     startConversation: 'Conversemos',
     writeWhatsApp: 'Conversemos',
-    comparePlans: 'Ver planes',
-    caption:
-      'Ilustración de una tienda en línea. Ejemplo de oficio, no es el sitio de un cliente ni un resultado prometido.',
+    cueSite: 'Sitio web',
+    cueAuto: 'Automatización',
+    cueCare: 'Cuidado',
   },
   positioning: {
     eyebrow: 'Qué hacemos',
     statement:
       'Muchos negocios ya funcionan con WhatsApp, un catálogo en PDF y la memoria del dueño.',
     statementEm: 'Nosotros hacemos que eso trabaje en orden.',
-    p1: 'Ese sistema funciona hasta que deja de alcanzar: mensajes sin responder fuera de horario, citas que se pierden, pedidos anotados a mano y un sitio web que nadie actualiza desde hace años.',
-    p2: 'Foresta Works construye el sitio web y lo cuida mes a mes: WhatsApp, pagos, reservas, catálogos, SEO y, cuando ya hay un destino claro, anuncios en Facebook e Instagram. La pauta la paga usted a Meta.',
-    p3: 'No somos una agencia de mercadeo. No manejamos sus redes todos los días ni trabajamos con influencers. El trabajo es técnico: que el cliente lo encuentre, pague y reciba respuesta.',
+    p1: 'Hasta que deja de alcanzar: mensajes sin respuesta fuera de horario, citas que se pierden, pedidos anotados a mano y un sitio que nadie actualiza.',
+    p2: 'Construimos el sitio y lo cuidamos cada mes: WhatsApp, pagos, reservas, catálogos, SEO y, cuando ya hay un destino claro, anuncios en Facebook e Instagram. La pauta la paga usted a Meta.',
+    p3: 'No somos una agencia de mercadeo, ni llevamos sus redes ni trabajamos con influencers. El trabajo es técnico: que el cliente lo encuentre, pague y reciba respuesta.',
     audienceTitle: 'Para quién',
     audiences: [
       'Comercios y tiendas',
@@ -188,12 +195,14 @@ export const es = {
     wantPlan: 'Quiero este plan',
     howBilled: 'Cómo se cobra',
     whatWeDont: 'Lo que no hacemos',
+    foldOpen: 'Abrir',
+    foldClose: 'Cerrar',
     whatWeDontBody:
-      'No somos una agencia de mercadeo. No manejamos sus redes todos los días ni prometemos un número de ventas. La pauta en Facebook e Instagram es un canal técnico, no un paquete de contenidos.',
+      'No manejamos sus redes todos los días. No prometemos ventas, un puesto en Google ni una cita en una respuesta de IA.',
     compareEyebrow: 'Comparar',
-    compareTitle: 'Los tres planes, lado a lado.',
+    compareTitle: 'Lado a lado.',
     compareLede:
-      'No son escalones obligatorios. Inteligente atiende la demanda; no sustituye el sitio. Se pueden combinar: cada suma tiene su construcción y su mensualidad. La pauta de Meta, si hay anuncios, se paga aparte.',
+      'No son escalones. Inteligente atiende; no sustituye el sitio. Se pueden combinar.',
     compareCaption: 'Comparación de inclusiones y cobros entre Arranque, Crecimiento e Inteligente',
     compareColumn: 'Qué incluye',
     compareMarks: {
@@ -217,9 +226,8 @@ export const es = {
       reminders: 'Recordatorios y reseñas',
     },
     termsEyebrow: 'Condiciones',
-    termsTitle: 'Una suscripción, no un proyecto que se entrega y se olvida.',
-    termsLede:
-      'La construcción deja el sitio listo. El mes a mes mantiene, mejora y reporta. Construcción y mensualidad se confirman en el plan por escrito, según el alcance. Si el trabajo es distinto, lo escribimos antes de empezar.',
+    termsTitle: 'Mes a mes, con aviso para salir.',
+    termsLede: 'Cuatro condiciones. El resto se escribe en el plan.',
     terms: {
       commitment: 'Permanencia',
       cancellation: 'Cancelación',
@@ -227,19 +235,19 @@ export const es = {
       extras: 'Fuera del cupo',
     },
     currencyNote:
-      'La construcción y la mensualidad se confirman en el plan por escrito, según el alcance. Montos en dólares de Estados Unidos (USD), sin el 13% de IVA.',
+      'Montos en USD, sin el 13% de IVA. Se confirman por escrito, según el alcance.',
     billing:
-      'La construcción se cobra una vez, al comenzar. La mensualidad corre cuando el sitio o el asistente está en marcha, y se factura cada mes. Ambos montos van en el plan por escrito, no como un precio fijo en esta página.',
+      'La construcción se cobra una vez, al comenzar. La mensualidad corre cuando el sitio o el asistente está en marcha.',
     commitment:
-      'Permanencia mínima recomendada: {months} meses, para que el sitio, el SEO y los anuncios (si aplica) tengan tiempo de trabajar.',
+      'Recomendamos {months} meses, para que el sitio y el SEO tengan tiempo de trabajar.',
     cancellation:
-      'Puede cancelar con {days} días de aviso por escrito. La construcción no se devuelve: el trabajo ya es suyo. El sitio, las cuentas y el código siguen a su nombre.',
+      'Puede cancelar con {days} días de aviso por escrito. La construcción no se devuelve. El sitio, las cuentas y el código siguen a su nombre.',
     renewal: 'La suscripción se renueva mes a mes, salvo aviso de cancelación. No hay cobro anual obligatorio.',
     extras: 'Lo que exceda las rondas o horas del plan se cotiza antes de hacerlo. La hora extra es USD {hour}.',
     adSpend:
-      'En Crecimiento, la gestión de anuncios va en la mensualidad. El dinero de la pauta lo paga usted directo a Meta, en su cuenta. No lo adelantamos ni lo mezclamos con la suscripción.',
+      'En Crecimiento, la gestión de anuncios va en la mensualidad. La pauta la paga usted directo a Meta, en su cuenta.',
     upgradeNote:
-      'Si ya está en Arranque, el paso a Crecimiento se cobra como construcción de ampliación, no como una construcción nueva. La mensualidad pasa a la de Crecimiento. El monto va en el plan por escrito.',
+      'El paso de Arranque a Crecimiento se cobra como ampliación, no como una construcción nueva. El monto va por escrito.',
     notOffered: [
       'Manejo diario de redes sociales',
       'Campañas con influencers',
@@ -388,12 +396,31 @@ export const es = {
     ],
   },
   automation: {
-    does: 'Lo que hace',
     doesNot: 'Lo que no hace',
     caption: 'Conversación ilustrativa. El alcance real se escribe en el plan.',
     photoAlt:
-      'Dos personas revisan diagramas de flujo dibujados a lápiz sobre hojas de papel, en una mesa de madera con una taza de café y un cuaderno.',
-    flowLabel: 'Cómo funciona',
+      'Maqueta de WhatsApp del asistente: conversación sobre el horario y una cita, con burbujas claras sobre un fondo verde oscuro.',
+    workLabel: 'Cómo se arma',
+    workTitle: 'De su operación al mensaje.',
+    work: [
+      {
+        title: 'Entender',
+        text: 'Vemos cómo atiende hoy: preguntas, horario, citas y pedidos.',
+      },
+      {
+        title: 'Elegir',
+        text: 'Marcamos lo que ya responde a mano y puede pasar al asistente.',
+      },
+      {
+        title: 'Conectar',
+        text: 'Lo escribimos, lo unimos a su sitio y lo encendemos.',
+      },
+      {
+        title: 'Ajustar',
+        text: 'Revisamos lo que no pudo resolver y afinamos lo escrito.',
+      },
+    ],
+    flowLabel: 'Lo que hace',
     flowTitle: 'Un mensaje, dentro de lo que usted aprobó.',
     stepTitles: [
       'Lo que puede decir',
@@ -403,7 +430,8 @@ export const es = {
     ],
     exampleLabel: 'Ejemplo',
     exampleTitle: 'Así habla el asistente.',
-    fitLabel: 'En el plan Inteligente',
+    planTitle: 'En Inteligente.',
+    planText: 'El asistente se escribe antes de encenderse. Se suma a un sitio; no lo reemplaza.',
     doesItems: [
       'Responde preguntas frecuentes que usted define: horario, ubicación, servicios y formas de pago.',
       'Recibe mensajes fuera de horario, confirma al cliente que fueron recibidos y se los notifica a usted.',
@@ -443,31 +471,37 @@ export const es = {
       },
     ],
   },
-  founder: {
-    heading: 'El fundador',
-    p1: 'Foresta Works fue fundada por {name}, desarrollador full-stack con experiencia en React, Angular, Java con Spring Boot, Python con FastAPI y MuleSoft, y con certificación en Microsoft Azure.',
-    p2: 'Ha trabajado como ingeniero en proyectos empresariales para organizaciones como Experian, American Express, Biltmore Estate y BDO Global. Esa experiencia (sistemas que no pueden fallar, integraciones entre plataformas, procesos con muchas partes) es la que aplicamos, a la escala correcta, a comercios, clínicas y restaurantes en Costa Rica.',
-    disclosure:
-      'Estas organizaciones forman parte de la experiencia profesional del fundador. No son clientes ni patrocinadoras de Foresta Works.',
+  about: {
+    statementTitle: 'Un trabajo de cerca.',
+    origin: 'Foresta Works fue fundada por {name}.',
+    statement: 'Conversamos, dejamos el alcance por escrito y usted ve avances reales.',
+    statementMore:
+      'Preferimos pocas herramientas, bien conectadas, hechas para durar y para quien las usa cada día.',
     photoAlt:
       'Esquina de una casa: muro de piedra apilada junto a una pared de repello claro, bajo un techo de lámina oscura y árboles al fondo.',
+    principlesLabel: 'Compromisos',
+    principlesTitle: 'Así queda el acuerdo.',
     principles: [
       {
-        numeral: 'i',
-        title: 'Menos herramientas, mejor conectadas',
-        text: 'Antes de proponer algo nuevo, revisamos qué ya usa y cómo hacer que trabaje junto.',
+        title: 'A su nombre',
+        text: 'El dominio, las cuentas, el código y los accesos quedan a su nombre desde el primer día.',
       },
       {
-        numeral: 'ii',
-        title: 'Construido para quien lo usa a diario',
-        text: 'El sistema tiene que servirle a usted y a su equipo, no solo verse bien en una demostración.',
+        title: 'Trabajo técnico',
+        text: 'Que lo encuentren, que puedan pagar y que reciban respuesta.',
       },
       {
-        numeral: 'iii',
-        title: 'Durable antes que novedoso',
-        text: 'Elegimos tecnología probada y documentamos lo que entregamos para que dure años.',
+        title: 'El presupuesto lo define usted',
+        text: 'Si hay anuncios en Facebook o Instagram, usted define el monto y lo paga directo a Meta.',
+      },
+      {
+        title: 'No es mercadeo',
+        text: 'No somos una agencia, ni llevamos sus redes ni trabajamos con influencers.',
       },
     ],
+    togetherLabel: 'Con usted',
+    togetherTitle: 'El alcance se ajusta. El avance se ve.',
+    together: 'Trabajamos de cerca y con claridad. El plan se escribe para su negocio.',
   },
   contact: {
     methodsTitle: 'Formas de contacto',

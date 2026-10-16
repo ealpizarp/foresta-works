@@ -1,7 +1,7 @@
 ---
 /** Compact overview of the three subscriptions; each card links to its full detail. */
-import SectionHeader from '@/components/ui/SectionHeader.astro';
 import InterfacePreview from '@/components/visuals/InterfacePreview.astro';
+import PlanTree from '@/components/visuals/PlanTree.astro';
 import { getServiceTiers } from '@/data/services';
 import { routes, useI18n } from '@/i18n';
 
@@ -17,18 +17,22 @@ const tiers = getServiceTiers(locale);
 
 <section class="section section--wash" aria-labelledby="services-title">
   <div class="container">
-    <SectionHeader
-      number="02"
-      label={t.homePlans.label}
-      title={t.homePlans.title}
-      titleId="services-title"
-      link={{ href: path(routes.servicios), label: t.homePlans.compare }}
-    />
+    <div class="plans__head">
+      <p class="plans__kicker">{t.homePlans.label}</p>
+      <h2 class="plans__title" id="services-title">{t.homePlans.title}</h2>
+      <a class="plans__compare" href={path(routes.servicios)}>
+        <span>{t.homePlans.compare}</span>
+        <span aria-hidden="true">→</span>
+      </a>
+    </div>
 
     <ol class="cards">
       {tiers.map((tier, index) => (
         <li class="reveal">
           <a class:list={['card', 'panel', { 'card--featured': tier.recommended }]} href={`${path(routes.servicios)}#${tier.id}`}>
+            <span class:list={['card__tree', `card__tree--${tier.id}`]}>
+              <PlanTree stage={tier.id} />
+            </span>
             <span class="card__preview">
               <InterfacePreview kind={previewKind[tier.id]} size="card" />
             </span>
@@ -61,42 +65,191 @@ const tiers = getServiceTiers(locale);
 </section>
 
 <style>
+  .plans__head {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    column-gap: var(--col-gap);
+    row-gap: var(--space-3);
+    align-items: end;
+    margin-bottom: var(--space-7);
+  }
+
+  .plans__kicker {
+    grid-column: 1 / -1;
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: var(--text-lg);
+    line-height: 1;
+    color: var(--color-primary-strong);
+  }
+
+  .plans__title {
+    max-width: 16ch;
+    font-size: var(--text-3xl);
+    line-height: 1.02;
+  }
+
+  .plans__compare {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-3);
+    justify-self: end;
+    padding: 0.35rem 0;
+    font-size: var(--text-sm);
+    font-weight: var(--weight-medium);
+    color: var(--color-primary-strong);
+  }
+
+  .plans__compare span:last-child {
+    transition: transform var(--duration-base) var(--ease-out);
+  }
+
+  .plans__compare:hover span:last-child,
+  .plans__compare:focus-visible span:last-child {
+    transform: translateX(4px);
+  }
+
   .cards {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: minmax(0, 0.86fr) minmax(0, 1.28fr) minmax(0, 0.86fr);
     gap: var(--col-gap);
+    align-items: end;
   }
 
   .card {
     position: relative;
     display: flex;
     flex-direction: column;
-    height: 100%;
-    padding: var(--space-inset-lg);
+    padding: 0;
     overflow: hidden;
-    border-radius: var(--radius-lg);
-    transition: border-color var(--duration-fast) var(--ease-out);
+    background: transparent;
+    border: 0;
+    border-radius: 0;
+    transition:
+      border-color var(--duration-fast) var(--ease-out),
+      box-shadow var(--duration-base) var(--ease-out),
+      transform var(--duration-base) var(--ease-out);
   }
 
   .card__preview {
+    display: none;
+  }
+
+  .card--featured .card__preview {
     display: block;
-    margin: calc(var(--space-inset-lg) * -1) calc(var(--space-inset-lg) * -1) var(--space-5);
+    margin: var(--space-5) calc(var(--space-inset-lg) * -1) 0;
     padding: var(--space-4);
     background: var(--color-stage);
   }
+
+  .card--featured .card__top { order: 1; }
+  .card--featured .card__name { order: 2; }
+  .card--featured .card__price { order: 3; }
+  .card--featured .card__setup { order: 4; }
+  .card--featured .card__audience { order: 5; }
+  .card--featured .card__preview { order: 6; }
+  .card--featured .card__highlights { order: 7; }
+  .card--featured .card__more { order: 8; }
 
   .card__preview :global(.preview) {
     transition: none;
   }
 
   .card--featured {
+    align-self: start;
+    padding: var(--space-inset-lg);
+    background: var(--color-surface);
+    border: 1px solid var(--color-clay);
     border-radius: var(--radius-leaf);
-    border-color: var(--color-clay);
+    box-shadow: var(--shadow-leaf);
+  }
+
+  .card--featured .card__name {
+    font-size: var(--text-2xl);
+  }
+
+  .card:hover,
+  .card:focus-visible {
+    box-shadow: var(--shadow-lift);
   }
 
   .card:not(.card--featured):hover,
   .card:not(.card--featured):focus-visible {
-    border-color: var(--color-primary);
+    box-shadow: none;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .card--featured:hover,
+    .card--featured:focus-visible {
+      transform: translateY(-3px);
+    }
+  }
+
+  /* The plant sits in the open corner, above the price lines.
+     Crecimiento's crown stays under the chip and clear of the mockup.
+     Arranque stays the smallest box; Inteligente stays under Crecimiento. */
+  .card__tree {
+    position: absolute;
+    z-index: 1;
+    top: 0.15rem;
+    right: 0.2rem;
+    width: 3.15rem;
+    pointer-events: none;
+  }
+
+  .card__tree--inteligente {
+    width: 3.75rem;
+  }
+
+  .card__tree--crecimiento {
+    top: 4rem;
+    right: var(--space-inset-lg);
+    width: 4.4rem;
+  }
+
+  @media (min-width: 901px) and (max-width: 1099px) {
+    .card__tree--arranque {
+      width: 2.4rem;
+    }
+
+    .card__tree--inteligente {
+      width: 2.85rem;
+    }
+
+    .card__tree--crecimiento {
+      top: 3.85rem;
+      width: 3.5rem;
+    }
+  }
+
+  @media (min-width: 1100px) {
+    .card__tree--arranque {
+      width: 3.35rem;
+    }
+
+    .card__tree--inteligente {
+      width: 4.05rem;
+    }
+
+    .card__tree--crecimiento {
+      top: 4.15rem;
+      width: 5.15rem;
+    }
+  }
+
+  @media (min-width: 1280px) {
+    .card__tree--arranque {
+      width: 3.75rem;
+    }
+
+    .card__tree--inteligente {
+      width: 4.5rem;
+    }
+
+    .card__tree--crecimiento {
+      top: 4.3rem;
+      width: 6rem;
+    }
   }
 
   .card__top {
@@ -128,6 +281,13 @@ const tiers = getServiceTiers(locale);
     margin-top: var(--space-4);
     font-size: var(--text-xl);
     line-height: 1.1;
+    transition: color var(--duration-fast) var(--ease-out);
+  }
+
+  .card:hover .card__name,
+  .card:focus-visible .card__name,
+  .card:active .card__name {
+    color: var(--color-primary-strong);
   }
 
   .card__price {
@@ -217,9 +377,43 @@ const tiers = getServiceTiers(locale);
     transform: translateX(5px);
   }
 
+  .card.panel:not(.card--featured) {
+    background: transparent;
+    border: 0;
+    box-shadow: none;
+  }
+
   @media (max-width: 900px) {
+    .plans__head {
+      margin-bottom: var(--space-5);
+    }
+
+    .plans__compare {
+      justify-self: start;
+    }
+
     .cards {
       grid-template-columns: 1fr;
+    }
+
+    .cards > li:has(.card--featured) {
+      order: -1;
+    }
+
+    .card--featured {
+      order: 0;
+      align-self: stretch;
+      margin: 0 0 var(--space-2);
+    }
+
+    .card:not(.card--featured) {
+      padding: var(--space-5) 0 0;
+      border-top: 1px solid var(--color-rule-strong);
+    }
+
+    .card--featured .card__preview,
+    .card__preview {
+      display: none;
     }
   }
 </style>

@@ -17,11 +17,6 @@ export interface NavItem {
   readonly summary: string;
 }
 
-export interface AdjacentPages {
-  readonly previous: NavItem | null;
-  readonly next: NavItem | null;
-}
-
 const NAV_KEYS = ['servicios', 'automatizacion', 'proceso', 'nosotros', 'contacto'] as const;
 
 export function primaryNav(locale: Locale): readonly NavItem[] {
@@ -31,17 +26,6 @@ export function primaryNav(locale: Locale): readonly NavItem[] {
     href: localizePath(routes[key], locale),
     summary: t.nav.items[key].summary,
   }));
-}
-
-/** Previous and next items in the primary nav, for sequential page navigation. */
-export function adjacentPages(items: readonly NavItem[], currentPath: string): AdjacentPages {
-  const index = items.findIndex((item) => isCurrentPage(item.href, currentPath));
-  if (index === -1) return { previous: null, next: null };
-
-  return {
-    previous: items[index - 1] ?? null,
-    next: items[index + 1] ?? null,
-  };
 }
 
 export function localeAlternates(pathname: string): { locale: Locale; href: string }[] {

@@ -53,7 +53,8 @@ const externalAttrs = external ? { target: '_blank', rel: 'noopener noreferrer' 
     transition:
       background-color var(--duration-fast) var(--ease-out),
       border-color var(--duration-fast) var(--ease-out),
-      color var(--duration-fast) var(--ease-out);
+      color var(--duration-fast) var(--ease-out),
+      box-shadow var(--duration-base) var(--ease-out);
   }
 
   .btn__arrow {
@@ -80,12 +81,21 @@ const externalAttrs = external ? { target: '_blank', rel: 'noopener noreferrer' 
     background: var(--color-primary);
     color: var(--color-on-primary);
     border: 1px solid var(--color-primary);
+    box-shadow: var(--inset-highlight);
   }
 
   .btn--primary:hover,
-  .btn--primary:focus-visible {
+  .btn--primary:focus-visible,
+  .btn--primary:active {
     background: var(--color-primary-strong);
     border-color: var(--color-primary-strong);
+    box-shadow: var(--shadow-lift), var(--inset-highlight);
+  }
+
+  @media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+    .btn--primary:hover {
+      translate: 0 -1px;
+    }
   }
 
   .btn--outline {

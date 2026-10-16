@@ -7,9 +7,17 @@
  * Unsplash License (https://unsplash.com/license):
  * https://unsplash.com/photos/iS1TleKIWlo
  * Cropped locally for the hero window. It is not Foresta client work.
- * Smaller stills are the same license, stored in public/images/mockup/.
+ * Smaller stills are the same license, stored in src/assets/images/mockup/
+ * and rendered through astro:assets.
  */
+import { Image } from 'astro:assets';
 import placeImage from '@/assets/images/open-air-room.jpg';
+import chairImage from '@/assets/images/mockup/chair.jpg';
+import chromeImage from '@/assets/images/mockup/chrome.jpg';
+import cubeImage from '@/assets/images/mockup/cube.jpg';
+import diningImage from '@/assets/images/mockup/dining.jpg';
+import lampImage from '@/assets/images/mockup/lamp.jpg';
+import tableImage from '@/assets/images/mockup/table.jpg';
 ---
 
 <div class="studio" aria-hidden="true">
@@ -52,12 +60,15 @@ import placeImage from '@/assets/images/open-air-room.jpg';
     <section class="pdp">
       <div class="pdp__gallery">
         <div class="shot shot--hero">
-          <img
+          <Image
             class="shot__photo"
-            src={placeImage.src}
+            src={placeImage}
             alt=""
-            width={placeImage.width}
-            height={placeImage.height}
+            layout="constrained"
+            width={960}
+            height={720}
+            widths={[480, 768, 960]}
+            sizes="(min-width: 1000px) 32vw, 88vw"
             loading="eager"
             decoding="async"
           />
@@ -75,34 +86,43 @@ import placeImage from '@/assets/images/open-air-room.jpg';
         </div>
         <div class="pdp__thumbs">
           <span class="shot shot--thumb shot--chair is-active">
-            <img
+            <Image
               class="shot__photo"
-              src="/images/mockup/chair.jpg"
+              src={chairImage}
               alt=""
-              width="1300"
-              height="1300"
+              layout="constrained"
+              width={240}
+              height={240}
+              widths={[160, 240]}
+              sizes="120px"
               loading="lazy"
               decoding="async"
             />
           </span>
           <span class="shot shot--thumb shot--chrome">
-            <img
+            <Image
               class="shot__photo"
-              src="/images/mockup/chrome.jpg"
+              src={chromeImage}
               alt=""
-              width="720"
-              height="720"
+              layout="constrained"
+              width={240}
+              height={240}
+              widths={[160, 240]}
+              sizes="120px"
               loading="lazy"
               decoding="async"
             />
           </span>
           <span class="shot shot--thumb shot--cube">
-            <img
+            <Image
               class="shot__photo"
-              src="/images/mockup/cube.jpg"
+              src={cubeImage}
               alt=""
-              width="920"
-              height="920"
+              layout="constrained"
+              width={240}
+              height={240}
+              widths={[160, 240]}
+              sizes="120px"
               loading="lazy"
               decoding="async"
             />
@@ -140,12 +160,15 @@ import placeImage from '@/assets/images/open-air-room.jpg';
     <section class="rail">
       <article>
         <span class="shot shot--lamp">
-          <img
+          <Image
             class="shot__photo"
-            src="/images/mockup/lamp.jpg"
+            src={lampImage}
             alt=""
-            width="900"
-            height="1120"
+            layout="constrained"
+            width={320}
+            height={320}
+            widths={[200, 320]}
+            sizes="160px"
             loading="lazy"
             decoding="async"
           />
@@ -155,12 +178,15 @@ import placeImage from '@/assets/images/open-air-room.jpg';
       </article>
       <article>
         <span class="shot shot--table">
-          <img
+          <Image
             class="shot__photo"
-            src="/images/mockup/table.jpg"
+            src={tableImage}
             alt=""
-            width="1700"
-            height="1700"
+            layout="constrained"
+            width={320}
+            height={320}
+            widths={[200, 320]}
+            sizes="160px"
             loading="lazy"
             decoding="async"
           />
@@ -170,12 +196,15 @@ import placeImage from '@/assets/images/open-air-room.jpg';
       </article>
       <article>
         <span class="shot shot--dining">
-          <img
+          <Image
             class="shot__photo"
-            src="/images/mockup/dining.jpg"
+            src={diningImage}
             alt=""
-            width="1470"
-            height="980"
+            layout="constrained"
+            width={320}
+            height={240}
+            widths={[200, 320]}
+            sizes="160px"
             loading="lazy"
             decoding="async"
           />
@@ -185,12 +214,15 @@ import placeImage from '@/assets/images/open-air-room.jpg';
       </article>
       <article class="rail__last">
         <span class="shot shot--stool">
-          <img
+          <Image
             class="shot__photo"
-            src="/images/mockup/cube.jpg"
+            src={cubeImage}
             alt=""
-            width="920"
-            height="920"
+            layout="constrained"
+            width={320}
+            height={320}
+            widths={[200, 320]}
+            sizes="160px"
             loading="lazy"
             decoding="async"
           />
@@ -415,6 +447,14 @@ import placeImage from '@/assets/images/open-air-room.jpg';
     border-radius: 16px;
     background: #d8dbe0;
     border: 1px solid rgb(21 35 32 / 0.06);
+  }
+
+  .shot :global(picture) {
+    position: absolute;
+    inset: 0;
+    display: block;
+    width: 100%;
+    height: 100%;
   }
 
   .shot img {
