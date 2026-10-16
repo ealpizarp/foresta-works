@@ -127,9 +127,9 @@ export const es = {
     contact: 'Contacto',
   },
   hero: {
-    title: 'Construimos y cuidamos su sitio.',
-    titleEm: 'El asistente de WhatsApp va por escrito.',
-    lede: 'Un estudio en Costa Rica para empresas y organizaciones. El alcance se escribe antes de construir y antes de encender el asistente.',
+    title: 'Transformamos su negocio para una nueva era de',
+    titleEm: 'inteligencia artificial',
+    lede: 'Un estudio basado en Costa Rica con la misión de entregar infraestructura digital moderna a negocios.',
     startConversation: 'Conversemos',
     writeWhatsApp: 'Conversemos',
     cueSite: 'Sitio web',

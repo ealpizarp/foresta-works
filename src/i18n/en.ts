@@ -128,9 +128,9 @@ export const en = {
     contact: 'Contact',
   },
   hero: {
-    title: 'We build your site and look after it.',
-    titleEm: 'The WhatsApp assistant is written down.',
-    lede: 'A studio in Costa Rica for businesses and organizations. The scope is written before we build, and before the assistant is turned on.',
+    title: 'We transform your business for a new era of',
+    titleEm: 'artificial intelligence.',
+    lede: 'A studio based in Costa Rica, with the mission of delivering modern digital infrastructure to businesses.',
     startConversation: "Let's talk",
     writeWhatsApp: "Let's talk",
     cueSite: 'Website',
