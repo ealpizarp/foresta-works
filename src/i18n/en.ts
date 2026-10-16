@@ -264,9 +264,8 @@ export const en = {
         support:
           'For companies, businesses, and organizations whose services and hours still live in messages or on a loose profile. Someone searching does not reach a page that is kept current.',
         steps: [
-          'The site is in your name and reads clearly on a phone.',
-          'The Google profile and a way to get in touch are connected.',
-          'Each month, one round of changes and a report of what was looked after.',
+          'A site in your name, with Google and a way to get in touch connected.',
+          'Each month, one round of changes and a report.',
         ],
         note: null,
       },
@@ -275,8 +274,7 @@ export const en = {
         support:
           'For companies, businesses, and organizations that already serve customers and still handle payment, booking, or ads by hand.',
         steps: [
-          'A catalog, a store, or a simple booking system.',
-          'Payments are connected, including SINPE Móvil when it applies.',
+          'A catalog, store, or bookings, with payments and SINPE Móvil when it applies.',
           'Meta ads are reviewed each month. You load the budget.',
         ],
         note: 'New photo or video, if you do not already have material, is quoted separately.',
@@ -286,8 +284,7 @@ export const en = {
         support:
           'For companies, businesses, and organizations that answer the same questions on WhatsApp, including when no one is there. It adds to the site. It does not replace it.',
         steps: [
-          'What the assistant does and does not do is written first.',
-          'Questions, closed hours, reminders, and reviews stay inside that text.',
+          'The scope is written first: questions, closed hours, reminders, and reviews.',
           'What it cannot resolve comes back to you. It does not close a sale or decide for you.',
         ],
         note: 'If WhatsApp or Meta charge per conversation, you pay that.',

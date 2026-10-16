@@ -1,10 +1,10 @@
 ---
 /**
- * One editorial section per subscription.
- * Arranque keeps a young stem beside the words.
- * Crecimiento splits that stem into offer, payment, and ads.
- * Inteligente is a trunk already grown, plus one later shoot.
- * The line draws once. Reduced motion shows it finished.
+ * One compact section per subscription.
+ * Arranque: a page taking shape, grown from a seed.
+ * Crecimiento: a canopy spreading from one trunk.
+ * Inteligente: roots joined at one node, with a single shoot.
+ * Each drawing runs once. Reduced motion shows it finished.
  */
 import Button from '@/components/ui/Button.astro';
 import { getServiceTiers } from '@/data/services';
@@ -19,98 +19,134 @@ const contact = path(routes.contacto);
 {
   tiers.map((tier) => {
     const copy = detail[tier.id];
-    const rooted = tier.id === 'arranque' || tier.id === 'inteligente';
     return (
       <section
         class:list={['section', 'section--page', 'plan', `plan--${tier.id}`]}
         id={tier.id}
         aria-labelledby={`${tier.id}-title`}
       >
-        <div class:list={['container', { 'plan__layout': rooted }]}>
-          {tier.id === 'arranque' && (
-            <div class="plan__rail" aria-hidden="true">
-              <svg class="plan__plant" viewBox="0 0 120 168" fill="none">
-                <g class="plan__emboss">
-                  <path d="M58 150 C 64 122 46 92 56 58" stroke="currentColor" stroke-width="1.35" stroke-linecap="round" />
-                  <path d="M54 108 C 40 104 26 90 16 76" stroke="currentColor" stroke-width="1.15" stroke-linecap="round" />
-                  <path d="M56 86 C 74 82 90 68 104 54" stroke="currentColor" stroke-width="1.15" stroke-linecap="round" />
-                </g>
-                <g class="plan__ink">
-                  <path class="plan__path" pathLength="100" d="M58 150 C 64 122 46 92 56 58" stroke="currentColor" stroke-width="1.35" stroke-linecap="round" />
-                  <path class="plan__path plan__path--later" pathLength="100" d="M54 108 C 40 104 26 90 16 76" stroke="currentColor" stroke-width="1.15" stroke-linecap="round" />
-                  <path class="plan__path plan__path--later" pathLength="100" d="M56 86 C 74 82 90 68 104 54" stroke="currentColor" stroke-width="1.15" stroke-linecap="round" />
-                  <circle cx="58" cy="156" r="7.5" fill="none" stroke="currentColor" stroke-width="1" opacity="0.4" />
-                  <circle cx="58" cy="156" r="3.2" fill="currentColor" />
-                  <circle class="plan__bud" cx="56" cy="58" r="3.2" fill="currentColor" />
-                </g>
-              </svg>
-            </div>
-          )}
+        <div class="container plan__layout">
+          <div class="plan__lead">
+            <p class="plan__name">{tier.name}</p>
+            <h2 class="plan__statement reveal" id={`${tier.id}-title`}>
+              {copy.purpose}
+            </h2>
+            <p class="plan__support reveal">{copy.support}</p>
+          </div>
 
-          {tier.id === 'inteligente' && (
-            <div class="plan__rail" aria-hidden="true">
-              <svg class="plan__shoot" viewBox="0 0 220 78" fill="none">
-                <g class="plan__emboss">
-                  <path d="M2 70 C 48 66 96 40 150 30" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" />
-                  <path d="M118 38 C 138 24 164 16 190 20" stroke="currentColor" stroke-width="1.05" stroke-linecap="round" />
+          <figure class="plan__figure" aria-hidden="true">
+            {tier.id === 'arranque' && (
+              <svg class="plan__draw" viewBox="0 0 320 240" fill="none">
+                <ellipse class="plan__ground" cx="168" cy="210" rx="112" ry="14" />
+                <g class="plan__emboss" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M152 36 C196 28 238 32 268 40 C286 46 294 62 292 82 V146 C292 164 278 176 260 176 H156 C136 176 126 162 128 142 V86 C128 60 132 44 152 36 Z" />
+                  <path d="M150 64 C176 58 206 62 236 58" />
+                  <path d="M150 84 C174 88 198 80 224 84" />
+                  <path d="M150 102 C168 106 186 98 206 102" />
+                  <path d="M232 154 C254 146 272 128 264 108 C248 116 234 134 232 154 Z" />
+                  <path d="M62 196 C70 170 88 156 108 146 C120 140 128 134 138 126" />
+                  <path d="M96 160 C72 150 52 134 48 116 C68 124 86 142 96 160 Z" />
                 </g>
-                <g class="plan__ink">
-                  <path class="plan__path plan__path--later" pathLength="100" d="M2 70 C 48 66 96 40 150 30" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" />
-                  <path class="plan__path plan__path--later" pathLength="100" d="M118 38 C 138 24 164 16 190 20" stroke="currentColor" stroke-width="1.05" stroke-linecap="round" />
-                  <circle class="plan__bud" cx="190" cy="20" r="3.2" fill="currentColor" />
-                </g>
-              </svg>
-            </div>
-          )}
-
-          <div class="plan__main">
-            {tier.id === 'crecimiento' && (
-              <svg class="plan__mark" viewBox="0 0 140 120" fill="none" aria-hidden="true">
-                <g class="plan__emboss">
-                  <path d="M70 108 C 74 86 62 68 66 48" stroke="currentColor" stroke-width="1.35" stroke-linecap="round" />
-                  <path d="M66 72 C 48 68 30 58 16 46" stroke="currentColor" stroke-width="1.15" stroke-linecap="round" />
-                  <path d="M66 64 C 86 58 106 46 124 32" stroke="currentColor" stroke-width="1.15" stroke-linecap="round" />
-                </g>
-                <g class="plan__ink">
-                  <path class="plan__path" pathLength="100" d="M70 108 C 74 86 62 68 66 48" stroke="currentColor" stroke-width="1.35" stroke-linecap="round" />
-                  <path class="plan__path plan__path--later" pathLength="100" d="M66 72 C 48 68 30 58 16 46" stroke="currentColor" stroke-width="1.15" stroke-linecap="round" />
-                  <path class="plan__path plan__path--later" pathLength="100" d="M66 64 C 86 58 106 46 124 32" stroke="currentColor" stroke-width="1.15" stroke-linecap="round" />
-                  <circle cx="70" cy="112" r="3.1" fill="currentColor" />
-                  <circle class="plan__bud plan__bud--clay" cx="66" cy="48" r="3.3" fill="var(--color-clay)" />
+                <g class="plan__ink" stroke-linecap="round" stroke-linejoin="round">
+                  <path class="plan__path" pathLength="100" d="M152 36 C196 28 238 32 268 40 C286 46 294 62 292 82 V146 C292 164 278 176 260 176 H156 C136 176 126 162 128 142 V86 C128 60 132 44 152 36 Z" />
+                  <path class="plan__path plan__path--later" pathLength="100" d="M150 64 C176 58 206 62 236 58" />
+                  <path class="plan__path plan__path--later" pathLength="100" d="M150 84 C174 88 198 80 224 84" />
+                  <path class="plan__path plan__path--later" pathLength="100" d="M150 102 C168 106 186 98 206 102" />
+                  <path class="plan__path plan__path--last plan__leaf" pathLength="100" d="M232 154 C254 146 272 128 264 108 C248 116 234 134 232 154 Z" />
+                  <path class="plan__path plan__path--later" pathLength="100" d="M62 196 C70 170 88 156 108 146 C120 140 128 134 138 126" />
+                  <path class="plan__path plan__path--last plan__leaf" pathLength="100" d="M96 160 C72 150 52 134 48 116 C68 124 86 142 96 160 Z" />
+                  <circle cx="60" cy="200" r="8" fill="none" stroke="currentColor" stroke-width="1" opacity="0.35" />
+                  <circle cx="60" cy="200" r="3.3" fill="currentColor" stroke="none" />
+                  <circle class="plan__bud" cx="138" cy="126" r="2.8" fill="currentColor" stroke="none" />
                 </g>
               </svg>
             )}
 
-            <p class="plan__name">{tier.name}</p>
-            <h2 class="plan__statement reveal" id={`${tier.id}-title`}>{copy.purpose}</h2>
-            <p class="plan__support reveal">{copy.support}</p>
+            {tier.id === 'crecimiento' && (
+              <svg class="plan__draw" viewBox="0 0 320 240" fill="none">
+                <ellipse class="plan__ground" cx="160" cy="214" rx="120" ry="14" />
+                <g class="plan__emboss" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M160 202 C158 178 156 156 156 132" />
+                  <path d="M156 158 C120 150 84 140 50 122" />
+                  <path d="M154 146 C126 124 108 98 96 74" />
+                  <path d="M156 132 C152 108 150 86 154 62" />
+                  <path d="M158 140 C190 116 216 92 238 66" />
+                  <path d="M158 156 C198 148 240 136 276 118" />
+                  <path d="M50 122 C26 114 12 94 26 78 C42 90 54 108 50 122 Z" />
+                  <path d="M96 74 C78 56 74 34 94 28 C106 44 108 62 96 74 Z" />
+                  <path d="M154 64 C134 44 142 20 170 18 C192 24 188 50 154 64 Z" />
+                  <path d="M238 66 C258 48 284 50 286 70 C272 78 250 78 238 66 Z" />
+                  <path d="M276 118 C298 104 312 114 304 132 C292 136 280 130 276 118 Z" />
+                  <path d="M148 114 C124 104 116 84 132 74 C144 88 152 102 148 114 Z" />
+                </g>
+                <g class="plan__ink" stroke-linecap="round" stroke-linejoin="round">
+                  <path class="plan__path" pathLength="100" d="M160 202 C158 178 156 156 156 132" />
+                  <path class="plan__path plan__path--later" pathLength="100" d="M156 158 C120 150 84 140 50 122" />
+                  <path class="plan__path plan__path--later" pathLength="100" d="M154 146 C126 124 108 98 96 74" />
+                  <path class="plan__path" pathLength="100" d="M156 132 C152 108 150 86 154 62" />
+                  <path class="plan__path plan__path--later" pathLength="100" d="M158 140 C190 116 216 92 238 66" />
+                  <path class="plan__path plan__path--later" pathLength="100" d="M158 156 C198 148 240 136 276 118" />
+                  <path class="plan__path plan__path--last plan__leaf" pathLength="100" d="M50 122 C26 114 12 94 26 78 C42 90 54 108 50 122 Z" />
+                  <path class="plan__path plan__path--last plan__leaf" pathLength="100" d="M96 74 C78 56 74 34 94 28 C106 44 108 62 96 74 Z" />
+                  <path class="plan__path plan__path--last plan__leaf" pathLength="100" d="M154 64 C134 44 142 20 170 18 C192 24 188 50 154 64 Z" />
+                  <path class="plan__path plan__path--last plan__leaf" pathLength="100" d="M238 66 C258 48 284 50 286 70 C272 78 250 78 238 66 Z" />
+                  <path class="plan__path plan__path--last plan__leaf" pathLength="100" d="M276 118 C298 104 312 114 304 132 C292 136 280 130 276 118 Z" />
+                  <path class="plan__path plan__path--last plan__leaf" pathLength="100" d="M148 114 C124 104 116 84 132 74 C144 88 152 102 148 114 Z" />
+                  <circle cx="160" cy="206" r="8" fill="none" stroke="currentColor" stroke-width="1" opacity="0.35" />
+                  <circle cx="160" cy="206" r="3.3" fill="currentColor" stroke="none" />
+                  <circle class="plan__bud plan__bud--clay" cx="170" cy="20" r="3.2" fill="var(--color-clay)" stroke="none" />
+                </g>
+              </svg>
+            )}
 
-            <div class:list={['plan__sequence', { 'plan__sequence--crown': tier.id === 'crecimiento' }]}>
-              {tier.id === 'crecimiento' && (
-                <div class="crown reveal" aria-hidden="true">
-                  <span class="crown__bar"></span>
-                  <span class="crown__spine"></span>
-                </div>
-              )}
-              <ol class="plan__steps">
-                {copy.steps.map((step) => (
-                  <li class="reveal">
-                    {tier.id === 'crecimiento' && <span class="crown__tick" aria-hidden="true"></span>}
-                    <p>{step}</p>
-                  </li>
-                ))}
-              </ol>
-            </div>
+            {tier.id === 'inteligente' && (
+              <svg class="plan__draw" viewBox="0 0 320 240" fill="none">
+                <ellipse class="plan__ground" cx="160" cy="214" rx="118" ry="14" />
+                <g class="plan__emboss" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M42 188 C58 166 92 146 128 128 C140 122 148 118 150 116" />
+                  <path d="M278 186 C260 164 226 144 192 126 C180 120 172 116 170 114" />
+                  <path d="M160 204 C158 180 160 152 160 128" />
+                  <path d="M72 158 C112 140 208 140 248 156" />
+                  <path d="M64 176 C50 168 42 176 36 188" />
+                  <path d="M254 172 C270 164 278 174 284 186" />
+                  <path d="M132 156 C118 168 110 182 104 194" />
+                  <path d="M188 154 C204 166 212 180 218 192" />
+                  <path d="M170 102 C188 86 208 72 230 58" />
+                  <path d="M208 76 C224 62 244 60 248 74 C232 80 214 82 208 76 Z" />
+                  <circle cx="160" cy="112" r="13" />
+                </g>
+                <g class="plan__ink" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="160" cy="112" r="13" fill="var(--color-sage-100)" stroke="currentColor" stroke-width="1.25" />
+                  <path class="plan__path" pathLength="100" d="M42 188 C58 166 92 146 128 128 C140 122 148 118 150 116" />
+                  <path class="plan__path" pathLength="100" d="M278 186 C260 164 226 144 192 126 C180 120 172 116 170 114" />
+                  <path class="plan__path" pathLength="100" d="M160 204 C158 180 160 152 160 128" />
+                  <path class="plan__path plan__path--later" pathLength="100" d="M72 158 C112 140 208 140 248 156" />
+                  <path class="plan__path plan__path--last" pathLength="100" d="M64 176 C50 168 42 176 36 188" />
+                  <path class="plan__path plan__path--last" pathLength="100" d="M254 172 C270 164 278 174 284 186" />
+                  <path class="plan__path plan__path--last" pathLength="100" d="M132 156 C118 168 110 182 104 194" />
+                  <path class="plan__path plan__path--last" pathLength="100" d="M188 154 C204 166 212 180 218 192" />
+                  <path class="plan__path plan__path--later" pathLength="100" d="M170 102 C188 86 208 72 230 58" />
+                  <path class="plan__path plan__path--last plan__leaf" pathLength="100" d="M208 76 C224 62 244 60 248 74 C232 80 214 82 208 76 Z" />
+                  <circle cx="160" cy="112" r="3.2" fill="currentColor" stroke="none" />
+                  <circle class="plan__bud plan__bud--clay" cx="234" cy="54" r="3.2" fill="var(--color-clay)" stroke="none" />
+                </g>
+              </svg>
+            )}
+          </figure>
 
-            <div class="plan__close">
-              {copy.note && <p class="plan__note">{copy.note}</p>}
-              <p class="plan__note">{tier.upgrade}</p>
-              <div class="plan__cta">
-                <Button href={contact} class="btn--wrap">
-                  {detail.talk}
-                  <span class="sr-only"> {tier.name}.</span>
-                </Button>
-              </div>
+          <div class="plan__decision">
+            <ul class="plan__points">
+              {copy.steps.map((step) => (
+                <li class="reveal">{step}</li>
+              ))}
+            </ul>
+            {copy.note && <p class="plan__note">{copy.note}</p>}
+            <p class="plan__note">{tier.upgrade}</p>
+            <div class="plan__cta">
+              <Button href={contact} class="btn--wrap">
+                {detail.talk}
+                <span class="sr-only"> {tier.name}.</span>
+              </Button>
             </div>
           </div>
         </div>
@@ -120,67 +156,21 @@ const contact = path(routes.contacto);
 }
 
 <style>
-  .plan--arranque .plan__layout,
-  .plan--inteligente .plan__layout {
+  .plan.section--page {
+    padding-top: var(--space-5);
+    padding-bottom: var(--space-6);
+    border-top: 1px solid var(--color-rule);
+  }
+
+  .plan__layout {
     display: grid;
-    grid-template-columns: 4.75rem minmax(0, 1fr);
-    column-gap: var(--space-6);
-    align-items: stretch;
+    row-gap: var(--space-4);
   }
 
-  .plan__rail {
-    position: relative;
-  }
-
-  .plan__rail::after {
-    content: '';
-    position: absolute;
-    top: 6.5rem;
-    bottom: 0.5rem;
-    left: 2.05rem;
-    width: 1px;
-    background: var(--color-moss-800);
-    opacity: 0.4;
-  }
-
-  .plan--inteligente .plan__rail::after {
-    top: 3.55rem;
-    left: 0.12rem;
-  }
-
-  .plan__plant,
-  .plan__shoot,
-  .plan__mark {
-    display: block;
-    overflow: visible;
-    color: var(--color-moss-800);
-  }
-
-  .plan__plant {
-    width: 4.35rem;
-    height: auto;
-  }
-
-  .plan__shoot {
-    width: 8.75rem;
-    height: auto;
-    margin-left: 0.02rem;
-  }
-
-  .plan__mark {
-    width: 5.6rem;
-    height: auto;
-    margin-bottom: var(--space-5);
-  }
-
-  .plan__emboss {
-    color: var(--color-sage-300);
-    opacity: 0.9;
-    transform: translate(1.6px, 2px);
-  }
-
-  .plan--inteligente .plan__main {
-    padding-top: 3.4rem;
+  .plan__lead {
+    display: grid;
+    justify-items: start;
+    gap: var(--space-3);
   }
 
   .plan__name {
@@ -192,145 +182,136 @@ const contact = path(routes.contacto);
   }
 
   .plan__statement {
-    max-width: 14ch;
-    margin-top: var(--space-4);
-    font-size: var(--text-3xl);
+    max-width: 22ch;
+    font-size: var(--text-2xl);
     font-weight: var(--weight-display);
-    line-height: 1.02;
+    line-height: 1.05;
     letter-spacing: var(--tracking-display);
   }
 
-  .plan--crecimiento .plan__statement,
-  .plan--inteligente .plan__statement {
-    max-width: 16ch;
-  }
-
   .plan__support {
-    max-width: 38ch;
-    margin-top: var(--space-5);
-    font-size: var(--text-md);
+    max-width: 42ch;
+    font-size: var(--text-base);
     line-height: 1.5;
     color: var(--color-text-soft);
   }
 
-  .plan__steps {
+  .plan__figure {
+    margin: 0;
     display: flex;
-    flex-direction: column;
-    gap: var(--space-7);
-    margin-top: var(--space-8);
+    justify-content: flex-start;
   }
 
-  .plan__steps p {
-    max-width: 28ch;
-    font-family: var(--font-serif);
-    font-size: var(--text-xl);
-    line-height: 1.22;
-    letter-spacing: var(--tracking-display);
+  .plan__draw {
+    display: block;
+    width: min(100%, 16rem);
+    height: auto;
+    overflow: hidden;
+    color: var(--color-moss-800);
   }
 
-  .plan__close {
+  .plan__ground {
+    fill: var(--color-wash);
+  }
+
+  .plan__emboss,
+  .plan__ink {
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.25;
+  }
+
+  .plan__emboss {
+    color: var(--color-sage-300);
+    opacity: 0.9;
+    transform: translate(1.6px, 2px);
+  }
+
+  .plan__ink {
+    stroke-width: 1.3;
+  }
+
+  .plan__leaf {
+    fill: var(--color-sage-100);
+  }
+
+  .plan__decision {
     display: grid;
     justify-items: start;
-    gap: var(--space-4);
-    max-width: 42ch;
-    margin-top: var(--space-8);
+    gap: var(--space-3);
+  }
+
+  .plan__points {
+    display: grid;
+    gap: var(--space-3);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .plan__points li {
+    display: grid;
+    grid-template-columns: 0.85rem minmax(0, 1fr);
+    column-gap: var(--space-3);
+    align-items: start;
+    max-width: 46ch;
+    font-size: var(--text-base);
+    line-height: 1.45;
+  }
+
+  .plan__points li::before {
+    content: '';
+    width: 0.7rem;
+    height: 1px;
+    margin-top: 0.72em;
+    background: var(--color-moss-800);
   }
 
   .plan__note {
-    max-width: 42ch;
+    max-width: 46ch;
     font-size: var(--text-sm);
-    line-height: 1.5;
+    line-height: 1.45;
     color: var(--color-text-soft);
   }
 
   .plan__cta {
-    margin-top: var(--space-3);
-  }
-
-  .plan__sequence--crown .crown,
-  .crown__tick {
-    display: none;
+    margin-top: var(--space-2);
   }
 
   @media (min-width: 900px) {
-    .plan--crecimiento .plan__mark {
-      display: none;
-    }
-
-    .plan__sequence--crown {
-      margin-top: var(--space-8);
-    }
-
-    .plan__sequence--crown .plan__steps {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
+    .plan__layout {
+      grid-template-columns: minmax(0, 1.15fr) minmax(16rem, 0.85fr);
       column-gap: var(--col-gap);
-      gap: 0;
-      margin-top: 0;
+      row-gap: var(--space-4);
+      align-items: center;
     }
 
-    .plan__sequence--crown .crown {
-      display: block;
-      position: relative;
-      height: 4.5rem;
+    .plan__figure {
+      grid-column: 2;
+      grid-row: 1 / span 2;
+      justify-content: center;
     }
 
-    .crown__bar {
-      position: absolute;
-      top: 2.15rem;
-      left: calc((100% - 2 * var(--col-gap)) / 6);
-      right: calc((100% - 2 * var(--col-gap)) / 6);
-      height: 1px;
-      background: var(--color-moss-800);
+    .plan__lead,
+    .plan__decision {
+      grid-column: 1;
     }
 
-    .crown__bar::before {
-      content: '';
-      position: absolute;
-      left: 0;
-      right: 0;
-      top: 2px;
-      height: 1px;
-      background: var(--color-sage-300);
+    .plan--crecimiento .plan__layout {
+      grid-template-columns: minmax(16rem, 0.85fr) minmax(0, 1.15fr);
     }
 
-    .crown__spine {
-      position: absolute;
-      top: 0.1rem;
-      left: 50%;
-      width: 1px;
-      height: 2.1rem;
-      background: var(--color-moss-800);
+    .plan--crecimiento .plan__figure {
+      grid-column: 1;
     }
 
-    .crown__spine::after {
-      content: '';
-      position: absolute;
-      top: -0.28rem;
-      left: 50%;
-      width: 0.48rem;
-      height: 0.48rem;
-      border-radius: 50%;
-      background: var(--color-clay);
-      transform: translateX(-50%);
+    .plan--crecimiento .plan__lead,
+    .plan--crecimiento .plan__decision {
+      grid-column: 2;
     }
 
-    .plan__sequence--crown .crown__tick {
-      display: block;
-      width: 1px;
-      height: 2.35rem;
-      margin: -2.35rem auto var(--space-5);
-      background: var(--color-moss-800);
-      opacity: 0.7;
-    }
-
-    .plan__sequence--crown .plan__steps li {
-      text-align: center;
-    }
-
-    .plan__sequence--crown .plan__steps p {
-      max-width: 22ch;
-      margin-inline: auto;
+    .plan__draw {
+      width: min(100%, 20rem);
     }
   }
 
@@ -338,35 +319,27 @@ const contact = path(routes.contacto);
     .plan__path {
       stroke-dasharray: 100;
       stroke-dashoffset: 100;
-      animation: plan-grow 0.9s var(--ease-out) forwards;
+      animation: plan-grow 0.85s var(--ease-out) forwards;
     }
 
     .plan__path--later {
       animation-duration: 0.7s;
+      animation-delay: 0.22s;
+    }
+
+    .plan__path--last {
+      animation-duration: 0.6s;
       animation-delay: 0.42s;
+    }
+
+    .plan__leaf {
+      fill: transparent;
+      animation: plan-leaf 0.4s var(--ease-out) 0.7s forwards;
     }
 
     .plan__bud {
       opacity: 0;
-      animation: plan-bud 0.35s var(--ease-out) 0.95s forwards;
-    }
-
-    .crown.reveal--wait .crown__bar,
-    .crown.reveal--wait .crown__spine {
-      opacity: 0;
-    }
-
-    .crown.reveal--wait.is-in .crown__bar,
-    .crown.reveal--wait.is-in .crown__spine {
-      animation: plan-bud 0.6s var(--ease-out) forwards;
-    }
-
-    .plan__sequence--crown .plan__steps li.reveal--wait .crown__tick {
-      opacity: 0;
-    }
-
-    .plan__sequence--crown .plan__steps li.reveal--wait.is-in .crown__tick {
-      animation: plan-bud 0.45s var(--ease-out) 0.15s forwards;
+      animation: plan-bud 0.35s var(--ease-out) 0.9s forwards;
     }
   }
 
@@ -376,43 +349,15 @@ const contact = path(routes.contacto);
     }
   }
 
-  @keyframes plan-bud {
+  @keyframes plan-leaf {
     to {
-      opacity: 1;
+      fill: var(--color-sage-100);
     }
   }
 
-  @media (max-width: 600px) {
-    .plan--arranque .plan__layout,
-    .plan--inteligente .plan__layout {
-      grid-template-columns: 3.35rem minmax(0, 1fr);
-      column-gap: var(--space-4);
-    }
-
-    .plan__plant {
-      width: 3.1rem;
-    }
-
-    .plan__rail::after {
-      left: 1.46rem;
-      top: 4.65rem;
-    }
-
-    .plan--inteligente .plan__rail::after {
-      left: 0.08rem;
-      top: 2.7rem;
-    }
-
-    .plan__shoot {
-      width: 6.25rem;
-    }
-
-    .plan--inteligente .plan__main {
-      padding-top: 2.45rem;
-    }
-
-    .plan__statement {
-      max-width: 12ch;
+  @keyframes plan-bud {
+    to {
+      opacity: 1;
     }
   }
 </style>

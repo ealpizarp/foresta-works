@@ -264,9 +264,8 @@ export const es = {
         support:
           'Para empresas, negocios y organizaciones cuyos servicios y horario viven en mensajes o en un perfil suelto. Quien busca no llega a una página al día.',
         steps: [
-          'El sitio queda a su nombre y se lee bien en el celular.',
-          'El perfil de Google y el contacto quedan conectados.',
-          'Cada mes, una ronda de cambios y un reporte de lo que se cuidó.',
+          'Sitio a su nombre, con Google y el contacto conectados.',
+          'Cada mes, una ronda de cambios y un reporte.',
         ],
         note: null as string | null,
       },
@@ -275,9 +274,8 @@ export const es = {
         support:
           'Para empresas, negocios y organizaciones que ya atienden clientes y todavía resuelven el pago, la reserva o la pauta a mano.',
         steps: [
-          'Catálogo, tienda o un sistema sencillo de reservas.',
-          'Los pagos quedan integrados, con SINPE Móvil cuando aplica.',
-          'Los anuncios de Meta se revisan cada mes. El presupuesto lo carga usted.',
+          'Catálogo, tienda o reservas, con pagos y SINPE Móvil cuando aplica.',
+          'Los anuncios de Meta se revisan cada mes. Usted carga el presupuesto.',
         ],
         note: 'La foto o el video nuevo, si no tiene material, se cotiza aparte.',
       },
@@ -286,8 +284,7 @@ export const es = {
         support:
           'Para empresas, negocios y organizaciones que contestan las mismas preguntas por WhatsApp, también con la operación cerrada. Se suma a un sitio. No lo reemplaza.',
         steps: [
-          'Primero se escribe qué hace el asistente y qué no hace.',
-          'Preguntas, horario cerrado, recordatorios y reseñas caben en ese texto.',
+          'El alcance se escribe antes: preguntas, horario cerrado, recordatorios y reseñas.',
           'Lo que no resuelve vuelve a usted. No cierra una venta ni decide por usted.',
         ],
         note: 'Si WhatsApp o Meta cobran por conversación, lo paga usted.',
