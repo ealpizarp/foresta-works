@@ -5,12 +5,15 @@
  */
 import Button from '@/components/ui/Button.astro';
 import { emailUrl, site, whatsappUrl } from '@/data/site';
-import { routes, useI18n } from '@/i18n';
+import { useI18n } from '@/i18n';
 
-const { t, path } = useI18n(Astro);
+const { t } = useI18n(Astro);
 const whatsapp = whatsappUrl(t.meta.whatsappMessage);
 const email = emailUrl(t.meta.emailSubject);
 const formAction = site.contact.whatsappNumber !== null ? `https://wa.me/${site.contact.whatsappNumber}` : null;
+const showEmail = email !== null && site.contact.email !== null;
+const showHours = t.contact.hoursValue !== null;
+const hasMethods = whatsapp !== null || showEmail || showHours;
 
 if (whatsapp === null && email === null) {
   console.warn(
@@ -19,54 +22,58 @@ if (whatsapp === null && email === null) {
 }
 ---
 
-<section class="section section--page contact-panel" aria-labelledby="contact-methods-title">
+<section
+  class="section section--page contact-panel"
+  aria-labelledby={hasMethods ? 'contact-methods-title' : 'contact-prepare-title'}
+>
   <div class="container contact-panel__grid">
-    <div class:list={['contact-panel__copy', { 'contact-panel__copy--solo': formAction === null }]}>
-      <h2 class="sr-only" id="contact-methods-title">{t.contact.methodsTitle}</h2>
+    {hasMethods && (
+      <div class:list={['contact-panel__copy', { 'contact-panel__copy--solo': formAction === null }]}>
+        <h2 class="sr-only" id="contact-methods-title">{t.contact.methodsTitle}</h2>
 
-      <dl class="contact-panel__list panel">
-        <div>
-          <dt class="label">WhatsApp</dt>
-          <dd>
-            {whatsapp !== null ? (
-              <a class="link-underline" href={whatsapp} target="_blank" rel="noopener noreferrer">
-                {t.contact.openChat}<span class="sr-only">{t.nav.newWindow}</span>
-              </a>
-            ) : (
-              <span class="contact-panel__pending">{t.contact.comingSoon}</span>
-            )}
-          </dd>
-        </div>
-        <div>
-          <dt class="label">{t.contact.email}</dt>
-          <dd>
-            {email !== null && site.contact.email !== null ? (
-              <a class="link-underline" href={email}>{site.contact.email}</a>
-            ) : (
-              <span class="contact-panel__pending">{t.contact.comingSoon}</span>
-            )}
-          </dd>
-        </div>
-        {t.contact.hoursValue !== null && (
-          <div>
-            <dt class="label">{t.contact.hours}</dt>
-            <dd>{t.contact.hoursValue}</dd>
+        <dl class="contact-panel__list panel">
+          {whatsapp !== null && (
+            <div>
+              <dt class="label">WhatsApp</dt>
+              <dd>
+                <a class="link-underline" href={whatsapp} target="_blank" rel="noopener noreferrer">
+                  {t.contact.openChat}<span class="sr-only">{t.nav.newWindow}</span>
+                </a>
+              </dd>
+            </div>
+          )}
+          {showEmail && email !== null && site.contact.email !== null && (
+            <div>
+              <dt class="label">{t.contact.email}</dt>
+              <dd>
+                <a class="link-underline" href={email}>{site.contact.email}</a>
+              </dd>
+            </div>
+          )}
+          {showHours && t.contact.hoursValue !== null && (
+            <div>
+              <dt class="label">{t.contact.hours}</dt>
+              <dd>{t.contact.hoursValue}</dd>
+            </div>
+          )}
+        </dl>
+
+        {whatsapp !== null && (
+          <div class="contact-panel__actions">
+            <Button href={whatsapp} external>{t.contact.writeWhatsApp}</Button>
           </div>
         )}
-      </dl>
+      </div>
+    )}
 
-      {whatsapp !== null && (
-        <div class="contact-panel__actions">
-          <Button href={whatsapp} external>{t.contact.writeWhatsApp}</Button>
-        </div>
-      )}
-
-      {whatsapp === null && email === null && (
-        <p class="contact-panel__next">
-          <Button href={path(routes.servicios)} variant="text">{t.homePlans.compare}</Button>
-        </p>
-      )}
-    </div>
+    {!hasMethods && (
+      <div class="contact-panel__prepare">
+        <h2 id="contact-prepare-title">{t.contact.prepareTitle}</h2>
+        <ul>
+          {t.contact.prepareItems.map((item) => <li>{item}</li>)}
+        </ul>
+      </div>
+    )}
 
     {formAction !== null && (
       <form class="contact-form panel" action={formAction} method="get" target="_blank">
@@ -132,16 +139,31 @@ if (whatsapp === null && email === null) {
     color: var(--color-text);
   }
 
-  .contact-panel__pending {
-    font-family: var(--font-serif);
-    font-style: italic;
-    font-weight: var(--weight-heading);
-    font-size: var(--text-lg);
+  .contact-panel__prepare {
+    grid-column: 1 / 8;
+    max-width: 40rem;
+  }
+
+  .contact-panel__prepare h2 {
+    font-size: var(--text-2xl);
+    line-height: var(--leading-snug);
+    max-width: 16ch;
+  }
+
+  .contact-panel__prepare ul {
+    display: flex;
+    flex-direction: column;
+    margin-top: var(--space-5);
+  }
+
+  .contact-panel__prepare li {
+    padding-block: var(--space-4);
+    border-top: 1px solid var(--color-rule);
     color: var(--color-text-soft);
   }
 
-  .contact-panel__next {
-    margin-top: var(--space-5);
+  .contact-panel__prepare li:last-child {
+    border-bottom: 1px solid var(--color-rule);
   }
 
   .contact-panel__actions {
@@ -232,6 +254,7 @@ if (whatsapp === null && email === null) {
 
   @media (max-width: 900px) {
     .contact-panel__copy,
+    .contact-panel__prepare,
     .contact-form {
       grid-column: 1 / -1;
     }
