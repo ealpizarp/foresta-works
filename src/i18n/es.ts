@@ -72,8 +72,8 @@ export const es = {
       description:
         'Arranque, Crecimiento e Inteligente. La construcción y la mensualidad se confirman por escrito. Sitio, cuidado, tienda, gestión de anuncios y asistente de WhatsApp. La pauta se paga a Meta, aparte.',
       eyebrow: 'Servicios',
-      heading: 'Qué incluye cada suscripción.',
-      lede: 'La mensualidad y la construcción se confirman por escrito. En esta página no hay un precio fijo.',
+      heading: 'El sitio, el cuidado y el asistente, cuando hace falta.',
+      lede: 'Para empresas, negocios y organizaciones. La construcción y la mensualidad se confirman por escrito.',
     },
     automatizacion: {
       title: 'Automatización de WhatsApp para lo que usted ya responde',
@@ -184,6 +184,7 @@ export const es = {
   },
   services: {
     plansTitle: 'Planes de suscripción',
+    overviewTitle: 'Los tres planes.',
     monthly: 'Mensualidad',
     monthlyWritten: 'por escrito',
     oneTimeBuild: 'Construcción única',
@@ -248,12 +249,48 @@ export const es = {
       'En Crecimiento, la gestión de anuncios va en la mensualidad. La pauta la paga usted directo a Meta, en su cuenta.',
     upgradeNote:
       'El paso de Arranque a Crecimiento se cobra como ampliación, no como una construcción nueva. El monto va por escrito.',
+    domainNote: 'El dominio, si lo registramos por usted, se cobra a costo.',
     notOffered: [
       'Manejo diario de redes sociales',
       'Campañas con influencers',
       'Calendario de contenido',
       'Pauta en Google o TikTok',
     ],
+    detail: {
+      fitLabel: 'Para quién',
+      problemLabel: 'Qué resuelve',
+      scopeLabel: 'Qué incluye',
+      practiceLabel: 'En la práctica',
+      talk: 'Conversemos sobre este servicio.',
+      unsure: 'Si todavía no tiene claro cuál plan corresponde.',
+      arranque: {
+        purpose: 'Dejar un sitio propio, entendible en el celular, y seguirlo cuidando.',
+        fit: 'Para empresas, negocios y organizaciones que necesitan un sitio donde se vean los servicios, el horario y cómo escribir.',
+        problem:
+          'Los datos del negocio están en mensajes, en una red o en un perfil suelto. Quien busca no llega a una página al día.',
+        apart: null as string | null,
+        outcome:
+          'En el sitio quedan los servicios, el horario y una forma de escribir. Cada mes recibe un reporte de lo que se cuidó.',
+      },
+      crecimiento: {
+        purpose: 'Ordenar la oferta en el sitio y ajustar los anuncios de Meta cada mes.',
+        fit: 'Para empresas, negocios y organizaciones que ya atienden clientes y quieren catálogo, pagos, reservas o anuncios en Facebook e Instagram.',
+        problem:
+          'La oferta, el pago o la reserva se resuelven a mano. Si hay anuncios, nadie los ajusta ni deja un reporte del mes.',
+        apart: 'La foto o el video nuevo, si no tiene material, se cotiza aparte.',
+        outcome:
+          'El cliente ve la oferta y puede seguir hacia el pago o la reserva en el sitio. Usted recibe un reporte de los anuncios; el presupuesto sigue en su cuenta de Meta.',
+      },
+      inteligente: {
+        purpose: 'Responder lo repetido en WhatsApp, dentro de un alcance escrito.',
+        fit: 'Para empresas, negocios y organizaciones que reciben las mismas preguntas por WhatsApp y quieren cubrirlas también cuando nadie está disponible.',
+        problem:
+          'Las mismas preguntas vuelven por WhatsApp, también con la operación cerrada, y alguien del equipo las contesta una por una.',
+        apart: 'Si WhatsApp o Meta cobran por conversación, lo paga usted.',
+        outcome:
+          'El asistente contesta lo que usted aprobó y le deja lo que no pudo resolver. No cierra una venta ni decide por usted.',
+      },
+    },
     tiers: {
       arranque: {
         audience: 'Para el negocio que necesita existir bien en internet, y mantenerse.',

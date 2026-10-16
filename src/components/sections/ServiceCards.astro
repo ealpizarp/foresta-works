@@ -1,9 +1,20 @@
 ---
-/** Compact overview of the three subscriptions; each card links to its full detail. */
+/**
+ * Compact overview of the three subscriptions.
+ * Home links through to the services page. On that page, the same cards
+ * scroll to each plan's detail.
+ */
 import InterfacePreview from '@/components/visuals/InterfacePreview.astro';
 import PlanTree from '@/components/visuals/PlanTree.astro';
 import { getServiceTiers } from '@/data/services';
 import { routes, useI18n } from '@/i18n';
+
+interface Props {
+  /** `home` links to the services page. `page` scrolls to the plan on this page. */
+  place?: 'home' | 'page';
+}
+
+const { place = 'home' } = Astro.props;
 
 const previewKind = {
   arranque: 'site',
@@ -13,23 +24,32 @@ const previewKind = {
 
 const { locale, t, path } = useI18n(Astro);
 const tiers = getServiceTiers(locale);
+const onPage = place === 'page';
 ---
 
-<section class="section section--wash" aria-labelledby="services-title">
+<section
+  class:list={['section', onPage ? 'section--page' : 'section--wash', { 'plans--page': onPage }]}
+  aria-labelledby="services-title"
+>
   <div class="container">
     <div class="plans__head">
       <p class="plans__kicker">{t.homePlans.label}</p>
-      <h2 class="plans__title" id="services-title">{t.homePlans.title}</h2>
-      <a class="plans__compare" href={path(routes.servicios)}>
-        <span>{t.homePlans.compare}</span>
-        <span aria-hidden="true">→</span>
-      </a>
+      <h2 class="plans__title" id="services-title">{onPage ? t.services.overviewTitle : t.homePlans.title}</h2>
+      {!onPage && (
+        <a class="plans__compare" href={path(routes.servicios)}>
+          <span>{t.homePlans.compare}</span>
+          <span aria-hidden="true">→</span>
+        </a>
+      )}
     </div>
 
-    <ol class="cards">
+    <ol class:list={['cards', { 'cards--page': onPage }]}>
       {tiers.map((tier, index) => (
         <li class="reveal">
-          <a class:list={['card', 'panel', { 'card--featured': tier.recommended }]} href={`${path(routes.servicios)}#${tier.id}`}>
+          <a
+            class:list={['card', 'panel', { 'card--featured': tier.recommended }]}
+            href={onPage ? `#${tier.id}` : `${path(routes.servicios)}#${tier.id}`}
+          >
             <span class:list={['card__tree', `card__tree--${tier.id}`]}>
               <PlanTree stage={tier.id} />
             </span>
@@ -87,6 +107,15 @@ const tiers = getServiceTiers(locale);
     max-width: 16ch;
     font-size: var(--text-3xl);
     line-height: 1.02;
+  }
+
+  .plans--page .plans__head {
+    margin-bottom: var(--space-6);
+  }
+
+  .plans--page .plans__title {
+    max-width: 18ch;
+    font-size: var(--text-2xl);
   }
 
   .plans__compare {
@@ -182,6 +211,50 @@ const tiers = getServiceTiers(locale);
     .card--featured:hover,
     .card--featured:focus-visible {
       transform: translateY(-3px);
+    }
+
+    /* On the services page the middle card is already the raised plan. */
+    .cards--page .card--featured:hover,
+    .cards--page .card--featured:focus-visible {
+      transform: none;
+    }
+  }
+
+  /* Side plans: a moss edge on hover and focus. The rise is motion-only. */
+  .cards--page .card:not(.card--featured) {
+    position: relative;
+    overflow: visible;
+  }
+
+  .cards--page .card:not(.card--featured)::before {
+    content: '';
+    position: absolute;
+    z-index: 2;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: var(--color-moss-800);
+    transform: scaleX(0);
+    transform-origin: left center;
+    pointer-events: none;
+  }
+
+  .cards--page .card:not(.card--featured):is(:hover, :focus-visible)::before {
+    transform: scaleX(1);
+  }
+
+  .cards--page .card--featured:is(:hover, :focus-visible) {
+    box-shadow: var(--shadow-leaf);
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .cards--page .card:not(.card--featured)::before {
+      transition: transform 0.32s var(--ease-out);
+    }
+
+    .cards--page .card:not(.card--featured):is(:hover, :focus-visible) {
+      transform: translateY(-0.35rem);
     }
   }
 

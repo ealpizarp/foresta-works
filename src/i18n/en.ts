@@ -73,8 +73,8 @@ export const en = {
       description:
         'Arranque, Crecimiento, and Inteligente. The build and the monthly fee are confirmed in writing. Website, care, store, ads management, and a WhatsApp assistant. Ad spend is paid to Meta, separately.',
       eyebrow: 'Services',
-      heading: 'What each subscription includes.',
-      lede: 'The monthly fee and the build are confirmed in writing. This page has no fixed price.',
+      heading: 'The site, the care, and the assistant when it is needed.',
+      lede: 'For companies, businesses, and organizations. The build and the monthly fee are confirmed in writing.',
     },
     automatizacion: {
       title: 'WhatsApp automation for what you already answer',
@@ -184,6 +184,7 @@ export const en = {
   },
   services: {
     plansTitle: 'Subscription plans',
+    overviewTitle: 'The three plans.',
     monthly: 'Monthly fee',
     monthlyWritten: 'in writing',
     oneTimeBuild: 'One-time build',
@@ -248,12 +249,48 @@ export const en = {
       'In Crecimiento, ads management is in the monthly fee. You pay the ads budget straight to Meta, in your account.',
     upgradeNote:
       'The move from Arranque to Crecimiento is billed as an expansion, not as a new build. The amount is in writing.',
+    domainNote: 'The domain, if we register it for you, is charged at cost.',
     notOffered: [
       'Day-to-day social media management',
       'Influencer campaigns',
       'Content calendar',
       'Ads on Google or TikTok',
     ],
+    detail: {
+      fitLabel: 'Who it is for',
+      problemLabel: 'What it solves',
+      scopeLabel: 'What it includes',
+      practiceLabel: 'In practice',
+      talk: "Let's talk about this service.",
+      unsure: 'If you are not yet sure which plan fits.',
+      arranque: {
+        purpose: 'A site of your own, clear on a phone, and looked after from then on.',
+        fit: 'For companies, businesses, and organizations that need a site where services, hours, and a way to write are visible.',
+        problem:
+          'The business details live in messages, on a social network, or on a loose profile. Someone searching does not reach a page that is kept current.',
+        apart: null,
+        outcome:
+          'The site shows the services, the hours, and a way to write. Each month you receive a report of what was looked after.',
+      },
+      crecimiento: {
+        purpose: 'Put the offer on the site and adjust the Meta ads each month.',
+        fit: 'For companies, businesses, and organizations that already serve customers and want a catalog, payments, bookings, or ads on Facebook and Instagram.',
+        problem:
+          'The offer, the payment, or the booking is still handled by hand. If there are ads, no one adjusts them or leaves a report for the month.',
+        apart: 'New photo or video, if you do not already have material, is quoted separately.',
+        outcome:
+          'The customer sees the offer and can continue toward payment or booking on the site. You receive a report on the ads; the budget stays in your Meta account.',
+      },
+      inteligente: {
+        purpose: 'Answer the repeated WhatsApp questions, inside a written scope.',
+        fit: 'For companies, businesses, and organizations that receive the same questions on WhatsApp and want them covered when no one is available.',
+        problem:
+          'The same questions come back on WhatsApp, including when the operation is closed, and someone on the team answers them one by one.',
+        apart: 'If WhatsApp or Meta charge per conversation, you pay that.',
+        outcome:
+          'The assistant answers what you approved and leaves you what it could not resolve. It does not close a sale or decide for you.',
+      },
+    },
     tiers: {
       arranque: {
         audience: 'For the business that needs to exist properly online, and stay that way.',

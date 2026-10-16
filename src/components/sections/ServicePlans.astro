@@ -1,0 +1,283 @@
+---
+/**
+ * One reading section per subscription. The overview cards orient;
+ * these sections add who it is for, the problem, the scope, and the outcome.
+ */
+import Button from '@/components/ui/Button.astro';
+import PlanTree from '@/components/visuals/PlanTree.astro';
+import { getServiceTiers } from '@/data/services';
+import { routes, useI18n } from '@/i18n';
+
+const { locale, t, path } = useI18n(Astro);
+const tiers = getServiceTiers(locale);
+const detail = t.services.detail;
+const contact = path(routes.contacto);
+---
+
+{
+  tiers.map((tier, index) => {
+    const copy = detail[tier.id];
+    return (
+      <section
+        class:list={['section', 'section--page', 'plan', `plan--${tier.id}`, { 'plan--primary': tier.recommended }]}
+        id={tier.id}
+        aria-labelledby={`${tier.id}-title`}
+      >
+        <div class="container">
+          <div class="plan__sheet">
+            <header class="plan__intro">
+              <span class:list={['plan__tree', `plan__tree--${tier.id}`]}>
+                <PlanTree stage={tier.id} />
+              </span>
+              <div class="plan__meta">
+                <span class="plan__num" aria-hidden="true">{String(index + 1).padStart(2, '0')}</span>
+                {tier.badge && <span class="plan__badge">{tier.badge}</span>}
+              </div>
+              <h2 class="plan__name" id={`${tier.id}-title`}>{tier.name}</h2>
+              <p class="plan__purpose">{copy.purpose}</p>
+            </header>
+
+            <div class="plan__body">
+              <div>
+                <h3 class="label">{detail.fitLabel}</h3>
+                <p class="plan__text">{copy.fit}</p>
+              </div>
+
+              <div>
+                <h3 class="label">{detail.problemLabel}</h3>
+                <p class="plan__text">{copy.problem}</p>
+              </div>
+
+              <div class="plan__scope">
+                <h3 class="label">{detail.scopeLabel}</h3>
+                <div class="plan__group">
+                  <h4 class="label">{t.services.buildHeading}</h4>
+                  <ul>
+                    {tier.setupIncludes.map((item) => <li>{item}</li>)}
+                  </ul>
+                </div>
+                <div class="plan__group">
+                  <h4 class="label">{t.services.monthlyHeading}</h4>
+                  <ul>
+                    {tier.monthlyIncludes.map((item) => <li>{item}</li>)}
+                  </ul>
+                </div>
+                <p class="plan__next">{tier.upgrade}</p>
+                {copy.apart && <p class="plan__next">{copy.apart}</p>}
+              </div>
+
+              <div>
+                <h3 class="label">{detail.practiceLabel}</h3>
+                <p class="plan__outcome">{copy.outcome}</p>
+              </div>
+
+              <div class="plan__cta">
+                <Button href={contact} variant={tier.recommended ? 'primary' : 'outline'} class="btn--wrap">
+                  {detail.talk}
+                  <span class="sr-only"> {tier.name}.</span>
+                </Button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    );
+  })
+}
+
+<style>
+  .plan__sheet {
+    display: grid;
+    gap: var(--space-6);
+    padding-top: var(--space-6);
+    border-top: 1px solid var(--color-moss-800);
+  }
+
+  .plan--primary .plan__sheet {
+    border-top-color: var(--color-clay);
+  }
+
+  .plan__intro {
+    position: relative;
+    min-height: 6.5rem;
+    padding-right: 5.25rem;
+  }
+
+  .plan--crecimiento .plan__intro {
+    min-height: 9.5rem;
+    padding-right: 7.75rem;
+  }
+
+  .plan--inteligente .plan__intro {
+    min-height: 8rem;
+    padding-right: 6.25rem;
+  }
+
+  .plan__tree {
+    position: absolute;
+    z-index: 0;
+    top: 0;
+    right: 0;
+    width: 4.15rem;
+    pointer-events: none;
+  }
+
+  .plan__tree--crecimiento {
+    width: 6.5rem;
+  }
+
+  .plan__tree--inteligente {
+    width: 5.15rem;
+  }
+
+  .plan__meta,
+  .plan__name,
+  .plan__purpose {
+    position: relative;
+    z-index: 1;
+  }
+
+  .plan__meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-3);
+  }
+
+  .plan__num {
+    font-size: var(--text-xs);
+    font-weight: var(--weight-semibold);
+    letter-spacing: var(--tracking-caps);
+    color: var(--color-primary);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .plan__badge {
+    font-size: 0.625rem;
+    font-weight: var(--weight-semibold);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--color-clay);
+    background: var(--color-clay-soft);
+    padding: var(--space-1) var(--space-3);
+    border-radius: var(--radius-sm);
+  }
+
+  .plan__name {
+    margin-top: var(--space-4);
+    font-size: var(--text-xl);
+    line-height: 1.05;
+  }
+
+  .plan--primary .plan__name {
+    font-size: var(--text-2xl);
+  }
+
+  .plan__purpose {
+    margin-top: var(--space-4);
+    max-width: 28ch;
+    font-family: var(--font-serif);
+    font-size: var(--text-lg);
+    line-height: 1.25;
+    color: var(--color-text);
+  }
+
+  .plan__body {
+    display: grid;
+    gap: var(--space-6);
+    align-content: start;
+  }
+
+  .plan__text,
+  .plan__next {
+    margin-top: var(--space-3);
+    max-width: 54ch;
+    font-size: var(--text-sm);
+    line-height: 1.5;
+    color: var(--color-text-soft);
+  }
+
+  .plan__scope {
+    display: grid;
+    gap: var(--space-5);
+  }
+
+  .plan__group ul {
+    margin-top: var(--space-3);
+  }
+
+  .plan__group li {
+    position: relative;
+    padding-block: var(--space-3);
+    padding-left: 0.9rem;
+    border-bottom: 1px solid var(--color-rule);
+    font-size: var(--text-sm);
+    line-height: 1.45;
+    color: var(--color-text);
+  }
+
+  .plan__group li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: calc(var(--space-3) + 0.55em);
+    width: 0.4rem;
+    height: 1px;
+    background: var(--color-primary);
+  }
+
+  .plan__group li:last-child {
+    border-bottom: 0;
+    padding-bottom: 0;
+  }
+
+  .plan__next {
+    max-width: 48ch;
+  }
+
+  .plan__outcome {
+    margin-top: var(--space-3);
+    max-width: 42ch;
+    font-family: var(--font-serif);
+    font-size: var(--text-lg);
+    line-height: 1.35;
+    color: var(--color-text);
+  }
+
+  @media (min-width: 901px) {
+    .plan__sheet {
+      grid-template-columns: minmax(0, 0.82fr) minmax(0, 1.18fr);
+      column-gap: var(--col-gap);
+      align-items: start;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .plan__intro {
+      min-height: 5.75rem;
+      padding-right: 4.15rem;
+    }
+
+    .plan--crecimiento .plan__intro {
+      min-height: 7.75rem;
+      padding-right: 5.4rem;
+    }
+
+    .plan--inteligente .plan__intro {
+      min-height: 6.6rem;
+      padding-right: 4.7rem;
+    }
+
+    .plan__tree {
+      width: 3.4rem;
+    }
+
+    .plan__tree--crecimiento {
+      width: 4.6rem;
+    }
+
+    .plan__tree--inteligente {
+      width: 4rem;
+    }
+  }
+</style>

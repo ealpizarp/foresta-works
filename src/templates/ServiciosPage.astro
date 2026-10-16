@@ -1,7 +1,8 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
-import CtaBand from '@/components/CtaBand.astro';
-import CompareTable from '@/components/sections/CompareTable.astro';
+import Button from '@/components/ui/Button.astro';
+import ServiceCards from '@/components/sections/ServiceCards.astro';
+import ServicePlans from '@/components/sections/ServicePlans.astro';
 import SubscriptionTerms from '@/components/sections/SubscriptionTerms.astro';
 import ServiceTiers from '@/components/sections/ServiceTiers.astro';
 import PageHeader from '@/components/ui/PageHeader.astro';
@@ -35,8 +36,33 @@ function tierName(id: (typeof serviceTierFacts)[number]['id']): string {
   <PageHeader eyebrow={meta.eyebrow} title={meta.heading} lede={meta.lede}>
     <BranchField slot="visual" early={tierName('arranque')} middle={tierName('crecimiento')} later={tierName('inteligente')} />
   </PageHeader>
+  <ServiceCards place="page" />
+  <ServicePlans />
   <ServiceTiers />
-  <CompareTable />
   <SubscriptionTerms />
-  <CtaBand />
+  <section class="section section--page plan-close" aria-labelledby="plan-unsure">
+    <div class="container">
+      <div class="plan-close__inner">
+        <h2 id="plan-unsure">{t.services.detail.unsure}</h2>
+        <Button href={path(routes.contacto)}>{t.nav.letsTalk}</Button>
+      </div>
+    </div>
+  </section>
 </BaseLayout>
+
+<style>
+  .plan-close__inner {
+    display: grid;
+    justify-items: start;
+    gap: var(--space-5);
+    max-width: 36rem;
+    padding-top: var(--space-6);
+    border-top: 1px solid var(--color-moss-800);
+  }
+
+  .plan-close__inner h2 {
+    max-width: 18ch;
+    font-size: var(--text-2xl);
+    line-height: var(--leading-snug);
+  }
+</style>
