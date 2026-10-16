@@ -51,7 +51,7 @@ export const en = {
       },
       automatizacion: {
         label: 'Automation',
-        summary: 'What the WhatsApp assistant does, and what it does not.',
+        summary: 'A WhatsApp assistant for what you already answer.',
       },
       proceso: {
         label: 'Process',
@@ -59,7 +59,7 @@ export const en = {
       },
       nosotros: {
         label: 'About',
-        summary: 'Who is behind Foresta Works.',
+        summary: 'Why Foresta exists, and how we work with you.',
       },
       contacto: {
         label: 'Contact',
@@ -73,16 +73,24 @@ export const en = {
       description:
         'Arranque, Crecimiento, and Inteligente: subscriptions with a one-time build and a monthly fee. Website, SEO, AI search, store, Meta Ads management, and a WhatsApp assistant. Ad spend is paid to Meta, separately.',
       eyebrow: 'Services',
-      heading: 'Three subscriptions, according to the stage of your business. Scope in writing. Work every month.',
-      lede: 'Arranque to exist online and stay current. Crecimiento to sell and run ads. Inteligente to take care of customers. The monthly fee covers the work each month; Meta ad spend is paid separately.',
+      heading: 'Three subscriptions, according to the stage of your business.',
+      lede: 'The monthly fee and the build are confirmed in writing. This page has no fixed price.',
     },
     automatizacion: {
-      title: 'WhatsApp automation with a written scope',
+      title: 'WhatsApp automation for what you already answer',
       description:
-        'What the Foresta Works WhatsApp assistant does and does not do: frequent questions, after-hours capture, reminders, and reviews. No promises that are not written down.',
+        'A WhatsApp assistant for questions, after hours, appointments or orders, reminders, and reviews. The scope is written before it is turned on.',
       eyebrow: 'Automation',
-      heading: 'Automation with a clear scope: what the assistant does, and what it does not.',
-      lede: 'Every capability is written down before we turn it on. If it is not on the list, it is not promised.',
+      heading: 'A WhatsApp assistant for what you already answer.',
+      lede: 'Less time on messages by hand, fewer errors, and better follow-up.',
+      closeTitle: 'Tell us how you serve people today.',
+      closeText: 'We look at whether the assistant fits your operation. If we continue, the scope goes in writing.',
+      cues: {
+        questions: 'Questions',
+        afterHours: 'After hours',
+        booking: 'Appointment or order',
+        followUp: 'Reminder and review',
+      },
     },
     proceso: {
       title: 'How we work',
@@ -93,12 +101,13 @@ export const en = {
       lede: 'The build gets the site ready. The monthly fee keeps it, improves it, and reports on it.',
     },
     nosotros: {
-      title: 'Who is behind Foresta Works',
+      title: 'About Foresta',
       description:
-        'Foresta Works was founded by Erick Alpízar Prendas, a full-stack developer. Enterprise-grade engineering applied to shops, clinics, and restaurants in Costa Rica.',
+        'Foresta looks after websites for businesses in Costa Rica. The work is technical, and it stays in your name. We are not a marketing agency.',
       eyebrow: 'About',
-      heading: 'Enterprise-grade engineering, applied to local businesses.',
-      lede: 'A technical partner for the day-to-day of the business. Not a marketing agency.',
+      heading: "We look after your business's website.",
+      lede: 'A clear site, in your name, for shops, clinics, and service businesses in Costa Rica.',
+      closeTitle: "Let's talk about your business.",
     },
     contacto: {
       title: 'Contact',
@@ -119,23 +128,22 @@ export const en = {
     contact: 'Contact',
   },
   hero: {
-    originBefore: 'From Costa Rica, ',
-    originEm: 'with love',
-    title: 'We get your digital presence ready',
-    titleEm: 'for the new AI era.',
-    lede: 'A website that works and the automation to look after it: WhatsApp, bookings, and payments in order, ready for this era, without more manual work in your day.',
+    title: 'We transform your business for a new era of',
+    titleEm: 'artificial intelligence.',
+    lede: 'A studio based in Costa Rica, with the mission of delivering modern digital infrastructure to businesses.',
     startConversation: "Let's talk",
     writeWhatsApp: "Let's talk",
-    comparePlans: 'See plans',
-    caption: 'Illustration of an online shop. An example of the craft, not a client site or a promised result.',
+    cueSite: 'Website',
+    cueAuto: 'Automation',
+    cueCare: 'Care',
   },
   positioning: {
     eyebrow: 'What we do',
     statement: 'Many businesses already run on WhatsApp, a PDF catalog, and the owner’s memory.',
     statementEm: 'We get that working in order.',
-    p1: 'That system works until it does not: messages unanswered after hours, appointments that slip, orders written by hand, and a website nobody has updated in years.',
-    p2: 'Foresta Works builds the website and looks after it every month: WhatsApp, payments, bookings, catalogs, SEO, and, when there is a clear destination, ads on Facebook and Instagram. You pay Meta for the ads themselves.',
-    p3: 'We are not a marketing agency. We do not run your social media every day or work with influencers. The work is technical: so a customer can find you, pay, and get a reply.',
+    p1: 'Until it stops being enough: messages unanswered after hours, missed appointments, orders written by hand, and a website nobody updates.',
+    p2: 'We build the site and look after it each month: WhatsApp, payments, bookings, catalogs, SEO, and, once there is a clear destination, ads on Facebook and Instagram. You pay Meta for the ads.',
+    p3: 'We are not a marketing agency, and we do not run your social media or work with influencers. The work is technical: so a customer can find you, pay, and get a reply.',
     audienceTitle: 'Who it is for',
     audiences: [
       'Shops and stores',
@@ -187,12 +195,14 @@ export const en = {
     wantPlan: 'I want this plan',
     howBilled: 'How billing works',
     whatWeDont: 'What we do not do',
+    foldOpen: 'Open',
+    foldClose: 'Close',
     whatWeDontBody:
-      'We are not a marketing agency. We do not run your social media every day or promise a number of sales. Ads on Facebook and Instagram are a technical channel, not a content package.',
+      'We do not run your social media every day. We do not promise sales, a position in Google, or a citation in an AI answer.',
     compareEyebrow: 'Compare',
-    compareTitle: 'The three plans, side by side.',
+    compareTitle: 'Side by side.',
     compareLede:
-      'They are not mandatory rungs. Inteligente handles demand; it does not replace the site. They can be combined: each addition has its own build and monthly fee. Meta ad spend, if there are ads, is paid separately.',
+      'They are not rungs. Inteligente handles demand; it does not replace the site. They can be combined.',
     compareCaption: 'Comparison of what is included and billed between Arranque, Crecimiento, and Inteligente',
     compareColumn: "What's included",
     compareMarks: {
@@ -216,9 +226,8 @@ export const en = {
       reminders: 'Reminders and reviews',
     },
     termsEyebrow: 'Terms',
-    termsTitle: 'A subscription, not a project that is delivered and forgotten.',
-    termsLede:
-      'The build gets the site ready. Month to month keeps it, improves it, and reports on it. Build and monthly fee are confirmed in the written plan, according to scope. If the work is different, we write it down before we start.',
+    termsTitle: 'Month to month, with notice to leave.',
+    termsLede: 'Four conditions. The rest is written in the plan.',
     terms: {
       commitment: 'Term',
       cancellation: 'Cancellation',
@@ -226,19 +235,19 @@ export const en = {
       extras: 'Beyond the allowance',
     },
     currencyNote:
-      'The build and the monthly fee are confirmed in the written plan, according to scope. Amounts are in United States dollars (USD), excluding 13% VAT.',
+      'Amounts in USD, excluding 13% VAT. Confirmed in writing, according to scope.',
     billing:
-      'The build is charged once, at the start. The monthly fee runs once the site or assistant is live, and is invoiced each month. Both amounts are in the written plan, not as a fixed price on this page.',
+      'The build is charged once, at the start. The monthly fee begins when the site or the assistant is live.',
     commitment:
-      'Recommended minimum term: {months} months, so the site, SEO, and ads (if they apply) have time to work.',
+      'We recommend {months} months, so the site and the SEO have time to work.',
     cancellation:
-      'You can cancel with {days} days’ notice in writing. The build is not refunded: that construction work is already yours. The site, accounts, and code stay in your name.',
+      'You can cancel with {days} days’ notice in writing. The build is not refunded. The site, accounts, and code stay in your name.',
     renewal: 'The subscription renews month to month, unless you give notice to cancel. There is no mandatory annual charge.',
     extras: 'Work beyond the plan’s rounds or hours is quoted before we do it. Extra hours are USD {hour}.',
     adSpend:
-      'In Crecimiento, ads management is in the monthly fee. You pay the ads budget straight to Meta, in your account. We do not advance it or mix it into the subscription.',
+      'In Crecimiento, ads management is in the monthly fee. You pay the ads budget straight to Meta, in your account.',
     upgradeNote:
-      'If you are already on Arranque, the move to Crecimiento is billed as a build expansion, not as a new build. The monthly fee becomes Crecimiento’s. The amount is in the written plan.',
+      'The move from Arranque to Crecimiento is billed as an expansion, not as a new build. The amount is in writing.',
     notOffered: [
       'Day-to-day social media management',
       'Influencer campaigns',
@@ -387,12 +396,31 @@ export const en = {
     ],
   },
   automation: {
-    does: 'What it does',
     doesNot: 'What it does not do',
     caption: 'Illustrative conversation. The real scope is written in the plan.',
     photoAlt:
-      'Two people review pencil flowcharts on sheets of paper, at a wooden table with a coffee cup and a notebook.',
-    flowLabel: 'How it works',
+      'A WhatsApp mockup of the assistant: a conversation about hours and an appointment, with light bubbles on a deep-green ground.',
+    workLabel: 'How it comes together',
+    workTitle: 'From your operation to the message.',
+    work: [
+      {
+        title: 'Understand',
+        text: 'We look at how you serve people today: questions, hours, appointments, and orders.',
+      },
+      {
+        title: 'Choose',
+        text: 'We mark what you already answer by hand and what can move to the assistant.',
+      },
+      {
+        title: 'Connect',
+        text: 'We write it, join it to your site, and turn it on.',
+      },
+      {
+        title: 'Adjust',
+        text: 'We review what it could not resolve and refine what is written.',
+      },
+    ],
+    flowLabel: 'What it does',
     flowTitle: 'One message, inside what you approved.',
     stepTitles: [
       'What it may say',
@@ -402,7 +430,8 @@ export const en = {
     ],
     exampleLabel: 'Example',
     exampleTitle: 'This is how the assistant talks.',
-    fitLabel: 'On the Inteligente plan',
+    planTitle: 'On Inteligente.',
+    planText: 'The assistant is written before it is turned on. It is added to a site; it does not replace one.',
     doesItems: [
       'Answers frequent questions you define: hours, location, services, and ways to pay.',
       'Takes messages after hours, confirms to the customer they were received, and notifies you.',
@@ -442,31 +471,37 @@ export const en = {
       },
     ],
   },
-  founder: {
-    heading: 'The founder',
-    p1: 'Foresta Works was founded by {name}, a full-stack developer with experience in React, Angular, Java with Spring Boot, Python with FastAPI, and MuleSoft, and with a Microsoft Azure certification.',
-    p2: 'He has worked as an engineer on enterprise projects for organizations such as Experian, American Express, Biltmore Estate, and BDO Global. That experience (systems that cannot fail, integrations across platforms, processes with many moving parts) is what we apply, at the right scale, to shops, clinics, and restaurants in Costa Rica.',
-    disclosure:
-      'These organizations are part of the founder’s professional experience. They are not clients or sponsors of Foresta Works.',
+  about: {
+    statementTitle: 'Work done closely.',
+    origin: 'Foresta Works was founded by {name}.',
+    statement: 'We talk, we put the scope in writing, and you see real progress.',
+    statementMore:
+      'We prefer a few tools, well connected, made to last and for the people who use them every day.',
     photoAlt:
       'Corner of a house: a stacked-stone wall beside a light plaster wall, under a dark sheet-metal roof, with trees behind.',
+    principlesLabel: 'Commitments',
+    principlesTitle: 'This is the agreement.',
     principles: [
       {
-        numeral: 'i',
-        title: 'Fewer tools, better connected',
-        text: 'Before proposing something new, we look at what you already use and how to make it work together.',
+        title: 'In your name',
+        text: 'The domain, the accounts, the code, and the access stay in your name from day one.',
       },
       {
-        numeral: 'ii',
-        title: 'Built for the people who use it every day',
-        text: 'The system has to serve you and your team, not just look good in a demo.',
+        title: 'Technical work',
+        text: 'So people can find you, pay, and get an answer.',
       },
       {
-        numeral: 'iii',
-        title: 'Durable before novel',
-        text: 'We choose proven technology and document what we deliver so it lasts for years.',
+        title: 'You set the budget.',
+        text: 'If there are ads on Facebook or Instagram, you set the amount and pay Meta directly.',
+      },
+      {
+        title: 'Not marketing',
+        text: 'We are not an agency, and we do not run your social networks or work with influencers.',
       },
     ],
+    togetherLabel: 'With you',
+    togetherTitle: 'The scope fits. You can see the progress.',
+    together: 'We work closely, and with clarity. The plan is written for your business.',
   },
   contact: {
     methodsTitle: 'Ways to reach us',

@@ -16,12 +16,15 @@ html {
   -webkit-text-size-adjust: 100%;
   scroll-behavior: smooth;
   scroll-padding-top: calc(var(--header-height) + var(--space-4));
+  background-color: var(--color-bg);
 }
 
 body {
   margin: 0;
   overflow-wrap: break-word;
-  background-color: var(--color-bg);
+  background-color: transparent;
+  background-image: radial-gradient(rgb(16 24 22 / 0.16) 0.55px, transparent 0.55px);
+  background-size: 3px 3px;
   color: var(--color-text);
   font-family: var(--font-sans);
   font-weight: var(--weight-body);
@@ -121,7 +124,11 @@ strong {
 
 .section--wash {
   position: relative;
-  background: var(--color-wash);
+  background-color: var(--color-sage-100);
+  background-image:
+    radial-gradient(ellipse 16rem 9rem at 8% 0%, rgb(255 250 243 / 0.72), transparent 72%),
+    radial-gradient(ellipse 12rem 7rem at 86% 18%, rgb(143 216 203 / 0.28), transparent 70%),
+    radial-gradient(ellipse 14rem 8rem at 62% 100%, rgb(196 181 154 / 0.22), transparent 72%);
   border-radius: var(--radius-xl);
 }
 
@@ -265,6 +272,50 @@ main > .section--page:first-of-type {
   color: var(--color-text-muted);
 }
 
+/* Disclosure. Starts closed at every width; the summary opens it. */
+.fold > summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  min-height: 2.75rem;
+  margin-inline: calc(var(--space-2) * -1);
+  padding-inline: var(--space-2);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  list-style: none;
+  font-weight: var(--weight-medium);
+  transition: background-color var(--duration-fast) var(--ease-out);
+}
+
+.fold > summary:hover {
+  background: rgb(36 63 52 / 0.06);
+}
+
+.fold > summary::-webkit-details-marker,
+.fold > summary::marker {
+  display: none;
+  content: '';
+}
+
+.fold > summary::after {
+  content: '+';
+  flex: none;
+  font-family: var(--font-serif);
+  font-size: var(--text-lg);
+  font-weight: var(--weight-heading);
+  line-height: 1;
+  color: var(--color-primary);
+}
+
+.fold[open] > summary::after {
+  content: '–';
+}
+
+.fold__body {
+  padding-top: var(--space-3);
+}
+
 /* ---------- Motion ---------- */
 
 /* Cross-document page transitions: a short fade between pages, handled by the
@@ -279,25 +330,98 @@ main > .section--page:first-of-type {
   animation-timing-function: var(--ease-out);
 }
 
-/* Scroll-driven reveal. Elements with .reveal fade/rise as they enter the
-   viewport, driven by the browser's scroll timeline (no observers, no JS).
-   Where unsupported the element is simply visible. */
-@supports (animation-timeline: view()) {
-  @media (prefers-reduced-motion: no-preference) {
-    .reveal {
-      animation: reveal-rise linear both;
-      animation-timeline: view();
-      animation-range: entry 2% entry 36%;
-    }
-  }
-}
-
+/* Scroll reveal, once. The class is added below the fold by the motion
+   script; without that script, or with reduced motion, the block stays put. */
 @keyframes reveal-rise {
   from {
     opacity: 0;
+    translate: 0 0.75rem;
   }
   to {
     opacity: 1;
+    translate: 0 0;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .reveal.reveal--wait {
+    opacity: 0;
+    translate: 0 0.75rem;
+  }
+
+  .reveal.reveal--wait.is-in {
+    animation: reveal-rise 0.9s var(--ease-out) both;
+  }
+}
+
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  /* Shade opens across the paper and follows the pointer, then settles
+     when it leaves. Touch and reduced motion stay still. */
+  html::before {
+    content: '';
+    position: fixed;
+    z-index: -1;
+    inset: 0;
+    pointer-events: none;
+    background-repeat: no-repeat;
+    background-image: radial-gradient(
+      ellipse 78% 64% at 50% 46%,
+      rgb(255 250 243 / 0.92) 0%,
+      rgb(255 250 243 / 0.2) 36%,
+      transparent 52%,
+      rgb(16 24 22 / 0.13) 100%
+    );
+    background-size: 170% 170%;
+    background-position: calc(16% + var(--px, 0) * 46%) calc(10% + var(--py, 0) * 40%);
+    transition: background-position 1.35s var(--ease-out);
+  }
+
+  body {
+    background-position: calc(var(--px, 0) * 1.15rem) calc(var(--py, 0) * 0.75rem);
+    transition: background-position 1.35s var(--ease-out);
+  }
+
+  /* Botanical lines ease a few pixels with the pointer. Touch screens keep
+     the still drawing; the entrance and the scroll reveal are their motion. */
+  [data-sway] {
+    transform: translate3d(calc(var(--px, 0) * -0.7rem), calc(var(--py, 0) * -0.45rem), 0);
+    transition: transform 1s var(--ease-out);
+  }
+
+  /* Sage fields take the same opening, behind the type. */
+  .page-header,
+  .section--wash {
+    isolation: isolate;
+  }
+
+  .page-header::before,
+  .section--wash::before {
+    content: '';
+    position: absolute;
+    z-index: -1;
+    inset: 0;
+    pointer-events: none;
+    border-radius: inherit;
+    background-repeat: no-repeat;
+    background-image: radial-gradient(
+      ellipse 78% 64% at 50% 46%,
+      rgb(255 250 243 / 0.62) 0%,
+      transparent 42%,
+      rgb(16 24 22 / 0.11) 100%
+    );
+    background-size: 170% 170%;
+    background-position: calc(16% + var(--px, 0) * 46%) calc(10% + var(--py, 0) * 40%);
+    transition: background-position 1.35s var(--ease-out);
+  }
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  body {
+    background-image: none;
+  }
+
+  html::before {
+    content: none;
   }
 }
 

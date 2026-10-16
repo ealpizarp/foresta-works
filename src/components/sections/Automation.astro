@@ -1,34 +1,66 @@
 ---
 /**
- * Automation page body. Each fact appears once: the four capabilities,
- * the limits, one illustrative conversation, and where the plan lives.
+ * Automation page body. The path from the operation to the message,
+ * the four capabilities, the limits, one illustrative conversation,
+ * and where the plan lives. Each fact appears once.
  */
-import { Image } from 'astro:assets';
-import sessionImage from '@/assets/images/work-session.jpg';
 import Button from '@/components/ui/Button.astro';
-import InterfacePreview from '@/components/visuals/InterfacePreview.astro';
+import WorkflowField from '@/components/visuals/WorkflowField.astro';
 import { routes, useI18n } from '@/i18n';
 
 const { t, path } = useI18n(Astro);
-const tier = t.services.tiers.inteligente;
-const steps = t.automation.stepTitles.map((title, index) => ({
-  title,
-  text: t.automation.doesItems[index],
-}));
+const work = t.automation.work;
+const [understand, choose, connect, adjust] = work;
+if (!understand || !choose || !connect || !adjust) {
+  throw new Error('automation.work must list four steps.');
+}
+const steps = t.automation.stepTitles.map((title, index) => {
+  const text = t.automation.doesItems[index];
+  if (text === undefined) throw new Error('automation step is missing its text.');
+  return { title, text };
+});
 ---
+
+<section class="section section--page auto-work" aria-labelledby="auto-work-title">
+  <div class="container">
+    <header class="auto-block__intro">
+      <p class="eyebrow">
+        <span class="eyebrow__num">01</span>
+        {t.automation.workLabel}
+      </p>
+      <h2 class="auto-block__title" id="auto-work-title">{t.automation.workTitle}</h2>
+    </header>
+
+    <div class="auto-work__grid">
+      <WorkflowField
+        understand={understand.title}
+        choose={choose.title}
+        connect={connect.title}
+        adjust={adjust.title}
+      />
+      <ol class="auto-work__steps">
+        {work.map((step) => (
+          <li class="auto-work__step reveal">
+            <h3>{step.title}</h3>
+            <p>{step.text}</p>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </div>
+</section>
 
 <section class="section section--page auto-flow" aria-labelledby="auto-flow-title">
   <div class="container auto-flow__grid">
     <header class="auto-block__intro">
       <p class="eyebrow">
-        <span class="eyebrow__num">01</span>
+        <span class="eyebrow__num">02</span>
         {t.automation.flowLabel}
       </p>
       <h2 class="auto-block__title" id="auto-flow-title">{t.automation.flowTitle}</h2>
     </header>
 
     <div class="auto-flow__body">
-      <p class="label auto-flow__does">{t.automation.does}</p>
       <ol class="auto-flow__steps">
         {
           steps.map((step, index) => (
@@ -36,6 +68,24 @@ const steps = t.automation.stepTitles.map((title, index) => ({
               <span class="auto-flow__num" aria-hidden="true">
                 {String(index + 1).padStart(2, '0')}
               </span>
+              {index < steps.length - 1 && (
+                <svg class="auto-flow__stem" viewBox="0 0 44 80" preserveAspectRatio="none" fill="none" aria-hidden="true">
+                  <path
+                    d={index % 2 === 0 ? 'M22 0 C 14 28 18 54 22 80' : 'M22 0 C 30 26 24 54 22 80'}
+                    stroke="currentColor"
+                    stroke-width="1.35"
+                    stroke-linecap="round"
+                    vector-effect="non-scaling-stroke"
+                  />
+                  <path
+                    d={index % 2 === 0 ? 'M18 36 C 10 30 6 26 3 30' : 'M16 48 C 8 56 5 64 7 72'}
+                    stroke="currentColor"
+                    stroke-width="1.05"
+                    stroke-linecap="round"
+                    vector-effect="non-scaling-stroke"
+                  />
+                </svg>
+              )}
               <div>
                 <h3 class="auto-flow__step-title">{step.title}</h3>
                 <p>{step.text}</p>
@@ -52,13 +102,34 @@ const steps = t.automation.stepTitles.map((title, index) => ({
   <div class="container auto-scope__grid">
     <header class="auto-block__intro">
       <p class="eyebrow">
-        <span class="eyebrow__num">02</span>
+        <span class="eyebrow__num">03</span>
       </p>
       <h2 class="auto-block__title" id="automation-scope-title">{t.automation.doesNot}</h2>
     </header>
 
     <ul class="auto-scope__list">
-      {t.automation.doesNotItems.map((item) => <li>{item}</li>)}
+      {
+        t.automation.doesNotItems.map((item, index) => (
+          <li class="auto-scope__item">
+            <svg class="auto-scope__node" viewBox="0 0 16 16" width="18" height="18" fill="none" aria-hidden="true">
+              <circle cx="8" cy="8" r="5.25" stroke="currentColor" stroke-width="1.25" />
+              <circle cx="8" cy="8" r="2.1" fill="var(--color-clay)" />
+            </svg>
+            {index < t.automation.doesNotItems.length - 1 && (
+              <svg class="auto-scope__stem" viewBox="0 0 18 80" width="18" preserveAspectRatio="none" fill="none" aria-hidden="true">
+                <path
+                  d={index % 2 === 0 ? 'M9 0 C 5 26 12 54 9 80' : 'M9 0 C 13 26 6 54 9 80'}
+                  stroke="currentColor"
+                  stroke-width="1.25"
+                  stroke-linecap="round"
+                  vector-effect="non-scaling-stroke"
+                />
+              </svg>
+            )}
+            <p>{item}</p>
+          </li>
+        ))
+      }
     </ul>
   </div>
 </section>
@@ -67,7 +138,7 @@ const steps = t.automation.stepTitles.map((title, index) => ({
   <div class="container auto-example__grid">
     <header class="auto-block__intro">
       <p class="eyebrow">
-        <span class="eyebrow__num">03</span>
+        <span class="eyebrow__num">04</span>
         {t.automation.exampleLabel}
       </p>
       <h2 class="auto-block__title" id="auto-example-title">{t.automation.exampleTitle}</h2>
@@ -75,20 +146,25 @@ const steps = t.automation.stepTitles.map((title, index) => ({
 
     <figure class="auto-example__figure">
       <div class="auto-example__stage">
-        <div class="auto-example__photo frame">
-          <Image
-            src={sessionImage}
-            alt={t.automation.photoAlt}
-            layout="constrained"
-            width={1024}
-            height={768}
-            widths={[480, 768, 1024]}
-            sizes="(min-width: 1000px) 36vw, 100vw"
-            loading="lazy"
-          />
-        </div>
-        <div class="auto-example__phone">
-          <InterfacePreview kind="chat" size="panel" />
+        <div class="auto-example__photo frame" role="img" aria-label={t.automation.photoAlt}>
+          <div class="wa" aria-hidden="true">
+            <div class="wa__bar">
+              <span class="wa__mark"></span>
+              <span class="wa__name">WhatsApp</span>
+            </div>
+            <div class="wa__thread">
+              {
+                t.mockup.chat.map((line, index) => (
+                  <p class:list={['wa__bubble', index % 2 === 0 ? 'wa__bubble--in' : 'wa__bubble--out']}>
+                    {line}
+                  </p>
+                ))
+              }
+            </div>
+            <div class="wa__composer">
+              <span>{t.mockup.composer}</span>
+            </div>
+          </div>
         </div>
       </div>
       <figcaption class="auto-example__caption">{t.automation.caption}</figcaption>
@@ -96,27 +172,27 @@ const steps = t.automation.stepTitles.map((title, index) => ({
   </div>
 </section>
 
-<section class="section section--page auto-fit" aria-labelledby="auto-fit-title">
-  <div class="container">
-    <div class="auto-fit__panel">
-      <p class="eyebrow eyebrow--on-dark">
-        <span class="eyebrow__num">04</span>
-        {t.automation.fitLabel}
-      </p>
-      <h2 class="auto-fit__title" id="auto-fit-title">{tier.audience}</h2>
-      <p class="auto-fit__lede">{tier.description}</p>
-      <Button href={`${path(routes.servicios)}#inteligente`}>{t.homePlans.seeIncludes}</Button>
-    </div>
+<section class="section section--page auto-plan" aria-labelledby="auto-plan-title">
+  <div class="container auto-plan__row">
+    <h2 class="auto-plan__title" id="auto-plan-title">{t.automation.planTitle}</h2>
+    <p>{t.automation.planText}</p>
+    <Button href={`${path(routes.servicios)}#inteligente`} variant="text">{t.homePlans.seeIncludes}</Button>
   </div>
 </section>
 
 <style>
-  /* One inset for every chapter. The wash band paints to its edge, so its
-     padding is the inset; the others keep the page rhythm from .section--page. */
+  /* The wash paints to its edge, so this padding is the inset. It uses
+     the same inner-page gap as the chapters around it. */
   section.auto-scope {
-    padding-block: var(--space-7);
+    padding-block: var(--space-section-gap);
     background: var(--color-wash);
     border-radius: var(--radius-xl);
+  }
+
+  /* The example has no wash, and the chapter above already holds one
+     gap under itself. This is only the inset, not another margin. */
+  section.auto-example {
+    padding-block: var(--space-section-gap);
   }
 
   .auto-flow__grid,
@@ -131,8 +207,7 @@ const steps = t.automation.stepTitles.map((title, index) => ({
     gap: var(--space-4);
   }
 
-  .auto-block__title,
-  .auto-fit__title {
+  .auto-block__title {
     margin: 0;
     font-size: var(--text-2xl);
     font-weight: var(--weight-display);
@@ -141,26 +216,61 @@ const steps = t.automation.stepTitles.map((title, index) => ({
     max-width: 18ch;
   }
 
-  .auto-flow__body {
+  .auto-work__grid {
     display: grid;
-    gap: var(--space-4);
+    gap: var(--space-6);
+    align-items: center;
   }
 
-  .auto-flow__does {
+  .auto-work__steps {
+    display: grid;
+    gap: var(--space-5);
     margin: 0;
-    color: var(--color-primary-strong);
+    padding: 0;
+    list-style: none;
+  }
+
+  .auto-work__step h3 {
+    margin: 0 0 var(--space-2);
+    font-size: var(--text-lg);
+    line-height: var(--leading-snug);
+  }
+
+  .auto-work__step p {
+    margin: 0;
+    color: var(--color-text-soft);
+  }
+
+  .auto-flow__body {
+    display: grid;
   }
 
   .auto-flow__steps {
+    --bud: 2.75rem;
     display: grid;
   }
 
   .auto-flow__step {
+    position: relative;
     display: grid;
-    grid-template-columns: 2.75rem minmax(0, 1fr);
+    grid-template-columns: var(--bud) minmax(0, 1fr);
     gap: var(--space-4);
     align-items: start;
     padding-bottom: var(--space-5);
+  }
+
+  /* A stem through the buds. It leans, the way the other drawings do,
+     and stops in the last number. The type stays to the right of it. */
+  .auto-flow__stem {
+    position: absolute;
+    z-index: 0;
+    left: 0;
+    top: calc(var(--bud) / 2);
+    width: var(--bud);
+    height: 100%;
+    color: var(--color-moss-800);
+    opacity: 0.55;
+    pointer-events: none;
   }
 
   .auto-flow__step:last-child {
@@ -168,10 +278,12 @@ const steps = t.automation.stepTitles.map((title, index) => ({
   }
 
   .auto-flow__num {
+    position: relative;
+    z-index: 1;
     display: grid;
     place-items: center;
-    width: 2.75rem;
-    height: 2.75rem;
+    width: var(--bud);
+    height: var(--bud);
     margin: 0;
     border-radius: var(--radius-pill);
     background: var(--color-primary);
@@ -200,62 +312,157 @@ const steps = t.automation.stepTitles.map((title, index) => ({
     max-width: 52ch;
   }
 
+  /* Limits sit on the wash, joined by a fine root. Clay is only the
+     node: a stop, not a bar. The sentences stay to the right. */
   .auto-scope__list {
+    --node: 1.15rem;
     display: grid;
     margin: 0;
-    padding: var(--space-inset-lg);
-    background: var(--color-surface);
-    border: 1px solid var(--color-rule-strong);
-    border-radius: 0.7rem 2.25rem 0.7rem 2.75rem;
+    padding: 0;
   }
 
-  .auto-scope__list li {
+  .auto-scope__item {
+    position: relative;
+    display: grid;
+    grid-template-columns: var(--node) minmax(0, 1fr);
+    column-gap: var(--space-4);
+    align-items: start;
+    padding-bottom: var(--space-5);
+  }
+
+  .auto-scope__item:last-child {
+    padding-bottom: 0;
+  }
+
+  .auto-scope__node {
+    position: relative;
+    z-index: 1;
+    width: var(--node);
+    height: var(--node);
+    margin-top: 0.18rem;
+    color: var(--color-moss-800);
+  }
+
+  .auto-scope__stem {
+    position: absolute;
+    z-index: 0;
+    left: 0;
+    top: calc(0.18rem + var(--node) / 2);
+    width: var(--node);
+    height: 100%;
+    color: var(--color-moss-800);
+    opacity: 0.5;
+    pointer-events: none;
+  }
+
+  .auto-scope__item p {
     margin: 0;
-    padding: var(--space-4) 0 var(--space-4) var(--space-4);
-    border-bottom: 1px solid var(--color-rule);
-    border-left: 2px solid var(--color-clay);
+    max-width: 42ch;
     color: var(--color-text-soft);
     line-height: 1.55;
   }
 
-  .auto-scope__list li:first-child {
-    padding-top: 0;
-  }
-
-  .auto-scope__list li:last-child {
-    padding-bottom: 0;
-    border-bottom: 0;
-  }
-
   .auto-example__figure {
     margin: 0;
+    min-width: 0;
   }
 
   .auto-example__stage {
     display: grid;
-    gap: var(--space-4);
+    min-width: 0;
   }
 
   .auto-example__photo {
+    display: grid;
     margin: 0;
+    min-width: 0;
     border-radius: var(--radius-leaf);
+    background: var(--color-stage);
+    border-color: rgb(255 255 255 / 0.12);
   }
 
-  .auto-example__photo :global(img) {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    aspect-ratio: 4 / 3;
+  /* The assistant's chat. Deep green ground, bone bubbles for the
+     customer, the same green as the buttons for the reply. */
+  .wa {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    min-height: 22rem;
+    background:
+      radial-gradient(ellipse 80% 42% at 50% 0%, rgb(15 110 102 / 0.18), transparent 52%),
+      var(--color-stage);
+    color: var(--color-dark-text);
+    pointer-events: none;
+    user-select: none;
   }
 
-  .auto-example__phone {
-    width: min(100%, 16.5rem);
-    margin: 0 0 0 auto;
+  .wa__bar {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+    flex: none;
+    padding: 0.95rem 1.05rem 0.8rem;
+    border-bottom: 1px solid rgb(255 255 255 / 0.06);
   }
 
-  .auto-example__phone :global(.phone) {
-    border-radius: 1.75rem 0.7rem 1.75rem 0.7rem;
-    overflow: hidden;
+  .wa__mark {
+    flex: none;
+    width: 0.7rem;
+    height: 0.7rem;
+    border-radius: 50%;
+    background: var(--color-primary);
+    box-shadow: 0 0 0 3px rgb(15 110 102 / 0.28);
+  }
+
+  .wa__name {
+    font-size: 0.68rem;
+    font-weight: var(--weight-semibold);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-dark-text-muted);
+  }
+
+  .wa__thread {
+    display: flex;
+    flex-direction: column;
+    gap: 0.55rem;
+    flex: 1;
+    min-width: 0;
+    padding: 1rem 1.05rem 0.85rem;
+  }
+
+  .wa__bubble {
+    max-width: min(78%, 24rem);
+    margin: 0;
+    padding: 0.55rem 0.8rem;
+    border-radius: 14px;
+    font-size: var(--text-base);
+    line-height: 1.4;
+  }
+
+  .wa__bubble--in {
+    align-self: flex-start;
+    border-bottom-left-radius: 4px;
+    background: var(--color-bone-50);
+    color: var(--color-text);
+  }
+
+  .wa__bubble--out {
+    align-self: flex-end;
+    border-bottom-right-radius: 4px;
+    background: var(--color-primary);
+    color: var(--color-on-primary);
+  }
+
+  .wa__composer {
+    flex: none;
+    margin: 0 0.9rem 0.95rem;
+    padding: 0.55rem 0.85rem;
+    border-radius: var(--radius-pill);
+    background: rgb(255 255 255 / 0.06);
+    border: 1px solid rgb(255 255 255 / 0.08);
+    font-size: var(--text-sm);
+    color: var(--color-dark-text-faint);
   }
 
   .auto-example__caption {
@@ -265,77 +472,52 @@ const steps = t.automation.stepTitles.map((title, index) => ({
     color: var(--color-text-muted);
   }
 
-  .auto-fit__panel {
+  .auto-plan__row {
     display: grid;
     justify-items: start;
-    gap: var(--space-4);
-    margin: 0;
-    padding: var(--space-inset-lg);
-    background: var(--color-stage);
-    color: var(--color-dark-text);
-    border-radius: var(--radius-leaf);
-  }
-
-  .auto-fit__title {
-    max-width: 22ch;
-  }
-
-  .auto-fit__lede {
-    margin: 0;
+    gap: var(--space-3);
     max-width: 42ch;
-    color: var(--color-dark-text-muted);
-    font-size: var(--text-md);
   }
 
-  @media (min-width: 768px) {
-    .auto-example__stage {
-      grid-template-columns: 1.2fr 0.8fr;
-      align-items: end;
-      gap: 0;
-    }
+  .auto-plan__title {
+    margin: 0;
+    font-size: var(--text-xl);
+    font-weight: var(--weight-display);
+    line-height: var(--leading-snug);
+    letter-spacing: var(--tracking-display);
+  }
 
-    .auto-example__photo {
-      grid-column: 1;
-      grid-row: 1;
-    }
-
-    .auto-example__phone {
-      grid-column: 2;
-      grid-row: 1;
-      width: min(100%, 15.5rem);
-      margin: 0 0 6% -12%;
-    }
+  .auto-plan__row p {
+    margin: 0;
+    color: var(--color-text-soft);
   }
 
   @media (min-width: 1000px) {
-    .auto-flow__grid,
-    .auto-example__grid {
+    .auto-flow__grid {
       grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
       column-gap: clamp(1.5rem, 3vw, 3rem);
       align-items: start;
     }
 
-    .auto-scope__grid {
-      grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.1fr);
-      column-gap: clamp(1.5rem, 3vw, 3rem);
+    /* The example is a title beside one scene. The title column stays
+       as wide as the words, and the words sit on the top of the photo. */
+    .auto-example__grid {
+      grid-template-columns: auto minmax(0, 1fr);
+      column-gap: clamp(2.5rem, 4vw, 4.5rem);
       align-items: start;
     }
 
-    .auto-fit__panel {
-      grid-template-columns: minmax(0, 1.4fr) auto;
+    /* Title only as wide as the words, then the column gap, then the root. */
+    .auto-scope__grid {
+      grid-template-columns: auto minmax(0, 1fr);
+      column-gap: var(--col-gap);
+      align-items: start;
+    }
+
+    .auto-work__grid {
+      grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
       column-gap: clamp(1.5rem, 3vw, 3rem);
       align-items: center;
-    }
-
-    .auto-fit__panel .eyebrow,
-    .auto-fit__title,
-    .auto-fit__lede {
-      grid-column: 1;
-    }
-
-    .auto-fit__panel :global(.btn) {
-      grid-column: 2;
-      grid-row: 1 / span 3;
     }
   }
 </style>

@@ -1,6 +1,7 @@
 ---
 import LanguageSwitcher from '@/components/LanguageSwitcher.astro';
 import Wordmark from '@/components/Wordmark.astro';
+import Botanical from '@/components/visuals/Botanical.astro';
 import { primaryNav } from '@/data/navigation';
 import { site, whatsappUrl } from '@/data/site';
 import { routes, useI18n } from '@/i18n';
@@ -20,6 +21,9 @@ const hasContact = whatsapp !== null || site.contact.email !== null || socialLin
 ---
 
 <footer class="site-footer">
+  <div class="site-footer__vine" data-sway aria-hidden="true">
+    <Botanical variant="rule" />
+  </div>
   <div class="container site-footer__grid">
     <div class="site-footer__brand">
       <Wordmark onDark />
@@ -68,6 +72,23 @@ const hasContact = whatsapp !== null || site.contact.email !== null || socialLin
     border-top: 1px solid var(--color-dark-rule);
     padding-block: clamp(var(--space-7), 5vw, var(--space-8));
     font-size: var(--text-sm);
+  }
+
+  .site-footer__vine {
+    width: min(100% - (var(--gutter) * 2), var(--container-max));
+    margin: 0 auto var(--space-5);
+    color: var(--color-dark-accent);
+    opacity: 0.65;
+  }
+
+  .site-footer__vine :global(svg) {
+    height: 2.75rem;
+  }
+
+  @media (max-width: 600px) {
+    .site-footer__vine {
+      display: none;
+    }
   }
 
   .site-footer__grid {
@@ -128,12 +149,21 @@ const hasContact = whatsapp !== null || site.contact.email !== null || socialLin
     background: var(--color-dark-accent);
   }
 
+  .site-footer a {
+    transition: color var(--duration-fast) var(--ease-out);
+  }
+
   .site-footer a:hover,
-  .site-footer a:focus-visible {
+  .site-footer a:focus-visible,
+  .site-footer a:active {
     color: var(--color-dark-text);
   }
 
   @media (max-width: 900px) {
+    .site-footer__legal :global(.lang-switch) {
+      display: none;
+    }
+
     .site-footer__brand {
       grid-column: 1 / -1;
     }
@@ -169,6 +199,13 @@ const hasContact = whatsapp !== null || site.contact.email !== null || socialLin
     .site-footer__nav,
     .site-footer__contact {
       grid-column: 1 / -1;
+    }
+
+    .site-footer__nav ul {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      column-gap: var(--space-4);
+      row-gap: 0;
     }
   }
 </style>

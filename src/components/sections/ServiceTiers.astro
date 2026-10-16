@@ -1,5 +1,5 @@
 ---
-/** Full detail of the three subscription plans, then billing notes and scope. */
+/** Full detail of the three subscription plans, then a separate billing section. */
 import Button from '@/components/ui/Button.astro';
 import InterfacePreview from '@/components/visuals/InterfacePreview.astro';
 import { getServiceTiers } from '@/data/services';
@@ -43,33 +43,42 @@ const tiers = getServiceTiers(locale);
             <p class="tier__desc">{tier.description}</p>
           </header>
 
-          <div class="tier__includes">
-            <h4 class="label">{t.services.monthlyHeading}</h4>
-            <ul>
-              {tier.monthlyIncludes.map((item) => <li>{item}</li>)}
-            </ul>
-          </div>
+          <ul class="tier__highlights">
+            {tier.highlights.map((item) => <li>{item}</li>)}
+          </ul>
 
-          <div class="tier__includes">
-            <h4 class="label">{t.services.buildHeading}</h4>
-            <ul>
-              {tier.setupIncludes.map((item) => <li>{item}</li>)}
-            </ul>
-          </div>
+          <details class="fold tier__fold">
+            <summary>{t.homePlans.seeIncludes}</summary>
+            <div class="fold__body">
+              <div class="tier__includes">
+                <h4 class="label">{t.services.monthlyHeading}</h4>
+                <ul>
+                  {tier.monthlyIncludes.map((item) => <li>{item}</li>)}
+                </ul>
+              </div>
 
-          <div class="tier__includes">
-            <h4 class="label">{t.services.billedApart}</h4>
-            <ul>
-              {tier.billedSeparately.map((item) => <li>{item}</li>)}
-            </ul>
-          </div>
+              <div class="tier__includes">
+                <h4 class="label">{t.services.buildHeading}</h4>
+                <ul>
+                  {tier.setupIncludes.map((item) => <li>{item}</li>)}
+                </ul>
+              </div>
 
-          <p class="tier__upgrade">{tier.upgrade}</p>
+              <div class="tier__includes">
+                <h4 class="label">{t.services.billedApart}</h4>
+                <ul>
+                  {tier.billedSeparately.map((item) => <li>{item}</li>)}
+                </ul>
+              </div>
 
-          <p class="tier__outcome">
-            <span class="label">{t.services.outcomeLabel}</span>
-            <span class="tier__outcome-text">{tier.outcome}</span>
-          </p>
+              <p class="tier__upgrade">{tier.upgrade}</p>
+
+              <p class="tier__outcome">
+                <span class="label">{t.services.outcomeLabel}</span>
+                <span class="tier__outcome-text">{tier.outcome}</span>
+              </p>
+            </div>
+          </details>
 
           <div class="tier__cta">
             <Button href={path(routes.contacto)} variant={tier.recommended ? 'primary' : 'outline'} size="sm">
@@ -79,32 +88,67 @@ const tiers = getServiceTiers(locale);
         </li>
       ))}
     </ol>
+  </div>
+</section>
 
-    <div class="tiers-foot">
-      <div class="tiers-foot__pricing panel reveal">
-        <h3 class="label tiers-foot__label">{t.services.howBilled}</h3>
-        <p>{t.services.currencyNote}</p>
-        <p>{t.services.billing}</p>
-        <p>{t.services.adSpend}</p>
-        <p>{t.services.upgradeNote}</p>
-      </div>
-      <div class="tiers-foot__scope panel reveal">
-        <h3 class="label tiers-foot__label">{t.services.whatWeDont}</h3>
-        <p>{t.services.whatWeDontBody}</p>
-        <ul class="tiers-foot__list">
-          {t.services.notOffered.map((item) => <li>{item}</li>)}
-        </ul>
+<section class="section section--page billing-section" aria-labelledby="billing-title">
+  <div class="container">
+    <div class="tiers-foot" data-tiers-tree>
+      <canvas class="tiers-tree__canvas" aria-hidden="true"></canvas>
+      <div class="tiers-tree__limbs">
+        <div class="tiers-tree__limb" data-limb>
+          <h3 class="tiers-tree__name" id="billing-title" data-tip="limb">{t.services.howBilled}</h3>
+          <ul class="tiers-tree__facts">
+            <li data-tip="leaf">{t.services.currencyNote}</li>
+            <li data-tip="leaf">{t.services.billing}</li>
+            <li data-tip="leaf">{t.services.adSpend}</li>
+            <li data-tip="leaf">{t.services.upgradeNote}</li>
+          </ul>
+        </div>
+        <div class="tiers-tree__limb tiers-tree__limb--scope" data-limb>
+          <h3 class="tiers-tree__name" data-tip="limb">{t.services.whatWeDont}</h3>
+          <p class="tiers-tree__note" data-tip="leaf">{t.services.whatWeDontBody}</p>
+          <ul class="tiers-tree__facts tiers-tree__facts--names">
+            {t.services.notOffered.map((item) => <li data-tip="leaf">{item}</li>)}
+          </ul>
+        </div>
       </div>
     </div>
+    <script>
+      const trees = document.querySelectorAll('[data-tiers-tree]');
+      for (const node of trees) {
+        if (!(node instanceof HTMLElement)) continue;
+        if (window.matchMedia('(max-width: 800px)').matches) continue;
+        const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        const start = () => {
+          void import('../../scripts/tiers-tree.ts').then((mod) => {
+            mod.mountTiersTree(node, { reduce });
+          });
+        };
+        if ('IntersectionObserver' in window) {
+          const io = new IntersectionObserver(
+            (entries) => {
+              if (!entries.some((entry) => entry.isIntersecting)) return;
+              io.disconnect();
+              start();
+            },
+            { rootMargin: '280px' },
+          );
+          io.observe(node);
+        } else {
+          start();
+        }
+      }
+    </script>
   </div>
 </section>
 
 <style>
   .tiers {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: minmax(0, 0.86fr) minmax(0, 1.28fr) minmax(0, 0.86fr);
     gap: var(--col-gap);
-    align-items: stretch;
+    align-items: start;
   }
 
   .tier {
@@ -115,16 +159,63 @@ const tiers = getServiceTiers(locale);
     overflow: hidden;
     scroll-margin-top: calc(var(--header-height) + 1rem);
     border-radius: var(--radius-lg);
-    transition: border-color var(--duration-fast) var(--ease-out);
+    transition:
+      border-color var(--duration-fast) var(--ease-out),
+      box-shadow var(--duration-base) var(--ease-out);
   }
 
   .tier--featured {
     border-radius: var(--radius-leaf);
     border-color: var(--color-clay);
+    background:
+      linear-gradient(180deg, var(--color-sage-100) 0 6.5rem, var(--color-surface) 11rem);
+    box-shadow: var(--shadow-leaf);
   }
 
-  .tier:not(.tier--featured):hover {
-    border-color: var(--color-primary);
+  /* Side plans stay open. A fine pointer lifts them slightly and draws a moss edge.
+     Crecimiento keeps the fill, the leaf frame, and the larger type. */
+  .tier:not(.tier--featured) {
+    position: relative;
+  }
+
+  .tier:not(.tier--featured)::before {
+    content: '';
+    position: absolute;
+    top: 2rem;
+    bottom: 2rem;
+    left: 0;
+    width: 1px;
+    background: var(--color-moss-800);
+    transform: scaleY(0);
+    transform-origin: top center;
+    pointer-events: none;
+  }
+
+  .tier:not(.tier--featured):focus-within::before {
+    transform: scaleY(1);
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .tier:not(.tier--featured):hover::before {
+      transform: scaleY(1);
+    }
+  }
+
+  @media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+    .tier:not(.tier--featured) {
+      transition:
+        border-color var(--duration-fast) var(--ease-out),
+        box-shadow var(--duration-base) var(--ease-out),
+        transform 0.32s var(--ease-out);
+    }
+
+    .tier:not(.tier--featured)::before {
+      transition: transform 0.32s var(--ease-out);
+    }
+
+    .tier:not(.tier--featured):is(:hover, :focus-within) {
+      transform: translateY(-0.35rem);
+    }
   }
 
   .tier__preview {
@@ -161,8 +252,18 @@ const tiers = getServiceTiers(locale);
 
   .tier__name {
     margin-top: var(--space-5);
-    font-size: var(--text-2xl);
-    line-height: 1.1;
+    font-size: var(--text-xl);
+    line-height: 1.05;
+    transition: color var(--duration-fast) var(--ease-out);
+  }
+
+  .tier:hover .tier__name,
+  .tier:focus-within .tier__name {
+    color: var(--color-primary-strong);
+  }
+
+  .tier--featured .tier__name {
+    font-size: var(--text-3xl);
   }
 
   .tier__audience {
@@ -214,8 +315,47 @@ const tiers = getServiceTiers(locale);
     color: var(--color-text-soft);
   }
 
+  .tier__highlights {
+    display: flex;
+    margin-top: var(--space-5);
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+
+  .tier__highlights li {
+    font-size: var(--text-sm);
+    color: var(--color-text);
+    padding-left: 0.9rem;
+    position: relative;
+  }
+
+  .tier__highlights li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.55em;
+    width: 0.4rem;
+    height: 1px;
+    background: var(--color-primary);
+  }
+
+  .tier__fold {
+    margin-top: var(--space-5);
+  }
+
+  .tier__fold > summary {
+    padding-top: var(--space-4);
+    border-top: 1px solid var(--color-rule);
+    font-size: var(--text-sm);
+    color: var(--color-text);
+  }
+
   .tier__includes {
     margin-top: var(--space-6);
+  }
+
+  .tier__fold .tier__includes:first-child {
+    margin-top: 0;
   }
 
   .tier__includes ul {
@@ -243,7 +383,7 @@ const tiers = getServiceTiers(locale);
   .tier__outcome {
     display: grid;
     gap: var(--space-2);
-    margin-top: auto;
+    margin-top: var(--space-5);
     padding-top: var(--space-5);
   }
 
@@ -258,66 +398,186 @@ const tiers = getServiceTiers(locale);
     margin-top: var(--space-5);
   }
 
+  /* Billing and scope sit on a tree. A hairline stands in until WebGL draws.
+     The section's own padding is the gap; this block no longer offsets itself. */
   .tiers-foot {
+    position: relative;
+    padding-bottom: var(--space-6);
+  }
+
+  .tiers-foot::before {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 0.25rem;
+    bottom: 3rem;
+    width: 1px;
+    background: var(--color-moss-800);
+    opacity: 0.4;
+    pointer-events: none;
+  }
+
+  .tiers-foot.is-ready::before {
+    display: none;
+  }
+
+  .tiers-tree__canvas {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+  }
+
+  .tiers-tree__limbs {
+    position: relative;
+    z-index: 1;
     display: grid;
-    grid-template-columns: repeat(12, 1fr);
-    column-gap: var(--col-gap);
-    row-gap: var(--space-6);
-    margin-top: var(--space-section-gap);
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    column-gap: clamp(5.5rem, 11vw, 9rem);
+    align-items: start;
   }
 
-  .tiers-foot__pricing,
-  .tiers-foot__scope {
-    padding: var(--space-inset-lg);
-  }
-
-  .tiers-foot__pricing {
-    grid-column: 1 / 7;
-  }
-
-  .tiers-foot__scope {
-    grid-column: 7 / 13;
-  }
-
-  .tiers-foot__label {
-    margin-bottom: var(--space-3);
-  }
-
-  .tiers-foot p {
-    color: var(--color-text-soft);
-    max-width: 48ch;
-  }
-
-  .tiers-foot p + p {
-    margin-top: var(--space-4);
-  }
-
-  .tiers-foot__list {
+  .tiers-tree__limb {
     display: flex;
-    flex-wrap: wrap;
-    gap: var(--space-2);
-    margin-top: var(--space-4);
+    flex-direction: column;
+    gap: var(--space-4);
+    width: min(100%, 38ch);
   }
 
-  .tiers-foot__list li {
+  /* Both columns share a top line. Each block fills the column, so every
+     root meets the same inner edge. */
+  .tiers-tree__limb:not(.tiers-tree__limb--scope) {
+    justify-self: end;
+  }
+
+  .tiers-tree__limb--scope {
+    justify-self: start;
+  }
+
+  .tiers-tree__name {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: var(--text-xl);
+    font-weight: var(--weight-heading);
+    letter-spacing: var(--tracking-display);
+    line-height: 1.1;
+    color: var(--color-text);
+  }
+
+  .tiers-tree__note,
+  .tiers-tree__facts li {
     font-size: var(--text-sm);
-    font-weight: var(--weight-medium);
-    padding: var(--space-chip);
-    border: 1px solid var(--color-rule-strong);
-    border-radius: var(--radius-sm);
+    line-height: 1.45;
     color: var(--color-text-soft);
+  }
+
+  .tiers-tree__facts {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+  }
+
+  .tiers-tree__facts--names li {
+    font-family: var(--font-serif);
+    font-size: var(--text-lg);
+    font-weight: var(--weight-heading);
+    line-height: 1.25;
+    color: var(--color-text);
+  }
+
+  .tiers-tree__limb:not(.tiers-tree__limb--scope) :is(.tiers-tree__name, .tiers-tree__note, .tiers-tree__facts li) {
+    padding-right: 0.75rem;
+  }
+
+  .tiers-tree__limb--scope :is(.tiers-tree__name, .tiers-tree__note, .tiers-tree__facts li) {
+    padding-left: 0.75rem;
+  }
+
+  @media (min-width: 1101px) {
+    .tier {
+      height: auto;
+    }
+
+    /* Name first. The shop follows the price, so Crecimiento is the word the row opens with. */
+    .tier--featured .tier__head { order: 1; }
+    .tier--featured .tier__preview {
+      order: 2;
+      margin: var(--space-6) calc(var(--space-inset-lg) * -1) 0;
+    }
+    .tier--featured .tier__highlights { order: 3; }
+    .tier--featured .tier__fold { order: 4; }
+    .tier--featured .tier__cta { order: 5; }
+
+    .tier:not(.tier--featured) {
+      margin-top: 9.5rem;
+      height: auto;
+      background: transparent;
+      border-color: transparent;
+      box-shadow: none;
+    }
+
+    .tier:not(.tier--featured) .tier__preview {
+      display: none;
+    }
   }
 
   @media (max-width: 1100px) {
     .tiers {
       grid-template-columns: 1fr;
     }
+
+    .tier--featured {
+      order: -1;
+    }
+
+    .tier__preview {
+      display: none;
+    }
   }
 
-  @media (max-width: 600px) {
-    .tiers-foot__pricing,
-    .tiers-foot__scope {
-      grid-column: 1 / -1;
+  @media (max-width: 800px) {
+    .tiers-foot {
+      padding-bottom: 1.25rem;
+    }
+
+    .tiers-foot::before {
+      left: 0.35rem;
+      bottom: 0.5rem;
+    }
+
+    .tiers-tree__limbs {
+      grid-template-columns: 1fr;
+      row-gap: var(--space-7);
+      padding-left: 2.4rem;
+    }
+
+    .tiers-tree__limb,
+    .tiers-tree__limb:not(.tiers-tree__limb--scope),
+    .tiers-tree__limb--scope {
+      justify-self: stretch;
+      width: 100%;
+    }
+
+    .tiers-tree__limb:not(.tiers-tree__limb--scope) :is(.tiers-tree__name, .tiers-tree__note, .tiers-tree__facts li),
+    .tiers-tree__limb--scope :is(.tiers-tree__name, .tiers-tree__note, .tiers-tree__facts li) {
+      position: relative;
+      padding-right: 0;
+      padding-left: 0.2rem;
+    }
+
+    /* A drawn root stands in for the WebGL one, which does not load here. */
+    .tiers-tree__name::before,
+    .tiers-tree__note::before,
+    .tiers-tree__facts li::before {
+      content: '';
+      position: absolute;
+      top: 0.55em;
+      right: calc(100% + 0.15rem);
+      width: 1.7rem;
+      height: 1px;
+      background: var(--color-moss-800);
+      opacity: 0.55;
     }
   }
 </style>

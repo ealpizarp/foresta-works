@@ -1,4 +1,5 @@
 ---
+import Botanical from '@/components/visuals/Botanical.astro';
 import SectionHeader from '@/components/ui/SectionHeader.astro';
 import { useI18n } from '@/i18n';
 import { routes } from '@/i18n/paths';
@@ -16,34 +17,47 @@ const { t, path } = useI18n(Astro);
       link={{ href: path(routes.proceso), label: t.homeProcess.seeProcess }}
     />
 
-    <ol class="steps">
+    <div class="steps-wrap">
+      <div class="steps-vine" data-sway aria-hidden="true">
+        <Botanical variant="rule" />
+      </div>
+      <ol class="steps">
       {t.process.steps.map((step, index) => (
         <li class="step reveal">
           <span class="step__num" aria-hidden="true">{String(index + 1).padStart(2, '0')}</span>
           <h3 class="step__title">{step.title}</h3>
         </li>
       ))}
-    </ol>
+      </ol>
+    </div>
   </div>
 </section>
 
 <style>
+  .steps-wrap {
+    position: relative;
+  }
+
+  .steps-vine {
+    position: absolute;
+    top: 0.35rem;
+    left: 4%;
+    right: 4%;
+    width: auto;
+    color: var(--color-moss-800);
+    opacity: 0.45;
+    pointer-events: none;
+  }
+
+  .steps-vine :global(svg) {
+    height: 2.15rem;
+  }
+
   .steps {
     position: relative;
     display: grid;
     grid-template-columns: repeat(5, 1fr);
     gap: var(--col-gap);
-  }
-
-  .steps::before {
-    content: '';
-    position: absolute;
-    top: 1.15rem;
-    left: 4%;
-    right: 4%;
-    height: 1px;
-    background: var(--color-rule-strong);
-    pointer-events: none;
   }
 
   .step {
@@ -78,7 +92,7 @@ const { t, path } = useI18n(Astro);
       grid-template-columns: repeat(3, 1fr);
     }
 
-    .steps::before {
+    .steps-vine {
       display: none;
     }
   }
@@ -86,6 +100,17 @@ const { t, path } = useI18n(Astro);
   @media (max-width: 900px) {
     .steps {
       grid-template-columns: 1fr;
+    }
+
+    .steps::before {
+      content: '';
+      position: absolute;
+      top: 0.4rem;
+      bottom: 0.4rem;
+      left: 1.15rem;
+      width: 1px;
+      background: var(--color-sage-300);
+      pointer-events: none;
     }
   }
 </style>

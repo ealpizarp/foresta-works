@@ -1,0 +1,222 @@
+---
+/**
+ * A sculpted tree for a page opening. Three.js draws it once WebGL is
+ * confirmed and the main content has loaded; until then, and wherever
+ * WebGL or the device cannot carry it, a still drawing of the same tree
+ * stands in. Decorative: the words beside it carry the meaning.
+ */
+import Botanical from '@/components/visuals/Botanical.astro';
+
+interface Props {
+  /** Fog and far-side haze fade toward the surface the tree stands on. */
+  fog?: 'paper' | 'sage';
+  class?: string;
+}
+
+const { fog = 'paper', class: className } = Astro.props;
+---
+
+<div class:list={['forest-tree', `forest-tree--${fog}`, className]} data-forest-tree aria-hidden="true">
+  <div class="forest-tree__soil">
+    <Botanical variant="rule" />
+  </div>
+  <canvas class="forest-tree__canvas"></canvas>
+  <svg class="forest-tree__still" viewBox="0 0 400 360" fill="none">
+    <g class="forest-tree__still-leaves">
+      <ellipse cx="205" cy="92" rx="88" ry="54" />
+      <ellipse cx="138" cy="128" rx="62" ry="40" />
+      <ellipse cx="270" cy="136" rx="70" ry="42" />
+      <ellipse cx="206" cy="150" rx="56" ry="34" />
+      <ellipse cx="112" cy="170" rx="38" ry="26" />
+      <ellipse cx="300" cy="182" rx="40" ry="26" />
+    </g>
+    <path
+      class="forest-tree__still-bark"
+      d="M184 302 C 190 266 189 232 194 200 C 196 186 198 176 199 168 C 186 158 170 150 154 144 C 156 140 158 138 160 136 C 176 142 190 150 201 158 C 204 146 210 136 218 128 C 230 116 246 110 264 106 C 265 110 266 113 266 116 C 248 122 234 132 224 146 C 216 158 212 176 213 196 C 216 230 217 266 220 302 C 208 300 196 300 184 302 Z"
+    />
+    <g class="forest-tree__still-roots">
+      <path d="M190 300 C 160 306 128 304 96 318 C 78 326 64 334 54 342" />
+      <path d="M128 306 C 112 296 98 290 82 290" />
+      <path d="M198 302 C 176 318 150 328 118 334" />
+      <path d="M212 302 C 236 312 262 316 290 328 C 310 336 326 340 346 342" />
+      <path d="M270 318 C 286 310 302 308 318 302" />
+      <path d="M218 300 C 246 300 278 296 306 290" />
+      <path d="M204 304 C 206 318 214 330 230 338" />
+    </g>
+  </svg>
+</div>
+
+<script>
+  type Mod = typeof import('../../scripts/forest-tree');
+
+  function hasWebGl(): boolean {
+    try {
+      const probe = document.createElement('canvas');
+      return !!(probe.getContext('webgl2') || probe.getContext('webgl'));
+    } catch {
+      return false;
+    }
+  }
+
+  function lowPowered(): boolean {
+    const nav = navigator as Navigator & {
+      deviceMemory?: number;
+      connection?: { saveData?: boolean };
+    };
+    if (nav.connection?.saveData === true) return true;
+    if (typeof nav.deviceMemory === 'number' && nav.deviceMemory <= 2) return true;
+    if (typeof nav.hardwareConcurrency === 'number' && nav.hardwareConcurrency <= 2) return true;
+    return false;
+  }
+
+  function whenIdle(task: () => void): void {
+    const run = () => {
+      const idle = (window as Window & { requestIdleCallback?: typeof requestIdleCallback }).requestIdleCallback;
+      if (typeof idle === 'function') {
+        idle.call(window, task, { timeout: 1800 });
+      } else {
+        setTimeout(task, 240);
+      }
+    };
+    if (document.readyState === 'complete') run();
+    else window.addEventListener('load', run, { once: true });
+  }
+
+  for (const node of document.querySelectorAll('[data-forest-tree]')) {
+    if (!(node instanceof HTMLElement) || node.dataset.treeState) continue;
+
+    const narrow = window.matchMedia('(max-width: 800px)').matches;
+    if (!hasWebGl() || lowPowered() || narrow) {
+      node.dataset.treeState = 'still';
+      continue;
+    }
+
+    node.dataset.treeState = 'loading';
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    whenIdle(() => {
+      import('../../scripts/forest-tree')
+        .then((mod: Mod) => {
+          const handle = mod.mountForestTree(node, { reduceMotion });
+          node.dataset.treeState = handle ? 'live' : 'still';
+        })
+        .catch(() => {
+          node.dataset.treeState = 'still';
+        });
+    });
+  }
+</script>
+
+<style>
+  .forest-tree {
+    --tree-fog: var(--color-bone-50);
+    position: relative;
+    width: 100%;
+    aspect-ratio: 5 / 4;
+    isolation: isolate;
+  }
+
+  .forest-tree--sage {
+    --tree-fog: var(--color-sage-100);
+  }
+
+  .forest-tree__canvas,
+  .forest-tree__still {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+
+  .forest-tree__canvas {
+    z-index: 1;
+    opacity: 0;
+    transition: opacity 0.18s var(--ease-out);
+  }
+
+  .forest-tree.is-ready .forest-tree__canvas {
+    opacity: 1;
+  }
+
+  /* The drawn root line meets the 3D roots where the trunk touches the ground. */
+  .forest-tree__soil {
+    position: absolute;
+    z-index: 0;
+    left: -12%;
+    right: -12%;
+    top: var(--tree-ground, 78%);
+    height: 2.4rem;
+    translate: 0 -46%;
+    color: var(--color-moss-800);
+    opacity: 0;
+    transition: opacity 0.7s var(--ease-out);
+    pointer-events: none;
+  }
+
+  .forest-tree.is-ready .forest-tree__soil {
+    opacity: 0.42;
+  }
+
+  @media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+    .forest-tree__soil {
+      translate: calc(var(--px, 0) * 0.7rem) calc(-46% + var(--py, 0) * 0.3rem);
+      transition: translate 1.15s var(--ease-out), opacity 0.7s var(--ease-out);
+    }
+  }
+
+  .forest-tree__soil :global(svg) {
+    width: 100%;
+    height: 2.4rem;
+  }
+
+  /* Still drawing: shown before the scene is ready, and kept where WebGL is not. */
+  .forest-tree__still {
+    z-index: 2;
+    color: var(--color-moss-800);
+    transition: opacity 0.12s var(--ease-out);
+  }
+
+  .forest-tree__still-leaves ellipse {
+    fill: var(--color-sage-300);
+    opacity: 0.55;
+  }
+
+  .forest-tree__still-leaves ellipse:nth-child(odd) {
+    fill: currentColor;
+    opacity: 0.16;
+  }
+
+  .forest-tree__still-bark {
+    fill: currentColor;
+    opacity: 0.78;
+  }
+
+  .forest-tree__still-roots path {
+    stroke: currentColor;
+    stroke-width: 1.35;
+    stroke-linecap: round;
+    opacity: 0.75;
+  }
+
+  .forest-tree[data-tree-state='loading'] .forest-tree__still,
+  .forest-tree[data-tree-state='live'] .forest-tree__still {
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .forest-tree__canvas,
+    .forest-tree__soil,
+    .forest-tree__still {
+      transition: none;
+    }
+  }
+
+  @media (max-width: 900px) {
+    .forest-tree {
+      aspect-ratio: 4 / 3;
+      max-height: 20rem;
+    }
+  }
+</style>

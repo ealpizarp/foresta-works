@@ -24,19 +24,23 @@ const { t } = useI18n(Astro);
       <p>{t.metaAds.spendNote}</p>
     </div>
 
-    <div class="ads__col panel reveal">
-      <h3 class="label">{t.metaAds.includesLabel}</h3>
-      <ul>
-        {t.metaAds.includes.map((item) => <li>{item}</li>)}
-      </ul>
-    </div>
+    <details class="fold panel ads__col reveal">
+      <summary class="label">{t.metaAds.includesLabel}</summary>
+      <div class="fold__body">
+        <ul>
+          {t.metaAds.includes.map((item) => <li>{item}</li>)}
+        </ul>
+      </div>
+    </details>
 
-    <div class="ads__col ads__col--out panel reveal">
-      <h3 class="label">{t.metaAds.excludesLabel}</h3>
-      <ul>
-        {t.metaAds.excludes.map((item) => <li>{item}</li>)}
-      </ul>
-    </div>
+    <details class="fold panel ads__col ads__col--out reveal">
+      <summary class="label">{t.metaAds.excludesLabel}</summary>
+      <div class="fold__body">
+        <ul>
+          {t.metaAds.excludes.map((item) => <li>{item}</li>)}
+        </ul>
+      </div>
+    </details>
   </div>
 </section>
 
@@ -97,8 +101,8 @@ const { t } = useI18n(Astro);
     grid-column: 7 / 13;
   }
 
-  .ads__col ul {
-    margin-top: var(--space-4);
+  .ads__col .fold__body {
+    padding-top: var(--space-4);
   }
 
   .ads__col li {
@@ -117,12 +121,15 @@ const { t } = useI18n(Astro);
   @media (max-width: 900px) {
     .ads__title,
     .ads__lede,
-    .ads__visual,
-    .ads__spend,
     .ads__col,
     .ads__col--out {
       grid-column: 1 / -1;
       grid-row: auto;
+    }
+
+    .ads__visual,
+    .ads__spend {
+      display: none;
     }
   }
 </style>

@@ -104,7 +104,7 @@ const jsonLdBlocks = [
     <link rel="manifest" href={locale === 'en' ? '/en.webmanifest' : '/site.webmanifest'} />
     <slot name="head" />
     <link rel="sitemap" href="/sitemap-index.xml" />
-    <meta name="theme-color" content="#f4f2ec" />
+    <meta name="theme-color" content="#f4efe6" />
 
     <Font cssVariable="--font-serif" preload={[{ weight: 500, style: 'normal' }]} />
     <Font cssVariable="--font-sans" preload={[{ weight: 500, style: 'normal' }]} />
@@ -120,6 +120,11 @@ const jsonLdBlocks = [
       <slot />
     </main>
     <SiteFooter />
+    <script>
+      if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        void import('../scripts/motion.ts');
+      }
+    </script>
     <script is:inline define:vars={{ cookieName: LOCALE_COOKIE, locale }}>
       (function () {
         var secure = location.protocol === 'https:' ? '; Secure' : '';

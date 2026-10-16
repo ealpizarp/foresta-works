@@ -5,9 +5,9 @@
  */
 import Button from '@/components/ui/Button.astro';
 import { emailUrl, site, whatsappUrl } from '@/data/site';
-import { useI18n } from '@/i18n';
+import { routes, useI18n } from '@/i18n';
 
-const { t } = useI18n(Astro);
+const { t, path } = useI18n(Astro);
 const whatsapp = whatsappUrl(t.meta.whatsappMessage);
 const email = emailUrl(t.meta.emailSubject);
 const formAction = site.contact.whatsappNumber !== null ? `https://wa.me/${site.contact.whatsappNumber}` : null;
@@ -33,7 +33,7 @@ if (whatsapp === null && email === null) {
                 {t.contact.openChat}<span class="sr-only">{t.nav.newWindow}</span>
               </a>
             ) : (
-              <span>{t.contact.comingSoon}</span>
+              <span class="contact-panel__pending">{t.contact.comingSoon}</span>
             )}
           </dd>
         </div>
@@ -43,7 +43,7 @@ if (whatsapp === null && email === null) {
             {email !== null && site.contact.email !== null ? (
               <a class="link-underline" href={email}>{site.contact.email}</a>
             ) : (
-              <span>{t.contact.comingSoon}</span>
+              <span class="contact-panel__pending">{t.contact.comingSoon}</span>
             )}
           </dd>
         </div>
@@ -59,6 +59,12 @@ if (whatsapp === null && email === null) {
         <div class="contact-panel__actions">
           <Button href={whatsapp} external>{t.contact.writeWhatsApp}</Button>
         </div>
+      )}
+
+      {whatsapp === null && email === null && (
+        <p class="contact-panel__next">
+          <Button href={path(routes.servicios)} variant="text">{t.homePlans.compare}</Button>
+        </p>
       )}
     </div>
 
@@ -124,6 +130,18 @@ if (whatsapp === null && email === null) {
     font-size: var(--text-md);
     font-weight: var(--weight-medium);
     color: var(--color-text);
+  }
+
+  .contact-panel__pending {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-weight: var(--weight-heading);
+    font-size: var(--text-lg);
+    color: var(--color-text-soft);
+  }
+
+  .contact-panel__next {
+    margin-top: var(--space-5);
   }
 
   .contact-panel__actions {

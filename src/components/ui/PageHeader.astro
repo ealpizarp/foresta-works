@@ -4,37 +4,70 @@
  * and an optional lede. The breadcrumb names the page; a second eyebrow
  * would only repeat it.
  */
+import Botanical from '@/components/visuals/Botanical.astro';
 import { routes, useI18n } from '@/i18n';
 
 interface Props {
   eyebrow: string;
   title: string;
   lede?: string;
+  /** Drop the lede on small screens when the next section already says it. */
+  hideLedeOnSmall?: boolean;
+  class?: string;
 }
 
-const { eyebrow, title, lede } = Astro.props;
+const { eyebrow, title, lede, hideLedeOnSmall = false, class: className } = Astro.props;
 const { t, path } = useI18n(Astro);
+/** An optional `visual` slot stands beside the words; the words keep the left. */
+const hasVisual = Astro.slots.has('visual');
+/** An optional `actions` slot stacks under the lede, in the same grid cell. */
+const hasActions = Astro.slots.has('actions');
 ---
 
-<header class="page-header">
-  <div class="container page-header__grid">
+<header class:list={['page-header', className]}>
+  <div class="page-header__sprig" data-sway aria-hidden="true">
+    <Botanical />
+  </div>
+  <div class:list={['container', 'page-header__grid', { 'page-header__grid--visual': hasVisual }]}>
     <nav class="page-header__crumb" aria-label={t.nav.breadcrumb}>
       <a class="link-underline" href={path(routes.home)}>{t.nav.home}</a>
       <span aria-hidden="true">/</span>
       <span aria-current="page">{eyebrow}</span>
     </nav>
     <h1 class="page-header__title">{title}</h1>
-    {lede && <p class="page-header__lede">{lede}</p>}
+    {hasActions ? (
+      <div class="page-header__copy">
+        {lede && <p class:list={['page-header__lede', { 'page-header__lede--optional': hideLedeOnSmall }]}>{lede}</p>}
+        <div class="page-header__actions">
+          <slot name="actions" />
+        </div>
+      </div>
+    ) : (
+      lede && <p class:list={['page-header__lede', { 'page-header__lede--optional': hideLedeOnSmall }]}>{lede}</p>
+    )}
+    {hasVisual && (
+      <div class="page-header__visual">
+        <slot name="visual" />
+      </div>
+    )}
   </div>
 </header>
 
 <style>
   .page-header {
     position: relative;
+    overflow: hidden;
     padding-top: var(--space-page);
     padding-bottom: var(--space-section-gap);
-    background: var(--color-wash);
+    background-color: var(--color-sage-100);
+    background-image:
+      radial-gradient(ellipse 14rem 8rem at 12% 0%, rgb(255 250 243 / 0.75), transparent 72%),
+      radial-gradient(ellipse 10rem 6rem at 78% 20%, rgb(143 216 203 / 0.22), transparent 70%);
     border-radius: 0 0 var(--radius-xl) var(--radius-xl);
+  }
+
+  .page-header__sprig {
+    display: none;
   }
 
   .page-header__grid {
@@ -74,6 +107,71 @@ const { t, path } = useI18n(Astro);
     max-width: none;
   }
 
+  /* Lede and the one action share a cell, so a button does not open a third row. */
+  .page-header__copy {
+    grid-column: 8 / 13;
+    display: grid;
+    justify-items: start;
+    align-self: start;
+    gap: var(--space-5);
+  }
+
+  .page-header__copy .page-header__lede {
+    grid-column: 1 / -1;
+  }
+
+  /* With a visual, title and lede stack on the left; the visual takes the right. */
+  .page-header__grid--visual {
+    align-items: end;
+  }
+
+  .page-header__grid--visual .page-header__title {
+    grid-column: 1 / 8;
+    align-self: end;
+  }
+
+  /* The visual spans two rows; title and lede hug the seam so the gap stays the row gap. */
+  .page-header__grid--visual .page-header__lede {
+    grid-column: 1 / 7;
+    align-self: start;
+    max-width: 44ch;
+  }
+
+  .page-header__grid--visual .page-header__copy {
+    grid-column: 1 / 7;
+  }
+
+  .page-header__grid--visual .page-header__copy .page-header__lede {
+    grid-column: 1 / -1;
+    max-width: 44ch;
+  }
+
+  .page-header__visual {
+    grid-column: 8 / 13;
+    grid-row: 2 / 4;
+    align-self: end;
+    justify-self: end;
+    width: min(100%, 30rem);
+  }
+
+  @media (min-width: 900px) {
+    .page-header__sprig {
+      display: block;
+      position: absolute;
+      top: 1rem;
+      left: max(var(--gutter), calc((100% - var(--container-max)) / 2));
+      width: 2.6rem;
+      color: var(--color-moss-800);
+      opacity: 0.55;
+      pointer-events: none;
+    }
+
+    .page-header__sprig :global(svg) {
+      width: 100%;
+      height: auto;
+    }
+  }
+
   @media (max-width: 1100px) {
     .page-header__title {
       grid-column: 1 / 9;
@@ -82,16 +180,73 @@ const { t, path } = useI18n(Astro);
     .page-header__lede {
       grid-column: 1 / 9;
     }
+
+    .page-header__grid--visual .page-header__title,
+    .page-header__grid--visual .page-header__lede {
+      grid-column: 1 / 8;
+    }
+
+    .page-header__copy,
+    .page-header__grid--visual .page-header__copy {
+      grid-column: 1 / 8;
+    }
   }
 
   @media (max-width: 900px) {
     .page-header__title,
-    .page-header__lede {
+    .page-header__lede,
+    .page-header__copy,
+    .page-header__grid--visual .page-header__title,
+    .page-header__grid--visual .page-header__lede,
+    .page-header__grid--visual .page-header__copy {
       grid-column: 1 / -1;
+    }
+
+    .page-header__visual {
+      grid-column: 1 / -1;
+      grid-row: auto;
+      justify-self: start;
+      width: min(100%, 24rem);
+      margin-top: var(--space-2);
     }
 
     .page-header__lede {
       max-width: 48ch;
+    }
+
+    .page-header__lede--optional {
+      display: none;
+    }
+
+    .page-header--grove .page-header__grid--visual .page-header__title,
+    .page-header--grove .page-header__grid--visual .page-header__lede,
+    .page-header--grove .page-header__grid--visual .page-header__copy,
+    .page-header--grove .page-header__visual {
+      grid-column: 1 / -1;
+    }
+
+    .page-header--grove .page-header__visual {
+      width: min(100%, 22rem);
+      align-self: start;
+    }
+  }
+
+  /* About only: a short purpose sits beside the tree, not under a long headline. */
+  @media (min-width: 901px) {
+    .page-header--grove .page-header__grid--visual {
+      align-items: center;
+    }
+
+    .page-header--grove .page-header__grid--visual .page-header__title,
+    .page-header--grove .page-header__grid--visual .page-header__lede,
+    .page-header--grove .page-header__grid--visual .page-header__copy {
+      grid-column: 1 / 7;
+    }
+
+    .page-header--grove .page-header__visual {
+      grid-column: 7 / 13;
+      width: min(100%, 32rem);
+      align-self: center;
     }
   }
 </style>

@@ -17,6 +17,9 @@ interface Props {
 const { t, path } = useI18n(Astro);
 const { title = t.cta.title, text = t.cta.text } = Astro.props;
 const whatsapp = whatsappUrl(t.meta.whatsappMessage);
+const splitAt = text.indexOf('. ');
+const mobileLine = splitAt === -1 ? text : text.slice(0, splitAt + 1);
+const mobileRest = splitAt === -1 ? '' : text.slice(splitAt + 2);
 ---
 
 <section class="cta-band" aria-labelledby="cta-band-title">
@@ -28,7 +31,10 @@ const whatsapp = whatsappUrl(t.meta.whatsappMessage);
     <p class="eyebrow eyebrow--on-dark cta-band__eyebrow">{t.cta.eyebrow}</p>
     <h2 class="cta-band__title" id="cta-band-title">{title}</h2>
     <div class="cta-band__aside">
-      <p class="cta-band__text">{text}</p>
+      <p class="cta-band__text">
+        {mobileLine}
+        {mobileRest && <span class="cta-band__text-more"> {mobileRest}</span>}
+      </p>
       <div class="cta-band__actions">
         {whatsapp !== null ? (
           <Button href={whatsapp} external>{t.cta.writeWhatsApp}</Button>
@@ -71,7 +77,10 @@ const whatsapp = whatsappUrl(t.meta.whatsappMessage);
     content: '';
     position: absolute;
     inset: 0;
-    background: linear-gradient(to bottom, rgb(12 22 20 / 0.45), rgb(12 22 20 / 0.88));
+    background:
+      radial-gradient(ellipse 9rem 5rem at 18% 22%, rgb(183 230 222 / 0.28), transparent 70%),
+      radial-gradient(ellipse 7rem 4rem at 72% 18%, rgb(255 250 243 / 0.16), transparent 70%),
+      linear-gradient(to bottom, rgb(12 22 20 / 0.45), rgb(12 22 20 / 0.88));
   }
 
   .cta-band__grid {
@@ -112,9 +121,29 @@ const whatsapp = whatsappUrl(t.meta.whatsappMessage);
   }
 
   @media (max-width: 900px) {
+    .cta-band {
+      padding-block: var(--space-7);
+    }
+
+    .cta-band__media {
+      display: none;
+    }
+
     .cta-band__title,
     .cta-band__aside {
       grid-column: 1 / -1;
+    }
+
+    .cta-band__title {
+      font-size: var(--text-2xl);
+    }
+
+    .cta-band__text-more {
+      display: none;
+    }
+
+    .cta-band__actions {
+      margin-top: var(--space-5);
     }
   }
 </style>
