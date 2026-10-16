@@ -257,38 +257,40 @@ export const en = {
       'Ads on Google or TikTok',
     ],
     detail: {
-      fitLabel: 'Who it is for',
-      problemLabel: 'What it solves',
-      scopeLabel: 'What it includes',
-      practiceLabel: 'In practice',
       talk: "Let's talk about this service.",
       unsure: 'If you are not yet sure which plan fits.',
       arranque: {
-        purpose: 'A site of your own, clear on a phone, and looked after from then on.',
-        fit: 'For companies, businesses, and organizations that need a site where services, hours, and a way to write are visible.',
-        problem:
-          'The business details live in messages, on a social network, or on a loose profile. Someone searching does not reach a page that is kept current.',
-        apart: null,
-        outcome:
-          'The site shows the services, the hours, and a way to write. Each month you receive a report of what was looked after.',
+        purpose: 'A clear site, looked after each month.',
+        support:
+          'For companies, businesses, and organizations whose services and hours still live in messages or on a loose profile. Someone searching does not reach a page that is kept current.',
+        steps: [
+          'The site is in your name and reads clearly on a phone.',
+          'The Google profile and a way to get in touch are connected.',
+          'Each month, one round of changes and a report of what was looked after.',
+        ],
+        note: null,
       },
       crecimiento: {
-        purpose: 'Put the offer on the site and adjust the Meta ads each month.',
-        fit: 'For companies, businesses, and organizations that already serve customers and want a catalog, payments, bookings, or ads on Facebook and Instagram.',
-        problem:
-          'The offer, the payment, or the booking is still handled by hand. If there are ads, no one adjusts them or leaves a report for the month.',
-        apart: 'New photo or video, if you do not already have material, is quoted separately.',
-        outcome:
-          'The customer sees the offer and can continue toward payment or booking on the site. You receive a report on the ads; the budget stays in your Meta account.',
+        purpose: 'The offer on the site. The ads budget, in your account.',
+        support:
+          'For companies, businesses, and organizations that already serve customers and still handle payment, booking, or ads by hand.',
+        steps: [
+          'A catalog, a store, or a simple booking system.',
+          'Payments are connected, including SINPE Móvil when it applies.',
+          'Meta ads are reviewed each month. You load the budget.',
+        ],
+        note: 'New photo or video, if you do not already have material, is quoted separately.',
       },
       inteligente: {
-        purpose: 'Answer the repeated WhatsApp questions, inside a written scope.',
-        fit: 'For companies, businesses, and organizations that receive the same questions on WhatsApp and want them covered when no one is available.',
-        problem:
-          'The same questions come back on WhatsApp, including when the operation is closed, and someone on the team answers them one by one.',
-        apart: 'If WhatsApp or Meta charge per conversation, you pay that.',
-        outcome:
-          'The assistant answers what you approved and leaves you what it could not resolve. It does not close a sale or decide for you.',
+        purpose: 'WhatsApp, only with what you approved.',
+        support:
+          'For companies, businesses, and organizations that answer the same questions on WhatsApp, including when no one is there. It adds to the site. It does not replace it.',
+        steps: [
+          'What the assistant does and does not do is written first.',
+          'Questions, closed hours, reminders, and reviews stay inside that text.',
+          'What it cannot resolve comes back to you. It does not close a sale or decide for you.',
+        ],
+        note: 'If WhatsApp or Meta charge per conversation, you pay that.',
       },
     },
     tiers: {

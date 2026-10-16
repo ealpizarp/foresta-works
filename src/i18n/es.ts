@@ -257,38 +257,40 @@ export const es = {
       'Pauta en Google o TikTok',
     ],
     detail: {
-      fitLabel: 'Para quién',
-      problemLabel: 'Qué resuelve',
-      scopeLabel: 'Qué incluye',
-      practiceLabel: 'En la práctica',
       talk: 'Conversemos sobre este servicio.',
       unsure: 'Si todavía no tiene claro cuál plan corresponde.',
       arranque: {
-        purpose: 'Dejar un sitio propio, entendible en el celular, y seguirlo cuidando.',
-        fit: 'Para empresas, negocios y organizaciones que necesitan un sitio donde se vean los servicios, el horario y cómo escribir.',
-        problem:
-          'Los datos del negocio están en mensajes, en una red o en un perfil suelto. Quien busca no llega a una página al día.',
-        apart: null as string | null,
-        outcome:
-          'En el sitio quedan los servicios, el horario y una forma de escribir. Cada mes recibe un reporte de lo que se cuidó.',
+        purpose: 'Un sitio claro, cuidado cada mes.',
+        support:
+          'Para empresas, negocios y organizaciones cuyos servicios y horario viven en mensajes o en un perfil suelto. Quien busca no llega a una página al día.',
+        steps: [
+          'El sitio queda a su nombre y se lee bien en el celular.',
+          'El perfil de Google y el contacto quedan conectados.',
+          'Cada mes, una ronda de cambios y un reporte de lo que se cuidó.',
+        ],
+        note: null as string | null,
       },
       crecimiento: {
-        purpose: 'Ordenar la oferta en el sitio y ajustar los anuncios de Meta cada mes.',
-        fit: 'Para empresas, negocios y organizaciones que ya atienden clientes y quieren catálogo, pagos, reservas o anuncios en Facebook e Instagram.',
-        problem:
-          'La oferta, el pago o la reserva se resuelven a mano. Si hay anuncios, nadie los ajusta ni deja un reporte del mes.',
-        apart: 'La foto o el video nuevo, si no tiene material, se cotiza aparte.',
-        outcome:
-          'El cliente ve la oferta y puede seguir hacia el pago o la reserva en el sitio. Usted recibe un reporte de los anuncios; el presupuesto sigue en su cuenta de Meta.',
+        purpose: 'La oferta en el sitio. La pauta, en su cuenta.',
+        support:
+          'Para empresas, negocios y organizaciones que ya atienden clientes y todavía resuelven el pago, la reserva o la pauta a mano.',
+        steps: [
+          'Catálogo, tienda o un sistema sencillo de reservas.',
+          'Los pagos quedan integrados, con SINPE Móvil cuando aplica.',
+          'Los anuncios de Meta se revisan cada mes. El presupuesto lo carga usted.',
+        ],
+        note: 'La foto o el video nuevo, si no tiene material, se cotiza aparte.',
       },
       inteligente: {
-        purpose: 'Responder lo repetido en WhatsApp, dentro de un alcance escrito.',
-        fit: 'Para empresas, negocios y organizaciones que reciben las mismas preguntas por WhatsApp y quieren cubrirlas también cuando nadie está disponible.',
-        problem:
-          'Las mismas preguntas vuelven por WhatsApp, también con la operación cerrada, y alguien del equipo las contesta una por una.',
-        apart: 'Si WhatsApp o Meta cobran por conversación, lo paga usted.',
-        outcome:
-          'El asistente contesta lo que usted aprobó y le deja lo que no pudo resolver. No cierra una venta ni decide por usted.',
+        purpose: 'WhatsApp, solo con lo que usted aprobó.',
+        support:
+          'Para empresas, negocios y organizaciones que contestan las mismas preguntas por WhatsApp, también con la operación cerrada. Se suma a un sitio. No lo reemplaza.',
+        steps: [
+          'Primero se escribe qué hace el asistente y qué no hace.',
+          'Preguntas, horario cerrado, recordatorios y reseñas caben en ese texto.',
+          'Lo que no resuelve vuelve a usted. No cierra una venta ni decide por usted.',
+        ],
+        note: 'Si WhatsApp o Meta cobran por conversación, lo paga usted.',
       },
     },
     tiers: {

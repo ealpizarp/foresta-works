@@ -1,10 +1,12 @@
 ---
 /**
- * One reading section per subscription. The overview cards orient;
- * these sections add who it is for, the problem, the scope, and the outcome.
+ * One editorial section per subscription.
+ * Arranque keeps a young stem beside the words.
+ * Crecimiento splits that stem into offer, payment, and ads.
+ * Inteligente is a trunk already grown, plus one later shoot.
+ * The line draws once. Reduced motion shows it finished.
  */
 import Button from '@/components/ui/Button.astro';
-import PlanTree from '@/components/visuals/PlanTree.astro';
 import { getServiceTiers } from '@/data/services';
 import { routes, useI18n } from '@/i18n';
 
@@ -15,64 +17,96 @@ const contact = path(routes.contacto);
 ---
 
 {
-  tiers.map((tier, index) => {
+  tiers.map((tier) => {
     const copy = detail[tier.id];
+    const rooted = tier.id === 'arranque' || tier.id === 'inteligente';
     return (
       <section
-        class:list={['section', 'section--page', 'plan', `plan--${tier.id}`, { 'plan--primary': tier.recommended }]}
+        class:list={['section', 'section--page', 'plan', `plan--${tier.id}`]}
         id={tier.id}
         aria-labelledby={`${tier.id}-title`}
       >
-        <div class="container">
-          <div class="plan__sheet">
-            <header class="plan__intro">
-              <span class:list={['plan__tree', `plan__tree--${tier.id}`]}>
-                <PlanTree stage={tier.id} />
-              </span>
-              <div class="plan__meta">
-                <span class="plan__num" aria-hidden="true">{String(index + 1).padStart(2, '0')}</span>
-                {tier.badge && <span class="plan__badge">{tier.badge}</span>}
-              </div>
-              <h2 class="plan__name" id={`${tier.id}-title`}>{tier.name}</h2>
-              <p class="plan__purpose">{copy.purpose}</p>
-            </header>
+        <div class:list={['container', { 'plan__layout': rooted }]}>
+          {tier.id === 'arranque' && (
+            <div class="plan__rail" aria-hidden="true">
+              <svg class="plan__plant" viewBox="0 0 120 168" fill="none">
+                <g class="plan__emboss">
+                  <path d="M58 150 C 64 122 46 92 56 58" stroke="currentColor" stroke-width="1.35" stroke-linecap="round" />
+                  <path d="M54 108 C 40 104 26 90 16 76" stroke="currentColor" stroke-width="1.15" stroke-linecap="round" />
+                  <path d="M56 86 C 74 82 90 68 104 54" stroke="currentColor" stroke-width="1.15" stroke-linecap="round" />
+                </g>
+                <g class="plan__ink">
+                  <path class="plan__path" pathLength="100" d="M58 150 C 64 122 46 92 56 58" stroke="currentColor" stroke-width="1.35" stroke-linecap="round" />
+                  <path class="plan__path plan__path--later" pathLength="100" d="M54 108 C 40 104 26 90 16 76" stroke="currentColor" stroke-width="1.15" stroke-linecap="round" />
+                  <path class="plan__path plan__path--later" pathLength="100" d="M56 86 C 74 82 90 68 104 54" stroke="currentColor" stroke-width="1.15" stroke-linecap="round" />
+                  <circle cx="58" cy="156" r="7.5" fill="none" stroke="currentColor" stroke-width="1" opacity="0.4" />
+                  <circle cx="58" cy="156" r="3.2" fill="currentColor" />
+                  <circle class="plan__bud" cx="56" cy="58" r="3.2" fill="currentColor" />
+                </g>
+              </svg>
+            </div>
+          )}
 
-            <div class="plan__body">
-              <div>
-                <h3 class="label">{detail.fitLabel}</h3>
-                <p class="plan__text">{copy.fit}</p>
-              </div>
+          {tier.id === 'inteligente' && (
+            <div class="plan__rail" aria-hidden="true">
+              <svg class="plan__shoot" viewBox="0 0 220 78" fill="none">
+                <g class="plan__emboss">
+                  <path d="M2 70 C 48 66 96 40 150 30" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" />
+                  <path d="M118 38 C 138 24 164 16 190 20" stroke="currentColor" stroke-width="1.05" stroke-linecap="round" />
+                </g>
+                <g class="plan__ink">
+                  <path class="plan__path plan__path--later" pathLength="100" d="M2 70 C 48 66 96 40 150 30" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" />
+                  <path class="plan__path plan__path--later" pathLength="100" d="M118 38 C 138 24 164 16 190 20" stroke="currentColor" stroke-width="1.05" stroke-linecap="round" />
+                  <circle class="plan__bud" cx="190" cy="20" r="3.2" fill="currentColor" />
+                </g>
+              </svg>
+            </div>
+          )}
 
-              <div>
-                <h3 class="label">{detail.problemLabel}</h3>
-                <p class="plan__text">{copy.problem}</p>
-              </div>
+          <div class="plan__main">
+            {tier.id === 'crecimiento' && (
+              <svg class="plan__mark" viewBox="0 0 140 120" fill="none" aria-hidden="true">
+                <g class="plan__emboss">
+                  <path d="M70 108 C 74 86 62 68 66 48" stroke="currentColor" stroke-width="1.35" stroke-linecap="round" />
+                  <path d="M66 72 C 48 68 30 58 16 46" stroke="currentColor" stroke-width="1.15" stroke-linecap="round" />
+                  <path d="M66 64 C 86 58 106 46 124 32" stroke="currentColor" stroke-width="1.15" stroke-linecap="round" />
+                </g>
+                <g class="plan__ink">
+                  <path class="plan__path" pathLength="100" d="M70 108 C 74 86 62 68 66 48" stroke="currentColor" stroke-width="1.35" stroke-linecap="round" />
+                  <path class="plan__path plan__path--later" pathLength="100" d="M66 72 C 48 68 30 58 16 46" stroke="currentColor" stroke-width="1.15" stroke-linecap="round" />
+                  <path class="plan__path plan__path--later" pathLength="100" d="M66 64 C 86 58 106 46 124 32" stroke="currentColor" stroke-width="1.15" stroke-linecap="round" />
+                  <circle cx="70" cy="112" r="3.1" fill="currentColor" />
+                  <circle class="plan__bud plan__bud--clay" cx="66" cy="48" r="3.3" fill="var(--color-clay)" />
+                </g>
+              </svg>
+            )}
 
-              <div class="plan__scope">
-                <h3 class="label">{detail.scopeLabel}</h3>
-                <div class="plan__group">
-                  <h4 class="label">{t.services.buildHeading}</h4>
-                  <ul>
-                    {tier.setupIncludes.map((item) => <li>{item}</li>)}
-                  </ul>
+            <p class="plan__name">{tier.name}</p>
+            <h2 class="plan__statement reveal" id={`${tier.id}-title`}>{copy.purpose}</h2>
+            <p class="plan__support reveal">{copy.support}</p>
+
+            <div class:list={['plan__sequence', { 'plan__sequence--crown': tier.id === 'crecimiento' }]}>
+              {tier.id === 'crecimiento' && (
+                <div class="crown reveal" aria-hidden="true">
+                  <span class="crown__bar"></span>
+                  <span class="crown__spine"></span>
                 </div>
-                <div class="plan__group">
-                  <h4 class="label">{t.services.monthlyHeading}</h4>
-                  <ul>
-                    {tier.monthlyIncludes.map((item) => <li>{item}</li>)}
-                  </ul>
-                </div>
-                <p class="plan__next">{tier.upgrade}</p>
-                {copy.apart && <p class="plan__next">{copy.apart}</p>}
-              </div>
+              )}
+              <ol class="plan__steps">
+                {copy.steps.map((step) => (
+                  <li class="reveal">
+                    {tier.id === 'crecimiento' && <span class="crown__tick" aria-hidden="true"></span>}
+                    <p>{step}</p>
+                  </li>
+                ))}
+              </ol>
+            </div>
 
-              <div>
-                <h3 class="label">{detail.practiceLabel}</h3>
-                <p class="plan__outcome">{copy.outcome}</p>
-              </div>
-
+            <div class="plan__close">
+              {copy.note && <p class="plan__note">{copy.note}</p>}
+              <p class="plan__note">{tier.upgrade}</p>
               <div class="plan__cta">
-                <Button href={contact} variant={tier.recommended ? 'primary' : 'outline'} class="btn--wrap">
+                <Button href={contact} class="btn--wrap">
                   {detail.talk}
                   <span class="sr-only"> {tier.name}.</span>
                 </Button>
@@ -86,198 +120,299 @@ const contact = path(routes.contacto);
 }
 
 <style>
-  .plan__sheet {
+  .plan--arranque .plan__layout,
+  .plan--inteligente .plan__layout {
     display: grid;
-    gap: var(--space-6);
-    padding-top: var(--space-6);
-    border-top: 1px solid var(--color-moss-800);
+    grid-template-columns: 4.75rem minmax(0, 1fr);
+    column-gap: var(--space-6);
+    align-items: stretch;
   }
 
-  .plan--primary .plan__sheet {
-    border-top-color: var(--color-clay);
-  }
-
-  .plan__intro {
+  .plan__rail {
     position: relative;
-    min-height: 6.5rem;
-    padding-right: 5.25rem;
   }
 
-  .plan--crecimiento .plan__intro {
-    min-height: 9.5rem;
-    padding-right: 7.75rem;
-  }
-
-  .plan--inteligente .plan__intro {
-    min-height: 8rem;
-    padding-right: 6.25rem;
-  }
-
-  .plan__tree {
+  .plan__rail::after {
+    content: '';
     position: absolute;
-    z-index: 0;
-    top: 0;
-    right: 0;
-    width: 4.15rem;
-    pointer-events: none;
+    top: 6.5rem;
+    bottom: 0.5rem;
+    left: 2.05rem;
+    width: 1px;
+    background: var(--color-moss-800);
+    opacity: 0.4;
   }
 
-  .plan__tree--crecimiento {
-    width: 6.5rem;
+  .plan--inteligente .plan__rail::after {
+    top: 3.55rem;
+    left: 0.12rem;
   }
 
-  .plan__tree--inteligente {
-    width: 5.15rem;
+  .plan__plant,
+  .plan__shoot,
+  .plan__mark {
+    display: block;
+    overflow: visible;
+    color: var(--color-moss-800);
   }
 
-  .plan__meta,
-  .plan__name,
-  .plan__purpose {
-    position: relative;
-    z-index: 1;
+  .plan__plant {
+    width: 4.35rem;
+    height: auto;
   }
 
-  .plan__meta {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: var(--space-3);
+  .plan__shoot {
+    width: 8.75rem;
+    height: auto;
+    margin-left: 0.02rem;
   }
 
-  .plan__num {
-    font-size: var(--text-xs);
-    font-weight: var(--weight-semibold);
-    letter-spacing: var(--tracking-caps);
-    color: var(--color-primary);
-    font-variant-numeric: tabular-nums;
+  .plan__mark {
+    width: 5.6rem;
+    height: auto;
+    margin-bottom: var(--space-5);
   }
 
-  .plan__badge {
-    font-size: 0.625rem;
-    font-weight: var(--weight-semibold);
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    color: var(--color-clay);
-    background: var(--color-clay-soft);
-    padding: var(--space-1) var(--space-3);
-    border-radius: var(--radius-sm);
+  .plan__emboss {
+    color: var(--color-sage-300);
+    opacity: 0.9;
+    transform: translate(1.6px, 2px);
+  }
+
+  .plan--inteligente .plan__main {
+    padding-top: 3.4rem;
   }
 
   .plan__name {
-    margin-top: var(--space-4);
-    font-size: var(--text-xl);
-    line-height: 1.05;
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: var(--text-lg);
+    line-height: 1;
+    color: var(--color-primary-strong);
   }
 
-  .plan--primary .plan__name {
-    font-size: var(--text-2xl);
+  .plan__statement {
+    max-width: 14ch;
+    margin-top: var(--space-4);
+    font-size: var(--text-3xl);
+    font-weight: var(--weight-display);
+    line-height: 1.02;
+    letter-spacing: var(--tracking-display);
   }
 
-  .plan__purpose {
-    margin-top: var(--space-4);
+  .plan--crecimiento .plan__statement,
+  .plan--inteligente .plan__statement {
+    max-width: 16ch;
+  }
+
+  .plan__support {
+    max-width: 38ch;
+    margin-top: var(--space-5);
+    font-size: var(--text-md);
+    line-height: 1.5;
+    color: var(--color-text-soft);
+  }
+
+  .plan__steps {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-7);
+    margin-top: var(--space-8);
+  }
+
+  .plan__steps p {
     max-width: 28ch;
     font-family: var(--font-serif);
-    font-size: var(--text-lg);
-    line-height: 1.25;
-    color: var(--color-text);
+    font-size: var(--text-xl);
+    line-height: 1.22;
+    letter-spacing: var(--tracking-display);
   }
 
-  .plan__body {
+  .plan__close {
     display: grid;
-    gap: var(--space-6);
-    align-content: start;
+    justify-items: start;
+    gap: var(--space-4);
+    max-width: 42ch;
+    margin-top: var(--space-8);
   }
 
-  .plan__text,
-  .plan__next {
-    margin-top: var(--space-3);
-    max-width: 54ch;
+  .plan__note {
+    max-width: 42ch;
     font-size: var(--text-sm);
     line-height: 1.5;
     color: var(--color-text-soft);
   }
 
-  .plan__scope {
-    display: grid;
-    gap: var(--space-5);
-  }
-
-  .plan__group ul {
+  .plan__cta {
     margin-top: var(--space-3);
   }
 
-  .plan__group li {
-    position: relative;
-    padding-block: var(--space-3);
-    padding-left: 0.9rem;
-    border-bottom: 1px solid var(--color-rule);
-    font-size: var(--text-sm);
-    line-height: 1.45;
-    color: var(--color-text);
+  .plan__sequence--crown .crown,
+  .crown__tick {
+    display: none;
   }
 
-  .plan__group li::before {
-    content: '';
-    position: absolute;
-    left: 0;
-    top: calc(var(--space-3) + 0.55em);
-    width: 0.4rem;
-    height: 1px;
-    background: var(--color-primary);
-  }
+  @media (min-width: 900px) {
+    .plan--crecimiento .plan__mark {
+      display: none;
+    }
 
-  .plan__group li:last-child {
-    border-bottom: 0;
-    padding-bottom: 0;
-  }
+    .plan__sequence--crown {
+      margin-top: var(--space-8);
+    }
 
-  .plan__next {
-    max-width: 48ch;
-  }
-
-  .plan__outcome {
-    margin-top: var(--space-3);
-    max-width: 42ch;
-    font-family: var(--font-serif);
-    font-size: var(--text-lg);
-    line-height: 1.35;
-    color: var(--color-text);
-  }
-
-  @media (min-width: 901px) {
-    .plan__sheet {
-      grid-template-columns: minmax(0, 0.82fr) minmax(0, 1.18fr);
+    .plan__sequence--crown .plan__steps {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
       column-gap: var(--col-gap);
-      align-items: start;
+      gap: 0;
+      margin-top: 0;
+    }
+
+    .plan__sequence--crown .crown {
+      display: block;
+      position: relative;
+      height: 4.5rem;
+    }
+
+    .crown__bar {
+      position: absolute;
+      top: 2.15rem;
+      left: calc((100% - 2 * var(--col-gap)) / 6);
+      right: calc((100% - 2 * var(--col-gap)) / 6);
+      height: 1px;
+      background: var(--color-moss-800);
+    }
+
+    .crown__bar::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 2px;
+      height: 1px;
+      background: var(--color-sage-300);
+    }
+
+    .crown__spine {
+      position: absolute;
+      top: 0.1rem;
+      left: 50%;
+      width: 1px;
+      height: 2.1rem;
+      background: var(--color-moss-800);
+    }
+
+    .crown__spine::after {
+      content: '';
+      position: absolute;
+      top: -0.28rem;
+      left: 50%;
+      width: 0.48rem;
+      height: 0.48rem;
+      border-radius: 50%;
+      background: var(--color-clay);
+      transform: translateX(-50%);
+    }
+
+    .plan__sequence--crown .crown__tick {
+      display: block;
+      width: 1px;
+      height: 2.35rem;
+      margin: -2.35rem auto var(--space-5);
+      background: var(--color-moss-800);
+      opacity: 0.7;
+    }
+
+    .plan__sequence--crown .plan__steps li {
+      text-align: center;
+    }
+
+    .plan__sequence--crown .plan__steps p {
+      max-width: 22ch;
+      margin-inline: auto;
+    }
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .plan__path {
+      stroke-dasharray: 100;
+      stroke-dashoffset: 100;
+      animation: plan-grow 0.9s var(--ease-out) forwards;
+    }
+
+    .plan__path--later {
+      animation-duration: 0.7s;
+      animation-delay: 0.42s;
+    }
+
+    .plan__bud {
+      opacity: 0;
+      animation: plan-bud 0.35s var(--ease-out) 0.95s forwards;
+    }
+
+    .crown.reveal--wait .crown__bar,
+    .crown.reveal--wait .crown__spine {
+      opacity: 0;
+    }
+
+    .crown.reveal--wait.is-in .crown__bar,
+    .crown.reveal--wait.is-in .crown__spine {
+      animation: plan-bud 0.6s var(--ease-out) forwards;
+    }
+
+    .plan__sequence--crown .plan__steps li.reveal--wait .crown__tick {
+      opacity: 0;
+    }
+
+    .plan__sequence--crown .plan__steps li.reveal--wait.is-in .crown__tick {
+      animation: plan-bud 0.45s var(--ease-out) 0.15s forwards;
+    }
+  }
+
+  @keyframes plan-grow {
+    to {
+      stroke-dashoffset: 0;
+    }
+  }
+
+  @keyframes plan-bud {
+    to {
+      opacity: 1;
     }
   }
 
   @media (max-width: 600px) {
-    .plan__intro {
-      min-height: 5.75rem;
-      padding-right: 4.15rem;
+    .plan--arranque .plan__layout,
+    .plan--inteligente .plan__layout {
+      grid-template-columns: 3.35rem minmax(0, 1fr);
+      column-gap: var(--space-4);
     }
 
-    .plan--crecimiento .plan__intro {
-      min-height: 7.75rem;
-      padding-right: 5.4rem;
+    .plan__plant {
+      width: 3.1rem;
     }
 
-    .plan--inteligente .plan__intro {
-      min-height: 6.6rem;
-      padding-right: 4.7rem;
+    .plan__rail::after {
+      left: 1.46rem;
+      top: 4.65rem;
     }
 
-    .plan__tree {
-      width: 3.4rem;
+    .plan--inteligente .plan__rail::after {
+      left: 0.08rem;
+      top: 2.7rem;
     }
 
-    .plan__tree--crecimiento {
-      width: 4.6rem;
+    .plan__shoot {
+      width: 6.25rem;
     }
 
-    .plan__tree--inteligente {
-      width: 4rem;
+    .plan--inteligente .plan__main {
+      padding-top: 2.45rem;
+    }
+
+    .plan__statement {
+      max-width: 12ch;
     }
   }
 </style>
